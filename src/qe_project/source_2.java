@@ -11,5 +11,6 @@ package qe_project;
  * @author Hashini
  */
 public class source_2 {
+    int id = 2;
     
 }
