@@ -12,6 +12,5 @@ package qe_project;
  */
 public class source_1 {
     int id = 1;
-    int status = 0;
     
 }
