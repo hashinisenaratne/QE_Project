@@ -1035,6 +1035,18 @@ is divided into following sections:
                 <arg line="${application.args}"/>
             </customize>
         </j2seproject1:java>
+        <junit printsummary="yes" haltonfailure="no">
+            <classpath>
+                <path path="${run.test.classpath}"/>
+            </classpath>
+            <test name="CheckerBoardTest" todir="reports">
+            </test>
+            <test name="CheckerBoardTest2" todir="reports">
+            </test>
+            <test name="HeuristicUtilTest" todir="reports">
+            </test>
+            <formatter type="xml"/>
+        </junit>
     </target>
     <target name="-do-not-recompile">
         <property name="javac.includes.binary" value=""/>
