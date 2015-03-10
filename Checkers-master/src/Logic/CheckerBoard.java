@@ -86,6 +86,10 @@ public class CheckerBoard {
         }
         System.out.println("*********************************");
     }
+    
+    public void setCheckersBoard(char[][] customBoardInstance){
+        checkersBoard = customBoardInstance;
+    }
 
     public boolean movePiece(int sRow, int sCol, int dRow, int dCol) {
         if (isMoveable(sRow, sCol, dRow, dCol)) {
@@ -1118,4 +1122,6 @@ class Node
             board[(move[0]+move[2])/2][(move[1]+move[3])/2] = '_';
         }
     }
+    
+   
 }
