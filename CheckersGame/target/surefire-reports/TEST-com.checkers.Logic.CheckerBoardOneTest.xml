@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<testsuite tests="2" failures="0" name="com.checkers.Logic.CheckerBoardOneTest" time="0.047" errors="0" skipped="0">
+<testsuite tests="2" failures="0" name="com.checkers.Logic.CheckerBoardOneTest" time="0.063" errors="2" skipped="0">
   <properties>
     <property name="java.runtime.name" value="Java(TM) SE Runtime Environment"/>
     <property name="sun.boot.library.path" value="C:\Program Files\Java\jdk1.8.0_11\jre\bin"/>
@@ -26,10 +26,10 @@
     <property name="java.vm.specification.vendor" value="Oracle Corporation"/>
     <property name="user.variant" value=""/>
     <property name="os.name" value="Windows 8.1"/>
-    <property name="maven.ext.class.path" value="C:\Program Files (x86)\NetBeans 8.0\java\maven-nblib\netbeans-eventspy.jar"/>
-    <property name="classworlds.conf" value="C:\Program Files (x86)\NetBeans 8.0\java\maven\bin\m2.conf"/>
+    <property name="net.sourceforge.cobertura.datafile" value="G:\sem8\CS4272 - Quality Engineering\Project 2\QE_Project\CheckersGame\target\cobertura\cobertura.ser"/>
+    <property name="classworlds.conf" value="C:\Program Files\Appache Software Foundation\apache-maven-3.2.5\bin\..\bin\m2.conf"/>
     <property name="sun.jnu.encoding" value="Cp1252"/>
-    <property name="java.library.path" value="C:\Program Files\Java\jdk1.8.0_11\bin;C:\Windows\Sun\Java\bin;C:\Windows\system32;C:\Windows;C:\ProgramData\Oracle\Java\javapath;C:\WinAVR-20100110\bin;C:\WinAVR-20100110\utils\bin;C:\Program Files (x86)\NVIDIA Corporation\PhysX\Common;C:\Windows\system32;C:\Windows;C:\Windows\System32\Wbem;C:\Windows\System32\WindowsPowerShell\v1.0\;C:\Program Files (x86)\Windows Kits\8.1\Windows Performance Toolkit\;C:\Program Files\Microsoft SQL Server\110\Tools\Binn\;C:\PROGRA~2\PICC;C:\root\\bin;C:\Program Files (x86)\GnuWin32;C:\MinGW\bin; C:\cygwin64\bin;C:\Qt\5.3\winphone_x86\bin;C:\Program Files\TortoiseGit\bin;C:\Program Files\MATLAB\R2011a\runtime\win64;C:\Program Files\MATLAB\R2011a\bin;C:\Users\Hashini\Anaconda;C:\Users\Hashini\Anaconda\Scripts;C:\Program Files (x86)\Common Files\Hackety Hack\0.r1529\..;C:\MinGW\bin;C:\cygwin64\bin;C:\Qt\5.3\winphone_x86\bin;C:\Program Files\Appache Software Foundation\apache-maven-3.2.5\bin;."/>
+    <property name="java.library.path" value="C:\Program Files\Java\jdk1.8.0_11\bin;C:\Windows\Sun\Java\bin;C:\Windows\system32;C:\Windows;C:\ProgramData\Oracle\Java\javapath;C:\WinAVR-20100110\bin;C:\WinAVR-20100110\utils\bin;C:\Program Files (x86)\NVIDIA Corporation\PhysX\Common;C:\Windows\system32;C:\Windows;C:\Windows\System32\Wbem;C:\Windows\System32\WindowsPowerShell\v1.0\;C:\Program Files (x86)\Windows Kits\8.1\Windows Performance Toolkit\;C:\Program Files\Microsoft SQL Server\110\Tools\Binn\;C:\PROGRA~2\PICC;C:\root\\bin;C:\Program Files (x86)\GnuWin32;C:\MinGW\bin; C:\cygwin64\bin;C:\Qt\5.3\winphone_x86\bin;C:\Program Files\TortoiseGit\bin;C:\Program Files\MATLAB\R2011a\runtime\win64;C:\Program Files\MATLAB\R2011a\bin;C:\Users\Hashini\Anaconda;C:\Users\Hashini\Anaconda\Scripts;C:\Program Files (x86)\Common Files\Hackety Hack\0.r1529\..;C:\Program Files\Appache Software Foundation\apache-maven-3.2.5\bin;."/>
     <property name="java.specification.name" value="Java Platform API Specification"/>
     <property name="java.class.version" value="52.0"/>
     <property name="sun.management.compiler" value="HotSpot 64-Bit Tiered Compilers"/>
@@ -40,11 +40,11 @@
     <property name="java.specification.version" value="1.8"/>
     <property name="file.encoding" value="Cp1252"/>
     <property name="user.name" value="Hashini"/>
-    <property name="java.class.path" value="C:\Program Files (x86)\NetBeans 8.0\java\maven\boot\plexus-classworlds-2.4.jar"/>
+    <property name="java.class.path" value="C:\Program Files\Appache Software Foundation\apache-maven-3.2.5\bin\..\boot\plexus-classworlds-2.5.2.jar"/>
     <property name="java.vm.specification.version" value="1.8"/>
     <property name="sun.arch.data.model" value="64"/>
     <property name="java.home" value="C:\Program Files\Java\jdk1.8.0_11\jre"/>
-    <property name="sun.java.command" value="org.codehaus.plexus.classworlds.launcher.Launcher -Dmaven.ext.class.path=C:\Program Files (x86)\NetBeans 8.0\java\maven-nblib\netbeans-eventspy.jar install"/>
+    <property name="sun.java.command" value="org.codehaus.plexus.classworlds.launcher.Launcher site"/>
     <property name="java.specification.vendor" value="Oracle Corporation"/>
     <property name="user.language" value="en"/>
     <property name="awt.toolkit" value="sun.awt.windows.WToolkit"/>
@@ -52,15 +52,490 @@
     <property name="java.version" value="1.8.0_11"/>
     <property name="java.ext.dirs" value="C:\Program Files\Java\jdk1.8.0_11\jre\lib\ext;C:\Windows\Sun\Java\lib\ext"/>
     <property name="sun.boot.class.path" value="C:\Program Files\Java\jdk1.8.0_11\jre\lib\resources.jar;C:\Program Files\Java\jdk1.8.0_11\jre\lib\rt.jar;C:\Program Files\Java\jdk1.8.0_11\jre\lib\sunrsasign.jar;C:\Program Files\Java\jdk1.8.0_11\jre\lib\jsse.jar;C:\Program Files\Java\jdk1.8.0_11\jre\lib\jce.jar;C:\Program Files\Java\jdk1.8.0_11\jre\lib\charsets.jar;C:\Program Files\Java\jdk1.8.0_11\jre\lib\jfr.jar;C:\Program Files\Java\jdk1.8.0_11\jre\classes"/>
+    <property name="sun.stderr.encoding" value="cp437"/>
     <property name="java.vendor" value="Oracle Corporation"/>
-    <property name="maven.home" value="C:\Program Files (x86)\NetBeans 8.0\java\maven"/>
+    <property name="maven.home" value="C:\Program Files\Appache Software Foundation\apache-maven-3.2.5\bin\.."/>
     <property name="file.separator" value="\"/>
     <property name="java.vendor.url.bug" value="http://bugreport.sun.com/bugreport/"/>
     <property name="sun.cpu.endian" value="little"/>
     <property name="sun.io.unicode.encoding" value="UnicodeLittle"/>
+    <property name="project.build.outputDirectory" value="G:\sem8\CS4272 - Quality Engineering\Project 2\QE_Project\CheckersGame\target\generated-classes\cobertura"/>
+    <property name="sun.stdout.encoding" value="cp437"/>
     <property name="sun.desktop" value="windows"/>
     <property name="sun.cpu.isalist" value="amd64"/>
   </properties>
-  <testcase classname="com.checkers.Logic.CheckerBoardOneTest" name="testIsMoveable" time="0"/>
-  <testcase classname="com.checkers.Logic.CheckerBoardOneTest" name="testCheckerBoard" time="0"/>
+  <testcase classname="com.checkers.Logic.CheckerBoardOneTest" name="testIsMoveable" time="0.032">
+    <error message="Bad local variable type
+Exception Details:
+  Location:
+    com/checkers/Logic/CheckerBoard.&lt;init&gt;(I)V @228: iload
+  Reason:
+    Type top (current frame, locals[4]) is not assignable to integer
+  Current Frame:
+    bci: @228
+    flags: { }
+    locals: { &apos;com/checkers/Logic/CheckerBoard&apos;, integer, integer }
+    stack: { }
+  Bytecode:
+    0000000: 033d 11ff ff3e 1225 1100 1bb8 002b 2ab7
+    0000010: 002e 1225 1100 19b8 002b 2a10 06b5 0030
+    0000020: 1225 1102 97b8 002b 2a10 52b5 0032 1225
+    0000030: 1102 98b8 002b 2a10 42b5 0034 1225 1100
+    0000040: 1cb8 002b 2a1b b500 3612 2511 001d b800
+    0000050: 2b2a 2ab4 0036 2ab4 0036 c500 3702 b500
+    0000060: 3912 2511 001e b800 2b2a 1072 b500 3b12
+    0000070: 2511 001f b800 2b2a 1062 b500 3d12 2511
+    0000080: 0020 b800 2b2a 105f b500 3f12 2511 0021
+    0000090: b800 2b2a 1023 b500 4112 2511 0022 b800
+    00000a0: 2b2a bb00 4359 b700 44b5 0046 1225 1100
+    00000b0: 23b8 002b 2abb 0043 59b7 0044 b500 4812
+    00000c0: 2511 0024 b800 2b2a 02b5 004a 1225 1100
+    00000d0: 25b8 002b 2a02 b500 4c12 2511 0026 b800
+    00000e0: 2b03 3604 1504 2ab4 0036 1100 263d 1100
+    00000f0: 003e a200 f21c 1100 26a0 0016 1d11 0000
+    0000100: a000 0f12 251c 1d04 b800 5011 ffff 3e12
+    0000110: 2511 0027 b800 2b03 3605 1505 2ab4 0036
+    0000120: 1100 273d 1100 003e a200 9e1c 1100 27a0
+    0000130: 0016 1d11 0000 a000 0f12 251c 1d04 b800
+    0000140: 5011 ffff 3e12 2511 0028 b800 2b15 0415
+    0000150: 0560 0570 1100 283d 1100 003e 9a00 361c
+    0000160: 1100 28a0 0016 1d11 0000 a000 0f12 251c
+    0000170: 1d04 b800 5011 ffff 3e12 2511 0029 b800
+    0000180: 2b2a b400 3915 0432 1505 2ab4 003f 55a7
+    0000190: 0029 1d9b 000f 1225 1c1d 03b8 0050 11ff
+    00001a0: ff3e 1225 1100 2bb8 002b 2ab4 0039 1504
+    00001b0: 3215 052a b400 4155 1225 1100 27b8 002b
+    00001c0: 8405 01a7 ff57 1d9b 000f 1225 1c1d 03b8
+    00001d0: 0050 11ff ff3e 1225 1100 26b8 002b 8404
+    00001e0: 01a7 ff03 1d9b 000f 1225 1c1d 03b8 0050
+    00001f0: 11ff ff3e 1225 1100 2fb8 002b 0336 0415
+    0000200: 042a b400 3605 6c04 6411 002f 3d11 0000
+    0000210: 3ea2 0109 1c11 002f a000 161d 1100 00a0
+    0000220: 000f 1225 1c1d 04b8 0050 11ff ff3e 1225
+    0000230: 1100 31b8 002b 1504 0570 1100 313d 1100
+    0000240: 003e 9a00 2b1c 1100 31a0 0016 1d11 0000
+    0000250: a000 0f12 251c 1d04 b800 5011 ffff 3e12
+    0000260: 2511 0032 b800 2b03 3605 a700 1e1d 9b00
+    0000270: 0f12 251c 1d03 b800 5011 ffff 3e12 2511
+    0000280: 0034 b800 2b04 3605 1225 1100 36b8 002b
+    0000290: 1505 2ab4 0036 1100 363d 1100 003e a200
+    00002a0: 5e1c 1100 36a0 0016 1d11 0000 a000 0f12
+    00002b0: 251c 1d04 b800 5011 ffff 3e12 2511 0037
+    00002c0: b800 2b2a b400 3915 0432 1505 2ab4 003b
+    00002d0: 5512 2511 0038 b800 2b2a b400 46bb 0052
+    00002e0: 5915 0515 04b7 0055 b900 5b02 0057 1225
+    00002f0: 1100 39b8 002b 8405 02a7 ff8f 1d9b 000f
+    0000300: 1225 1c1d 03b8 0050 11ff ff3e 1225 1100
+    0000310: 2fb8 002b 8404 01a7 fee8 1d9b 000f 1225
+    0000320: 1c1d 03b8 0050 11ff ff3e 1225 1100 3cb8
+    0000330: 002b 2ab4 0036 0464 3604 1504 2ab4 0036
+    0000340: 056c 0460 1100 3c3d 1100 003e a101 091c
+    0000350: 1100 3ca0 0016 1d11 0000 a000 0f12 251c
+    0000360: 1d04 b800 5011 ffff 3e12 2511 003e b800
+    0000370: 2b15 0405 7011 003e 3d11 0000 3e9a 002b
+    0000380: 1c11 003e a000 161d 1100 00a0 000f 1225
+    0000390: 1c1d 04b8 0050 11ff ff3e 1225 1100 3fb8
+    00003a0: 002b 0336 05a7 001e 1d9b 000f 1225 1c1d
+    00003b0: 03b8 0050 11ff ff3e 1225 1100 41b8 002b
+    00003c0: 0436 0512 2511 0043 b800 2b15 052a b400
+    00003d0: 3611 0043 3d11 0000 3ea2 005e 1c11 0043
+    00003e0: a000 161d 1100 00a0 000f 1225 1c1d 04b8
+    00003f0: 0050 11ff ff3e 1225 1100 44b8 002b 2ab4
+    0000400: 0039 1504 3215 052a b400 3d55 1225 1100
+    0000410: 45b8 002b 2ab4 0048 bb00 5259 1505 1504
+    0000420: b700 55b9 005b 0200 5712 2511 0046 b800
+    0000430: 2b84 0502 a7ff 8f1d 9b00 0f12 251c 1d03
+    0000440: b800 5011 ffff 3e12 2511 003c b800 2b84
+    0000450: 04ff a7fe e81d 9b00 0f12 251c 1d03 b800
+    0000460: 5011 ffff 3e12 2511 0049 b800 2bb1     
+  Stackmap Table:
+    full_frame(@228,{Object[#2],Integer,Integer},{})
+    append_frame(@282,Integer)
+    same_frame_extended(@426)
+    same_frame(@448)
+    chop_frame(@478,1)
+    chop_frame(@508,1)
+    append_frame(@511,Integer)
+    same_frame_extended(@645)
+    append_frame(@656,Integer)
+    chop_frame(@788,1)
+    chop_frame(@818,1)
+    append_frame(@826,Integer)
+    same_frame_extended(@960)
+    append_frame(@971,Integer)
+    chop_frame(@1103,1)
+    chop_frame(@1133,1)
+" type="java.lang.VerifyError">java.lang.VerifyError: Bad local variable type
+Exception Details:
+  Location:
+    com/checkers/Logic/CheckerBoard.&lt;init&gt;(I)V @228: iload
+  Reason:
+    Type top (current frame, locals[4]) is not assignable to integer
+  Current Frame:
+    bci: @228
+    flags: { }
+    locals: { &apos;com/checkers/Logic/CheckerBoard&apos;, integer, integer }
+    stack: { }
+  Bytecode:
+    0000000: 033d 11ff ff3e 1225 1100 1bb8 002b 2ab7
+    0000010: 002e 1225 1100 19b8 002b 2a10 06b5 0030
+    0000020: 1225 1102 97b8 002b 2a10 52b5 0032 1225
+    0000030: 1102 98b8 002b 2a10 42b5 0034 1225 1100
+    0000040: 1cb8 002b 2a1b b500 3612 2511 001d b800
+    0000050: 2b2a 2ab4 0036 2ab4 0036 c500 3702 b500
+    0000060: 3912 2511 001e b800 2b2a 1072 b500 3b12
+    0000070: 2511 001f b800 2b2a 1062 b500 3d12 2511
+    0000080: 0020 b800 2b2a 105f b500 3f12 2511 0021
+    0000090: b800 2b2a 1023 b500 4112 2511 0022 b800
+    00000a0: 2b2a bb00 4359 b700 44b5 0046 1225 1100
+    00000b0: 23b8 002b 2abb 0043 59b7 0044 b500 4812
+    00000c0: 2511 0024 b800 2b2a 02b5 004a 1225 1100
+    00000d0: 25b8 002b 2a02 b500 4c12 2511 0026 b800
+    00000e0: 2b03 3604 1504 2ab4 0036 1100 263d 1100
+    00000f0: 003e a200 f21c 1100 26a0 0016 1d11 0000
+    0000100: a000 0f12 251c 1d04 b800 5011 ffff 3e12
+    0000110: 2511 0027 b800 2b03 3605 1505 2ab4 0036
+    0000120: 1100 273d 1100 003e a200 9e1c 1100 27a0
+    0000130: 0016 1d11 0000 a000 0f12 251c 1d04 b800
+    0000140: 5011 ffff 3e12 2511 0028 b800 2b15 0415
+    0000150: 0560 0570 1100 283d 1100 003e 9a00 361c
+    0000160: 1100 28a0 0016 1d11 0000 a000 0f12 251c
+    0000170: 1d04 b800 5011 ffff 3e12 2511 0029 b800
+    0000180: 2b2a b400 3915 0432 1505 2ab4 003f 55a7
+    0000190: 0029 1d9b 000f 1225 1c1d 03b8 0050 11ff
+    00001a0: ff3e 1225 1100 2bb8 002b 2ab4 0039 1504
+    00001b0: 3215 052a b400 4155 1225 1100 27b8 002b
+    00001c0: 8405 01a7 ff57 1d9b 000f 1225 1c1d 03b8
+    00001d0: 0050 11ff ff3e 1225 1100 26b8 002b 8404
+    00001e0: 01a7 ff03 1d9b 000f 1225 1c1d 03b8 0050
+    00001f0: 11ff ff3e 1225 1100 2fb8 002b 0336 0415
+    0000200: 042a b400 3605 6c04 6411 002f 3d11 0000
+    0000210: 3ea2 0109 1c11 002f a000 161d 1100 00a0
+    0000220: 000f 1225 1c1d 04b8 0050 11ff ff3e 1225
+    0000230: 1100 31b8 002b 1504 0570 1100 313d 1100
+    0000240: 003e 9a00 2b1c 1100 31a0 0016 1d11 0000
+    0000250: a000 0f12 251c 1d04 b800 5011 ffff 3e12
+    0000260: 2511 0032 b800 2b03 3605 a700 1e1d 9b00
+    0000270: 0f12 251c 1d03 b800 5011 ffff 3e12 2511
+    0000280: 0034 b800 2b04 3605 1225 1100 36b8 002b
+    0000290: 1505 2ab4 0036 1100 363d 1100 003e a200
+    00002a0: 5e1c 1100 36a0 0016 1d11 0000 a000 0f12
+    00002b0: 251c 1d04 b800 5011 ffff 3e12 2511 0037
+    00002c0: b800 2b2a b400 3915 0432 1505 2ab4 003b
+    00002d0: 5512 2511 0038 b800 2b2a b400 46bb 0052
+    00002e0: 5915 0515 04b7 0055 b900 5b02 0057 1225
+    00002f0: 1100 39b8 002b 8405 02a7 ff8f 1d9b 000f
+    0000300: 1225 1c1d 03b8 0050 11ff ff3e 1225 1100
+    0000310: 2fb8 002b 8404 01a7 fee8 1d9b 000f 1225
+    0000320: 1c1d 03b8 0050 11ff ff3e 1225 1100 3cb8
+    0000330: 002b 2ab4 0036 0464 3604 1504 2ab4 0036
+    0000340: 056c 0460 1100 3c3d 1100 003e a101 091c
+    0000350: 1100 3ca0 0016 1d11 0000 a000 0f12 251c
+    0000360: 1d04 b800 5011 ffff 3e12 2511 003e b800
+    0000370: 2b15 0405 7011 003e 3d11 0000 3e9a 002b
+    0000380: 1c11 003e a000 161d 1100 00a0 000f 1225
+    0000390: 1c1d 04b8 0050 11ff ff3e 1225 1100 3fb8
+    00003a0: 002b 0336 05a7 001e 1d9b 000f 1225 1c1d
+    00003b0: 03b8 0050 11ff ff3e 1225 1100 41b8 002b
+    00003c0: 0436 0512 2511 0043 b800 2b15 052a b400
+    00003d0: 3611 0043 3d11 0000 3ea2 005e 1c11 0043
+    00003e0: a000 161d 1100 00a0 000f 1225 1c1d 04b8
+    00003f0: 0050 11ff ff3e 1225 1100 44b8 002b 2ab4
+    0000400: 0039 1504 3215 052a b400 3d55 1225 1100
+    0000410: 45b8 002b 2ab4 0048 bb00 5259 1505 1504
+    0000420: b700 55b9 005b 0200 5712 2511 0046 b800
+    0000430: 2b84 0502 a7ff 8f1d 9b00 0f12 251c 1d03
+    0000440: b800 5011 ffff 3e12 2511 003c b800 2b84
+    0000450: 04ff a7fe e81d 9b00 0f12 251c 1d03 b800
+    0000460: 5011 ffff 3e12 2511 0049 b800 2bb1     
+  Stackmap Table:
+    full_frame(@228,{Object[#2],Integer,Integer},{})
+    append_frame(@282,Integer)
+    same_frame_extended(@426)
+    same_frame(@448)
+    chop_frame(@478,1)
+    chop_frame(@508,1)
+    append_frame(@511,Integer)
+    same_frame_extended(@645)
+    append_frame(@656,Integer)
+    chop_frame(@788,1)
+    chop_frame(@818,1)
+    append_frame(@826,Integer)
+    same_frame_extended(@960)
+    append_frame(@971,Integer)
+    chop_frame(@1103,1)
+    chop_frame(@1133,1)
+
+	at com.checkers.Logic.CheckerBoardOneTest.setUp(CheckerBoardOneTest.java:30)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:483)
+	at org.junit.runners.model.FrameworkMethod$1.runReflectiveCall(FrameworkMethod.java:47)
+	at org.junit.internal.runners.model.ReflectiveCallable.run(ReflectiveCallable.java:12)
+	at org.junit.runners.model.FrameworkMethod.invokeExplosively(FrameworkMethod.java:44)
+	at org.junit.internal.runners.statements.RunBefores.evaluate(RunBefores.java:24)
+	at org.junit.internal.runners.statements.RunAfters.evaluate(RunAfters.java:27)
+	at org.junit.runners.ParentRunner.runLeaf(ParentRunner.java:271)
+	at org.junit.runners.BlockJUnit4ClassRunner.runChild(BlockJUnit4ClassRunner.java:70)
+	at org.junit.runners.BlockJUnit4ClassRunner.runChild(BlockJUnit4ClassRunner.java:50)
+	at org.junit.runners.ParentRunner$3.run(ParentRunner.java:238)
+	at org.junit.runners.ParentRunner$1.schedule(ParentRunner.java:63)
+	at org.junit.runners.ParentRunner.runChildren(ParentRunner.java:236)
+	at org.junit.runners.ParentRunner.access$000(ParentRunner.java:53)
+	at org.junit.runners.ParentRunner$2.evaluate(ParentRunner.java:229)
+	at org.junit.internal.runners.statements.RunBefores.evaluate(RunBefores.java:26)
+	at org.junit.internal.runners.statements.RunAfters.evaluate(RunAfters.java:27)
+	at org.junit.runners.ParentRunner.run(ParentRunner.java:309)
+	at org.apache.maven.surefire.junit4.JUnit4Provider.execute(JUnit4Provider.java:252)
+	at org.apache.maven.surefire.junit4.JUnit4Provider.executeTestSet(JUnit4Provider.java:141)
+	at org.apache.maven.surefire.junit4.JUnit4Provider.invoke(JUnit4Provider.java:112)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:483)
+	at org.apache.maven.surefire.util.ReflectionUtils.invokeMethodWithArray(ReflectionUtils.java:189)
+	at org.apache.maven.surefire.booter.ProviderFactory$ProviderProxy.invoke(ProviderFactory.java:165)
+	at org.apache.maven.surefire.booter.ProviderFactory.invokeProvider(ProviderFactory.java:85)
+	at org.apache.maven.surefire.booter.ForkedBooter.runSuitesInProcess(ForkedBooter.java:115)
+	at org.apache.maven.surefire.booter.ForkedBooter.main(ForkedBooter.java:75)
+</error>
+  </testcase>
+  <testcase classname="com.checkers.Logic.CheckerBoardOneTest" name="testCheckerBoard" time="0.031">
+    <error message="Bad local variable type
+Exception Details:
+  Location:
+    com/checkers/Logic/CheckerBoard.&lt;init&gt;(I)V @228: iload
+  Reason:
+    Type top (current frame, locals[4]) is not assignable to integer
+  Current Frame:
+    bci: @228
+    flags: { }
+    locals: { &apos;com/checkers/Logic/CheckerBoard&apos;, integer, integer }
+    stack: { }
+  Bytecode:
+    0000000: 033d 11ff ff3e 1225 1100 1bb8 002b 2ab7
+    0000010: 002e 1225 1100 19b8 002b 2a10 06b5 0030
+    0000020: 1225 1102 97b8 002b 2a10 52b5 0032 1225
+    0000030: 1102 98b8 002b 2a10 42b5 0034 1225 1100
+    0000040: 1cb8 002b 2a1b b500 3612 2511 001d b800
+    0000050: 2b2a 2ab4 0036 2ab4 0036 c500 3702 b500
+    0000060: 3912 2511 001e b800 2b2a 1072 b500 3b12
+    0000070: 2511 001f b800 2b2a 1062 b500 3d12 2511
+    0000080: 0020 b800 2b2a 105f b500 3f12 2511 0021
+    0000090: b800 2b2a 1023 b500 4112 2511 0022 b800
+    00000a0: 2b2a bb00 4359 b700 44b5 0046 1225 1100
+    00000b0: 23b8 002b 2abb 0043 59b7 0044 b500 4812
+    00000c0: 2511 0024 b800 2b2a 02b5 004a 1225 1100
+    00000d0: 25b8 002b 2a02 b500 4c12 2511 0026 b800
+    00000e0: 2b03 3604 1504 2ab4 0036 1100 263d 1100
+    00000f0: 003e a200 f21c 1100 26a0 0016 1d11 0000
+    0000100: a000 0f12 251c 1d04 b800 5011 ffff 3e12
+    0000110: 2511 0027 b800 2b03 3605 1505 2ab4 0036
+    0000120: 1100 273d 1100 003e a200 9e1c 1100 27a0
+    0000130: 0016 1d11 0000 a000 0f12 251c 1d04 b800
+    0000140: 5011 ffff 3e12 2511 0028 b800 2b15 0415
+    0000150: 0560 0570 1100 283d 1100 003e 9a00 361c
+    0000160: 1100 28a0 0016 1d11 0000 a000 0f12 251c
+    0000170: 1d04 b800 5011 ffff 3e12 2511 0029 b800
+    0000180: 2b2a b400 3915 0432 1505 2ab4 003f 55a7
+    0000190: 0029 1d9b 000f 1225 1c1d 03b8 0050 11ff
+    00001a0: ff3e 1225 1100 2bb8 002b 2ab4 0039 1504
+    00001b0: 3215 052a b400 4155 1225 1100 27b8 002b
+    00001c0: 8405 01a7 ff57 1d9b 000f 1225 1c1d 03b8
+    00001d0: 0050 11ff ff3e 1225 1100 26b8 002b 8404
+    00001e0: 01a7 ff03 1d9b 000f 1225 1c1d 03b8 0050
+    00001f0: 11ff ff3e 1225 1100 2fb8 002b 0336 0415
+    0000200: 042a b400 3605 6c04 6411 002f 3d11 0000
+    0000210: 3ea2 0109 1c11 002f a000 161d 1100 00a0
+    0000220: 000f 1225 1c1d 04b8 0050 11ff ff3e 1225
+    0000230: 1100 31b8 002b 1504 0570 1100 313d 1100
+    0000240: 003e 9a00 2b1c 1100 31a0 0016 1d11 0000
+    0000250: a000 0f12 251c 1d04 b800 5011 ffff 3e12
+    0000260: 2511 0032 b800 2b03 3605 a700 1e1d 9b00
+    0000270: 0f12 251c 1d03 b800 5011 ffff 3e12 2511
+    0000280: 0034 b800 2b04 3605 1225 1100 36b8 002b
+    0000290: 1505 2ab4 0036 1100 363d 1100 003e a200
+    00002a0: 5e1c 1100 36a0 0016 1d11 0000 a000 0f12
+    00002b0: 251c 1d04 b800 5011 ffff 3e12 2511 0037
+    00002c0: b800 2b2a b400 3915 0432 1505 2ab4 003b
+    00002d0: 5512 2511 0038 b800 2b2a b400 46bb 0052
+    00002e0: 5915 0515 04b7 0055 b900 5b02 0057 1225
+    00002f0: 1100 39b8 002b 8405 02a7 ff8f 1d9b 000f
+    0000300: 1225 1c1d 03b8 0050 11ff ff3e 1225 1100
+    0000310: 2fb8 002b 8404 01a7 fee8 1d9b 000f 1225
+    0000320: 1c1d 03b8 0050 11ff ff3e 1225 1100 3cb8
+    0000330: 002b 2ab4 0036 0464 3604 1504 2ab4 0036
+    0000340: 056c 0460 1100 3c3d 1100 003e a101 091c
+    0000350: 1100 3ca0 0016 1d11 0000 a000 0f12 251c
+    0000360: 1d04 b800 5011 ffff 3e12 2511 003e b800
+    0000370: 2b15 0405 7011 003e 3d11 0000 3e9a 002b
+    0000380: 1c11 003e a000 161d 1100 00a0 000f 1225
+    0000390: 1c1d 04b8 0050 11ff ff3e 1225 1100 3fb8
+    00003a0: 002b 0336 05a7 001e 1d9b 000f 1225 1c1d
+    00003b0: 03b8 0050 11ff ff3e 1225 1100 41b8 002b
+    00003c0: 0436 0512 2511 0043 b800 2b15 052a b400
+    00003d0: 3611 0043 3d11 0000 3ea2 005e 1c11 0043
+    00003e0: a000 161d 1100 00a0 000f 1225 1c1d 04b8
+    00003f0: 0050 11ff ff3e 1225 1100 44b8 002b 2ab4
+    0000400: 0039 1504 3215 052a b400 3d55 1225 1100
+    0000410: 45b8 002b 2ab4 0048 bb00 5259 1505 1504
+    0000420: b700 55b9 005b 0200 5712 2511 0046 b800
+    0000430: 2b84 0502 a7ff 8f1d 9b00 0f12 251c 1d03
+    0000440: b800 5011 ffff 3e12 2511 003c b800 2b84
+    0000450: 04ff a7fe e81d 9b00 0f12 251c 1d03 b800
+    0000460: 5011 ffff 3e12 2511 0049 b800 2bb1     
+  Stackmap Table:
+    full_frame(@228,{Object[#2],Integer,Integer},{})
+    append_frame(@282,Integer)
+    same_frame_extended(@426)
+    same_frame(@448)
+    chop_frame(@478,1)
+    chop_frame(@508,1)
+    append_frame(@511,Integer)
+    same_frame_extended(@645)
+    append_frame(@656,Integer)
+    chop_frame(@788,1)
+    chop_frame(@818,1)
+    append_frame(@826,Integer)
+    same_frame_extended(@960)
+    append_frame(@971,Integer)
+    chop_frame(@1103,1)
+    chop_frame(@1133,1)
+" type="java.lang.VerifyError">java.lang.VerifyError: Bad local variable type
+Exception Details:
+  Location:
+    com/checkers/Logic/CheckerBoard.&lt;init&gt;(I)V @228: iload
+  Reason:
+    Type top (current frame, locals[4]) is not assignable to integer
+  Current Frame:
+    bci: @228
+    flags: { }
+    locals: { &apos;com/checkers/Logic/CheckerBoard&apos;, integer, integer }
+    stack: { }
+  Bytecode:
+    0000000: 033d 11ff ff3e 1225 1100 1bb8 002b 2ab7
+    0000010: 002e 1225 1100 19b8 002b 2a10 06b5 0030
+    0000020: 1225 1102 97b8 002b 2a10 52b5 0032 1225
+    0000030: 1102 98b8 002b 2a10 42b5 0034 1225 1100
+    0000040: 1cb8 002b 2a1b b500 3612 2511 001d b800
+    0000050: 2b2a 2ab4 0036 2ab4 0036 c500 3702 b500
+    0000060: 3912 2511 001e b800 2b2a 1072 b500 3b12
+    0000070: 2511 001f b800 2b2a 1062 b500 3d12 2511
+    0000080: 0020 b800 2b2a 105f b500 3f12 2511 0021
+    0000090: b800 2b2a 1023 b500 4112 2511 0022 b800
+    00000a0: 2b2a bb00 4359 b700 44b5 0046 1225 1100
+    00000b0: 23b8 002b 2abb 0043 59b7 0044 b500 4812
+    00000c0: 2511 0024 b800 2b2a 02b5 004a 1225 1100
+    00000d0: 25b8 002b 2a02 b500 4c12 2511 0026 b800
+    00000e0: 2b03 3604 1504 2ab4 0036 1100 263d 1100
+    00000f0: 003e a200 f21c 1100 26a0 0016 1d11 0000
+    0000100: a000 0f12 251c 1d04 b800 5011 ffff 3e12
+    0000110: 2511 0027 b800 2b03 3605 1505 2ab4 0036
+    0000120: 1100 273d 1100 003e a200 9e1c 1100 27a0
+    0000130: 0016 1d11 0000 a000 0f12 251c 1d04 b800
+    0000140: 5011 ffff 3e12 2511 0028 b800 2b15 0415
+    0000150: 0560 0570 1100 283d 1100 003e 9a00 361c
+    0000160: 1100 28a0 0016 1d11 0000 a000 0f12 251c
+    0000170: 1d04 b800 5011 ffff 3e12 2511 0029 b800
+    0000180: 2b2a b400 3915 0432 1505 2ab4 003f 55a7
+    0000190: 0029 1d9b 000f 1225 1c1d 03b8 0050 11ff
+    00001a0: ff3e 1225 1100 2bb8 002b 2ab4 0039 1504
+    00001b0: 3215 052a b400 4155 1225 1100 27b8 002b
+    00001c0: 8405 01a7 ff57 1d9b 000f 1225 1c1d 03b8
+    00001d0: 0050 11ff ff3e 1225 1100 26b8 002b 8404
+    00001e0: 01a7 ff03 1d9b 000f 1225 1c1d 03b8 0050
+    00001f0: 11ff ff3e 1225 1100 2fb8 002b 0336 0415
+    0000200: 042a b400 3605 6c04 6411 002f 3d11 0000
+    0000210: 3ea2 0109 1c11 002f a000 161d 1100 00a0
+    0000220: 000f 1225 1c1d 04b8 0050 11ff ff3e 1225
+    0000230: 1100 31b8 002b 1504 0570 1100 313d 1100
+    0000240: 003e 9a00 2b1c 1100 31a0 0016 1d11 0000
+    0000250: a000 0f12 251c 1d04 b800 5011 ffff 3e12
+    0000260: 2511 0032 b800 2b03 3605 a700 1e1d 9b00
+    0000270: 0f12 251c 1d03 b800 5011 ffff 3e12 2511
+    0000280: 0034 b800 2b04 3605 1225 1100 36b8 002b
+    0000290: 1505 2ab4 0036 1100 363d 1100 003e a200
+    00002a0: 5e1c 1100 36a0 0016 1d11 0000 a000 0f12
+    00002b0: 251c 1d04 b800 5011 ffff 3e12 2511 0037
+    00002c0: b800 2b2a b400 3915 0432 1505 2ab4 003b
+    00002d0: 5512 2511 0038 b800 2b2a b400 46bb 0052
+    00002e0: 5915 0515 04b7 0055 b900 5b02 0057 1225
+    00002f0: 1100 39b8 002b 8405 02a7 ff8f 1d9b 000f
+    0000300: 1225 1c1d 03b8 0050 11ff ff3e 1225 1100
+    0000310: 2fb8 002b 8404 01a7 fee8 1d9b 000f 1225
+    0000320: 1c1d 03b8 0050 11ff ff3e 1225 1100 3cb8
+    0000330: 002b 2ab4 0036 0464 3604 1504 2ab4 0036
+    0000340: 056c 0460 1100 3c3d 1100 003e a101 091c
+    0000350: 1100 3ca0 0016 1d11 0000 a000 0f12 251c
+    0000360: 1d04 b800 5011 ffff 3e12 2511 003e b800
+    0000370: 2b15 0405 7011 003e 3d11 0000 3e9a 002b
+    0000380: 1c11 003e a000 161d 1100 00a0 000f 1225
+    0000390: 1c1d 04b8 0050 11ff ff3e 1225 1100 3fb8
+    00003a0: 002b 0336 05a7 001e 1d9b 000f 1225 1c1d
+    00003b0: 03b8 0050 11ff ff3e 1225 1100 41b8 002b
+    00003c0: 0436 0512 2511 0043 b800 2b15 052a b400
+    00003d0: 3611 0043 3d11 0000 3ea2 005e 1c11 0043
+    00003e0: a000 161d 1100 00a0 000f 1225 1c1d 04b8
+    00003f0: 0050 11ff ff3e 1225 1100 44b8 002b 2ab4
+    0000400: 0039 1504 3215 052a b400 3d55 1225 1100
+    0000410: 45b8 002b 2ab4 0048 bb00 5259 1505 1504
+    0000420: b700 55b9 005b 0200 5712 2511 0046 b800
+    0000430: 2b84 0502 a7ff 8f1d 9b00 0f12 251c 1d03
+    0000440: b800 5011 ffff 3e12 2511 003c b800 2b84
+    0000450: 04ff a7fe e81d 9b00 0f12 251c 1d03 b800
+    0000460: 5011 ffff 3e12 2511 0049 b800 2bb1     
+  Stackmap Table:
+    full_frame(@228,{Object[#2],Integer,Integer},{})
+    append_frame(@282,Integer)
+    same_frame_extended(@426)
+    same_frame(@448)
+    chop_frame(@478,1)
+    chop_frame(@508,1)
+    append_frame(@511,Integer)
+    same_frame_extended(@645)
+    append_frame(@656,Integer)
+    chop_frame(@788,1)
+    chop_frame(@818,1)
+    append_frame(@826,Integer)
+    same_frame_extended(@960)
+    append_frame(@971,Integer)
+    chop_frame(@1103,1)
+    chop_frame(@1133,1)
+
+	at com.checkers.Logic.CheckerBoardOneTest.setUp(CheckerBoardOneTest.java:30)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:483)
+	at org.junit.runners.model.FrameworkMethod$1.runReflectiveCall(FrameworkMethod.java:47)
+	at org.junit.internal.runners.model.ReflectiveCallable.run(ReflectiveCallable.java:12)
+	at org.junit.runners.model.FrameworkMethod.invokeExplosively(FrameworkMethod.java:44)
+	at org.junit.internal.runners.statements.RunBefores.evaluate(RunBefores.java:24)
+	at org.junit.internal.runners.statements.RunAfters.evaluate(RunAfters.java:27)
+	at org.junit.runners.ParentRunner.runLeaf(ParentRunner.java:271)
+	at org.junit.runners.BlockJUnit4ClassRunner.runChild(BlockJUnit4ClassRunner.java:70)
+	at org.junit.runners.BlockJUnit4ClassRunner.runChild(BlockJUnit4ClassRunner.java:50)
+	at org.junit.runners.ParentRunner$3.run(ParentRunner.java:238)
+	at org.junit.runners.ParentRunner$1.schedule(ParentRunner.java:63)
+	at org.junit.runners.ParentRunner.runChildren(ParentRunner.java:236)
+	at org.junit.runners.ParentRunner.access$000(ParentRunner.java:53)
+	at org.junit.runners.ParentRunner$2.evaluate(ParentRunner.java:229)
+	at org.junit.internal.runners.statements.RunBefores.evaluate(RunBefores.java:26)
+	at org.junit.internal.runners.statements.RunAfters.evaluate(RunAfters.java:27)
+	at org.junit.runners.ParentRunner.run(ParentRunner.java:309)
+	at org.apache.maven.surefire.junit4.JUnit4Provider.execute(JUnit4Provider.java:252)
+	at org.apache.maven.surefire.junit4.JUnit4Provider.executeTestSet(JUnit4Provider.java:141)
+	at org.apache.maven.surefire.junit4.JUnit4Provider.invoke(JUnit4Provider.java:112)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:483)
+	at org.apache.maven.surefire.util.ReflectionUtils.invokeMethodWithArray(ReflectionUtils.java:189)
+	at org.apache.maven.surefire.booter.ProviderFactory$ProviderProxy.invoke(ProviderFactory.java:165)
+	at org.apache.maven.surefire.booter.ProviderFactory.invokeProvider(ProviderFactory.java:85)
+	at org.apache.maven.surefire.booter.ForkedBooter.runSuitesInProcess(ForkedBooter.java:115)
+	at org.apache.maven.surefire.booter.ForkedBooter.main(ForkedBooter.java:75)
+</error>
+  </testcase>
 </testsuite>
