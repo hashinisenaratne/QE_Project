@@ -1,0 +1,1128 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../.resources/report.css" type="text/css"/><link rel="shortcut icon" href="../.resources/report.gif" type="image/gif"/><title>CheckerBoard.java</title><link rel="stylesheet" href="../.resources/prettify.css" type="text/css"/><script type="text/javascript" src="../.resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../.sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">CheckersGame</a> &gt; <a href="index.source.html" class="el_package">com.checkers.Logic</a> &gt; <span class="el_source">CheckerBoard.java</span></div><h1>CheckerBoard.java</h1><pre class="source lang-java linenums">/*
+ * To change this template, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package com.checkers.Logic;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Random;
+
+/**
+ *
+ * @author user
+ */
+public class CheckerBoard {
+
+    public char[][] checkersBoard;
+    private int boardSize;
+    private char typeR, typeB, empty, invalid;
+    private List&lt;Chip&gt; typeRList;
+    private List&lt;Chip&gt; typeBList;
+    private int lastCutPieceRow,lastCutPieceCol;
+<span class="fc" id="L25">    private int maxDepth = 6;</span>
+
+<span class="fc" id="L27">    public CheckerBoard(int size) {</span>
+<span class="fc" id="L28">        boardSize = size;</span>
+<span class="fc" id="L29">        checkersBoard = new char[boardSize][boardSize];</span>
+<span class="fc" id="L30">        typeR = 'r';</span>
+<span class="fc" id="L31">        typeB = 'b';</span>
+<span class="fc" id="L32">        empty = '_';</span>
+<span class="fc" id="L33">        invalid = '#';</span>
+<span class="fc" id="L34">        typeRList = new LinkedList&lt;&gt;();</span>
+<span class="fc" id="L35">        typeBList = new LinkedList&lt;&gt;();</span>
+<span class="fc" id="L36">        lastCutPieceRow=-1;</span>
+<span class="fc" id="L37">        lastCutPieceCol=-1;</span>
+<span class="fc bfc" id="L38" title="All 2 branches covered.">        for (int i = 0; i &lt; boardSize; i++) {</span>
+<span class="fc bfc" id="L39" title="All 2 branches covered.">            for (int j = 0; j &lt; boardSize; j++) {</span>
+<span class="fc bfc" id="L40" title="All 2 branches covered.">                if ((i + j) % 2 == 0) {</span>
+<span class="fc" id="L41">                    checkersBoard[i][j] = empty;    //EMPTY cell</span>
+                } else {
+<span class="fc" id="L43">                    checkersBoard[i][j] = invalid;</span>
+                }
+            }
+        }
+<span class="fc bfc" id="L47" title="All 2 branches covered.">        for (int i = 0; i &lt; (boardSize / 2) - 1; i++) {</span>
+            int j;
+<span class="fc bfc" id="L49" title="All 2 branches covered.">            if (i % 2 == 0) {</span>
+<span class="fc" id="L50">                j = 0;</span>
+            } else {
+<span class="fc" id="L52">                j = 1;</span>
+            }
+<span class="fc bfc" id="L54" title="All 2 branches covered.">            while (j &lt; boardSize) {</span>
+<span class="fc" id="L55">                checkersBoard[i][j] = typeR;    //RED piece</span>
+<span class="fc" id="L56">                typeRList.add(new Chip(j, i));</span>
+<span class="fc" id="L57">                j += 2;</span>
+            }
+        }
+<span class="fc bfc" id="L60" title="All 2 branches covered.">        for (int i = boardSize - 1; i &gt;= (boardSize) / 2 + 1; i--) {</span>
+            int j;
+<span class="fc bfc" id="L62" title="All 2 branches covered.">            if (i % 2 == 0) {</span>
+<span class="fc" id="L63">                j = 0;</span>
+            } else {
+<span class="fc" id="L65">                j = 1;</span>
+            }
+<span class="fc bfc" id="L67" title="All 2 branches covered.">            while (j &lt; boardSize) {</span>
+<span class="fc" id="L68">                checkersBoard[i][j] = typeB;     //BLACK piece</span>
+<span class="fc" id="L69">                typeBList.add(new Chip(j, i));</span>
+<span class="fc" id="L70">                j += 2;</span>
+            }
+        }
+<span class="fc" id="L73">    }</span>
+
+    public void printBoard() {
+<span class="nc" id="L76">        System.out.println(&quot;*********************************&quot;);</span>
+<span class="nc bnc" id="L77" title="All 2 branches missed.">        for (int i = 0; i &lt; boardSize; i++) {</span>
+<span class="nc bnc" id="L78" title="All 2 branches missed.">            for (int j = 0; j &lt; boardSize; j++) {</span>
+<span class="nc bnc" id="L79" title="All 2 branches missed.">                if ((i + j) % 2 == 0) {</span>
+<span class="nc" id="L80">                    System.out.print(checkersBoard[i][j] + &quot; &quot; + i + &quot;,&quot; + j + &quot;\t&quot;);</span>
+                } else {
+<span class="nc" id="L82">                    System.out.print(&quot;\t&quot;);</span>
+                }
+            }
+<span class="nc" id="L85">            System.out.println(&quot;&quot;);</span>
+        }
+<span class="nc" id="L87">        System.out.println(&quot;*********************************&quot;);</span>
+<span class="nc" id="L88">    }</span>
+    
+    public void setCheckersBoard(char[][] customBoardInstance){
+<span class="fc" id="L91">        checkersBoard = customBoardInstance;</span>
+<span class="fc" id="L92">    }</span>
+
+    public boolean movePiece(int sRow, int sCol, int dRow, int dCol) {
+<span class="fc bfc" id="L95" title="All 2 branches covered.">        if (isMoveable(sRow, sCol, dRow, dCol)) {</span>
+<span class="fc" id="L96">            char tmpType = checkersBoard[sRow][sCol];</span>
+<span class="fc" id="L97">            checkersBoard[sRow][sCol] = empty;</span>
+<span class="fc" id="L98">            checkersBoard[dRow][dCol] = tmpType;</span>
+<span class="pc bpc" id="L99" title="1 of 2 branches missed.">            if (Character.toLowerCase(tmpType) == typeR) {</span>
+<span class="nc" id="L100">                Chip tmpChip = typeRList.get(typeRList.indexOf(new Chip(sCol, sRow)));</span>
+<span class="nc" id="L101">                tmpChip.setCol(dCol);</span>
+<span class="nc" id="L102">                tmpChip.setRow(dRow);</span>
+            }
+<span class="pc bpc" id="L104" title="1 of 2 branches missed.">            if (Character.toLowerCase(tmpType) == typeB) {</span>
+<span class="fc" id="L105">                Chip tmpChip = typeBList.get(typeBList.indexOf(new Chip(sCol, sRow)));</span>
+<span class="fc" id="L106">                tmpChip.setCol(dCol);</span>
+<span class="fc" id="L107">                tmpChip.setRow(dRow);</span>
+            }
+
+<span class="pc bpc" id="L110" title="3 of 4 branches missed.">            if (Character.toLowerCase(tmpType) == typeR &amp;&amp; dRow == boardSize - 1) {</span>
+<span class="nc" id="L111">                checkersBoard[dRow][dCol] = Character.toUpperCase(typeR);     //uppercase typeR to represent RED QUEEN </span>
+<span class="nc" id="L112">                typeRList.get(typeRList.indexOf(new Chip(dCol, dRow))).setIsKing(true);</span>
+            }
+<span class="pc bpc" id="L114" title="2 of 4 branches missed.">            if (Character.toLowerCase(tmpType) == typeB &amp;&amp; dRow == 0) {</span>
+<span class="nc" id="L115">                checkersBoard[dRow][dCol] = Character.toUpperCase(typeB);     //uppercase typeB to represent BLACK QUEEN</span>
+<span class="nc" id="L116">                typeBList.get(typeBList.indexOf(new Chip(dCol, dRow))).setIsKing(true);</span>
+        }
+<span class="fc" id="L118">            lastCutPieceRow=-1;</span>
+<span class="fc" id="L119">            lastCutPieceCol=-1;</span>
+<span class="fc" id="L120">            return true;</span>
+        }
+<span class="fc" id="L122">        return false;</span>
+    }
+
+    public boolean isMoveable(int sRow, int sCol, int dRow, int dCol) {
+<span class="fc bfc" id="L126" title="All 4 branches covered.">        if (((sRow + sCol) % 2 != 0) || (dRow + dCol) % 2 != 0) {</span>
+<span class="fc" id="L127">            return false;</span>
+        }
+<span class="fc bfc" id="L129" title="All 4 branches covered.">        if (dRow &gt;= boardSize || dRow &lt; 0) {</span>
+<span class="fc" id="L130">            return false;</span>
+        }
+<span class="fc bfc" id="L132" title="All 4 branches covered.">        if (dCol &gt;= boardSize || dCol &lt; 0) {</span>
+<span class="fc" id="L133">            return false;</span>
+        }
+<span class="fc bfc" id="L135" title="All 2 branches covered.">        if (checkersBoard[sRow][sCol] == empty) {</span>
+<span class="fc" id="L136">            return false;</span>
+<span class="pc bpc" id="L137" title="1 of 2 branches missed.">        } else if ((checkersBoard[dRow][dCol] == empty)) {</span>
+<span class="pc bpc" id="L138" title="1 of 2 branches missed.">            if (sCol == dCol) {</span>
+<span class="nc" id="L139">                return false;</span>
+            }
+<span class="fc" id="L141">            char tmpType = checkersBoard[sRow][sCol];</span>
+<span class="pc bpc" id="L142" title="1 of 2 branches missed.">            if (tmpType == typeR) {</span>
+<span class="nc bnc" id="L143" title="All 2 branches missed.">                if (sRow - dRow &gt;= 0) {</span>
+<span class="nc" id="L144">                    return false;</span>
+                }
+            }
+<span class="pc bpc" id="L147" title="1 of 2 branches missed.">            if (tmpType == typeB) {</span>
+<span class="pc bpc" id="L148" title="1 of 2 branches missed.">                if (sRow - dRow &lt;= 0) {</span>
+<span class="nc" id="L149">                    return false;</span>
+                }
+            }
+<span class="pc bpc" id="L152" title="2 of 4 branches missed.">            if (Math.abs(dCol - sCol) &gt; 2 || Math.abs(dRow - sRow) &gt; 2) {</span>
+                //not allowing too long moves
+<span class="nc" id="L154">                return false;</span>
+            }
+<span class="pc bpc" id="L156" title="3 of 4 branches missed.">            if (Math.abs(dCol - sCol) == 2 &amp;&amp; Math.abs(dRow - sRow) == 2) {</span>
+<span class="nc bnc" id="L157" title="All 2 branches missed.">                if (Character.toLowerCase(checkersBoard[sRow][sCol]) == Character.toLowerCase(typeR)) {</span>
+<span class="nc bnc" id="L158" title="All 2 branches missed.">                    if (Character.toLowerCase(checkersBoard[(dRow + sRow) / 2][(dCol + sCol) / 2]) != Character.toLowerCase(typeB)) {</span>
+<span class="nc" id="L159">                        return false;</span>
+                    }
+                }
+<span class="nc bnc" id="L162" title="All 2 branches missed.">                if (Character.toLowerCase(checkersBoard[sRow][sCol]) == Character.toLowerCase(typeB)) {</span>
+<span class="nc bnc" id="L163" title="All 2 branches missed.">                    if (Character.toLowerCase(checkersBoard[(dRow + sRow) / 2][(dCol + sCol) / 2]) != Character.toLowerCase(typeR)) {</span>
+<span class="nc" id="L164">                        return false;</span>
+                    }
+                }
+            }
+<span class="fc" id="L168">            return true;</span>
+        }
+<span class="nc" id="L170">        return false;</span>
+    }
+    
+    /*public boolean isACut(int sRow, int sCol, int dRow, int dCol) { //this will be always used after true in isMoveable()
+        char tmpType = checkersBoard[dRow][dCol];
+        Chip tmpChip;
+        if (tmpType == typeR) {
+            tmpChip = typeRList.get(typeRList.indexOf(new Chip(dCol, dRow)));
+            if(!tmpChip.isKing()){
+                if(sRow-dRow == (-2) &amp;&amp; Math.abs(sCol-dCol)== 2){
+                    return true;
+                }
+            }
+            else{
+                if(Math.abs(sRow-dRow) == 2 &amp;&amp; Math.abs(sCol-dCol)== 2){
+                    return true;
+                }
+            }
+        }
+        else if (tmpType == typeB) {
+            tmpChip = typeBList.get(typeBList.indexOf(new Chip(dCol, dRow)));
+            if(!tmpChip.isKing()){
+                if(sRow-dRow == 2 &amp;&amp; Math.abs(sCol-dCol)== 2){
+                    return true;
+                }
+            }
+            else{
+                if(Math.abs(sRow-dRow) == 2 &amp;&amp; Math.abs(sCol-dCol)== 2){
+                    return true;
+                }
+            }
+        }
+        return false;
+    }*/
+
+    public boolean cutPiece(int attackerRow, int attackerCol, int victimRow, int victimCol) {
+        char tmpAttacker, tmpVictim;
+<span class="pc bpc" id="L207" title="4 of 8 branches missed.">        if(attackerRow&lt;0 || attackerCol&lt;0 || victimRow&lt;0 || victimCol&lt;0){</span>
+<span class="nc" id="L208">            return false;</span>
+        }
+<span class="pc bpc" id="L210" title="4 of 8 branches missed.">        if(attackerRow&gt;=boardSize || attackerCol&gt;=boardSize || victimRow&gt;=boardSize || victimCol&gt;=boardSize){</span>
+<span class="nc" id="L211">            return false;</span>
+        }
+<span class="fc bfc" id="L213" title="All 4 branches covered.">        if (checkersBoard[attackerRow][attackerCol] == empty || checkersBoard[victimRow][victimCol] == empty) {</span>
+<span class="fc" id="L214">            return false;</span>
+        } else {
+<span class="fc" id="L216">            tmpAttacker = checkersBoard[attackerRow][attackerCol];</span>
+<span class="fc" id="L217">            tmpVictim = checkersBoard[victimRow][victimCol];</span>
+        }
+<span class="pc bpc" id="L219" title="1 of 2 branches missed.">        if (tmpAttacker == tmpVictim) {</span>
+<span class="fc" id="L220">            return false;</span>
+        } else {
+<span class="nc bnc" id="L222" title="All 2 branches missed.">            if (attackerRow &gt; victimRow) {</span>
+<span class="nc bnc" id="L223" title="All 2 branches missed.">                if (isMoveable(attackerRow, attackerCol, victimRow - 1, victimCol - 1)) {</span>
+<span class="nc" id="L224">                    movePiece(attackerRow, attackerCol, victimRow - 1, victimCol - 1);</span>
+<span class="nc" id="L225">                    lastCutPieceRow=victimRow-1;</span>
+<span class="nc" id="L226">                    lastCutPieceCol=victimCol-1;</span>
+<span class="nc" id="L227">                    checkersBoard[victimRow][victimCol] = empty;</span>
+<span class="nc bnc" id="L228" title="All 2 branches missed.">                    if (tmpVictim == typeR) {</span>
+<span class="nc" id="L229">                        int index = typeRList.indexOf(new Chip(victimCol, victimRow));</span>
+<span class="nc" id="L230">                        typeRList.get(index).setOnBoard(false);</span>
+<span class="nc" id="L231">                        typeRList.get(index).setCol(-1);</span>
+<span class="nc" id="L232">                    }</span>
+<span class="nc bnc" id="L233" title="All 2 branches missed.">                    else if (tmpVictim == typeB) {</span>
+<span class="nc" id="L234">                        int index = typeBList.indexOf(new Chip(victimCol, victimRow));</span>
+<span class="nc" id="L235">                        typeBList.get(index).setOnBoard(false);</span>
+<span class="nc" id="L236">                        typeBList.get(index).setCol(-1);</span>
+                    }
+<span class="nc" id="L238">                    return true;</span>
+                }
+<span class="nc bnc" id="L240" title="All 2 branches missed.">                else if (isMoveable(attackerRow, attackerCol, victimRow - 1, victimCol + 1)) {</span>
+<span class="nc" id="L241">                    movePiece(attackerRow, attackerCol, victimRow - 1, victimCol + 1);</span>
+<span class="nc" id="L242">                    lastCutPieceRow=victimRow-1;</span>
+<span class="nc" id="L243">                    lastCutPieceCol=victimCol+1;</span>
+<span class="nc" id="L244">                    checkersBoard[victimRow][victimCol] = empty;</span>
+<span class="nc bnc" id="L245" title="All 2 branches missed.">                    if (tmpVictim == typeR) {</span>
+<span class="nc" id="L246">                        int index = typeRList.indexOf(new Chip(victimCol, victimRow));</span>
+<span class="nc" id="L247">                        typeRList.get(index).setOnBoard(false);</span>
+<span class="nc" id="L248">                        typeRList.get(index).setCol(-1);</span>
+<span class="nc" id="L249">                    }</span>
+<span class="nc bnc" id="L250" title="All 2 branches missed.">                    else if (tmpVictim == typeB) {</span>
+<span class="nc" id="L251">                        int index = typeBList.indexOf(new Chip(victimCol, victimRow));</span>
+<span class="nc" id="L252">                        typeBList.get(index).setOnBoard(false);</span>
+<span class="nc" id="L253">                        typeBList.get(index).setCol(-1);</span>
+                    }
+<span class="nc" id="L255">                    return true;</span>
+                }
+            }
+<span class="nc bnc" id="L258" title="All 2 branches missed.">            else if (attackerRow &lt; victimRow) {</span>
+<span class="nc bnc" id="L259" title="All 2 branches missed.">                if (isMoveable(attackerRow, attackerCol, victimRow + 1, victimCol - 1)) {</span>
+<span class="nc" id="L260">                    movePiece(attackerRow, attackerCol, victimRow + 1, victimCol - 1);</span>
+<span class="nc" id="L261">                    lastCutPieceRow=victimRow+1;</span>
+<span class="nc" id="L262">                    lastCutPieceCol=victimCol-1;</span>
+<span class="nc" id="L263">                    checkersBoard[victimRow][victimCol] = empty;</span>
+<span class="nc bnc" id="L264" title="All 2 branches missed.">                    if (tmpVictim == typeR) {</span>
+<span class="nc" id="L265">                        int index = typeRList.indexOf(new Chip(victimCol, victimRow));</span>
+<span class="nc" id="L266">                        typeRList.get(index).setOnBoard(false);</span>
+<span class="nc" id="L267">                        typeRList.get(index).setCol(-1);</span>
+<span class="nc" id="L268">                    }</span>
+<span class="nc bnc" id="L269" title="All 2 branches missed.">                    else if (tmpVictim == typeB) {</span>
+<span class="nc" id="L270">                        int index = typeBList.indexOf(new Chip(victimCol, victimRow));</span>
+<span class="nc" id="L271">                        typeBList.get(index).setOnBoard(false);</span>
+<span class="nc" id="L272">                        typeBList.get(index).setCol(-1);</span>
+                    }
+<span class="nc" id="L274">                    return true;</span>
+                }
+<span class="nc bnc" id="L276" title="All 2 branches missed.">                else if (isMoveable(attackerRow, attackerCol, victimRow + 1, victimCol + 1)) {</span>
+<span class="nc" id="L277">                    movePiece(attackerRow, attackerCol, victimRow + 1, victimCol + 1);</span>
+<span class="nc" id="L278">                    lastCutPieceRow=victimRow+1;</span>
+<span class="nc" id="L279">                    lastCutPieceCol=victimCol+1;</span>
+<span class="nc" id="L280">                    checkersBoard[victimRow][victimCol] = empty;</span>
+<span class="nc bnc" id="L281" title="All 2 branches missed.">                    if (tmpVictim == typeR) {</span>
+<span class="nc" id="L282">                        int index = typeRList.indexOf(new Chip(victimCol, victimRow));</span>
+<span class="nc" id="L283">                        typeRList.get(index).setOnBoard(false);</span>
+<span class="nc" id="L284">                        typeRList.get(index).setCol(-1);</span>
+<span class="nc" id="L285">                    }</span>
+<span class="nc bnc" id="L286" title="All 2 branches missed.">                    else if (tmpVictim == typeB) {</span>
+<span class="nc" id="L287">                        int index = typeBList.indexOf(new Chip(victimCol, victimRow));</span>
+<span class="nc" id="L288">                        typeBList.get(index).setOnBoard(false);</span>
+<span class="nc" id="L289">                        typeBList.get(index).setCol(-1);</span>
+                    }
+<span class="nc" id="L291">                    return true;</span>
+                }
+            }
+        }
+<span class="nc" id="L295">        return false;</span>
+    }
+
+    public int pieceCount(char type) {
+<span class="nc" id="L299">        int count = 0;</span>
+<span class="nc bnc" id="L300" title="All 2 branches missed.">        for (int i = 0; i &lt; boardSize; i++) {</span>
+<span class="nc bnc" id="L301" title="All 2 branches missed.">            for (int j = 0; j &lt; boardSize; j++) {</span>
+<span class="nc bnc" id="L302" title="All 2 branches missed.">                if ((i + j) % 2 == 0) {</span>
+<span class="nc bnc" id="L303" title="All 2 branches missed.">                    if (isUsed(type, i, j)) {</span>
+<span class="nc" id="L304">                        count++;</span>
+                    }
+                }
+            }
+        }
+<span class="nc" id="L309">        return count;</span>
+    }
+
+    public boolean isUsed(char type, int row, int col) {
+<span class="nc bnc" id="L313" title="All 4 branches missed.">        if (checkersBoard[row][col] == Character.toLowerCase(type) || checkersBoard[row][col] == Character.toUpperCase(type)) {</span>
+<span class="nc" id="L314">            return true;</span>
+        }
+<span class="nc" id="L316">        return false;</span>
+    }
+
+    public boolean isUsedByNormalPiece(char type, int row, int col) {
+<span class="nc bnc" id="L320" title="All 2 branches missed.">        if (checkersBoard[row][col] == Character.toLowerCase(type)) {</span>
+<span class="nc" id="L321">            return true;</span>
+        }
+<span class="nc" id="L323">        return false;</span>
+    }
+
+    public boolean isUsedByQueen(char type, int row, int col) {
+<span class="nc bnc" id="L327" title="All 2 branches missed.">        if (checkersBoard[row][col] == Character.toUpperCase(type)) {</span>
+<span class="nc" id="L328">            return true;</span>
+        }
+<span class="nc" id="L330">        return false;</span>
+    }
+
+    public int getSize() {
+<span class="nc" id="L334">        return boardSize;</span>
+    }
+
+    public List&lt;Chip&gt; getTypeRList() {
+<span class="nc" id="L338">        return typeRList;</span>
+    }
+
+    public List&lt;Chip&gt; getTypeBList() {
+<span class="nc" id="L342">        return typeBList;</span>
+    }
+
+    public int calcHeuristicValue(char type) {
+<span class="nc" id="L346">        HashMap&lt;Character, Integer&gt; map = calcBoardHeuristicValue3();</span>
+<span class="nc" id="L347">        int heuristicValueR = map.get(typeR);</span>
+<span class="nc" id="L348">        int heuristicValueB = map.get(typeB);</span>
+<span class="nc bnc" id="L349" title="All 2 branches missed.">        if (Character.toLowerCase(type) == Character.toLowerCase(typeR)) {</span>
+<span class="nc" id="L350">            return heuristicValueR - heuristicValueB;</span>
+<span class="nc bnc" id="L351" title="All 2 branches missed.">        } else if (Character.toLowerCase(type) == Character.toLowerCase(typeB)) {</span>
+<span class="nc" id="L352">            return heuristicValueB - heuristicValueR;</span>
+        }
+<span class="nc" id="L354">        return -1;</span>
+    }
+
+    public int calcHeuristicValueEnding(char type) {
+<span class="nc" id="L358">        HashMap&lt;Character, Integer&gt; map = calcBoardHeuristicValueEnding1();</span>
+<span class="nc" id="L359">        int heuristicValueR = map.get(typeR);</span>
+<span class="nc" id="L360">        int heuristicValueB = map.get(typeB);</span>
+<span class="nc bnc" id="L361" title="All 2 branches missed.">        if (Character.toLowerCase(type) == Character.toLowerCase(typeR)) {</span>
+<span class="nc" id="L362">            return heuristicValueR - heuristicValueB;</span>
+<span class="nc bnc" id="L363" title="All 2 branches missed.">        } else if (Character.toLowerCase(type) == Character.toLowerCase(typeB)) {</span>
+<span class="nc" id="L364">            return heuristicValueB - heuristicValueR;</span>
+        }
+<span class="nc" id="L366">        return -1;</span>
+    }
+
+    private HashMap calcBoardHeuristicValue3() {
+<span class="nc" id="L370">        int heuristicValueR = 0;</span>
+<span class="nc" id="L371">        int heuristicValueB = 0;</span>
+<span class="nc bnc" id="L372" title="All 2 branches missed.">        for (int i = 0; i &lt; boardSize; i++) {</span>
+<span class="nc bnc" id="L373" title="All 2 branches missed.">            for (int j = 0; j &lt; boardSize; j++) {</span>
+<span class="nc bnc" id="L374" title="All 2 branches missed.">                if ((i + j) % 2 == 0) {</span>
+<span class="nc bnc" id="L375" title="All 2 branches missed.">                    if (isUsedByNormalPiece(typeR, i, j)) {</span>
+<span class="nc" id="L376">                        heuristicValueR += 5 + i;</span>
+                    }
+<span class="nc bnc" id="L378" title="All 2 branches missed.">                    if (isUsedByQueen(typeR, i, j)) {</span>
+<span class="nc" id="L379">                        heuristicValueR += 5 + i + 2;</span>
+                    }
+                }
+            }
+        }
+<span class="nc bnc" id="L384" title="All 2 branches missed.">        for (int i = 0; i &lt; boardSize; i++) {</span>
+<span class="nc bnc" id="L385" title="All 2 branches missed.">            for (int j = 0; j &lt; boardSize; j++) {</span>
+<span class="nc bnc" id="L386" title="All 2 branches missed.">                if ((i + j) % 2 == 0) {</span>
+<span class="nc bnc" id="L387" title="All 2 branches missed.">                    if (isUsed(typeB, i, j)) {</span>
+<span class="nc" id="L388">                        heuristicValueB += 5 + (7 - i);</span>
+                    }
+<span class="nc bnc" id="L390" title="All 2 branches missed.">                    if (isUsedByQueen(typeB, i, j)) {</span>
+<span class="nc" id="L391">                        heuristicValueB += 5 + (7 - i) + 2;</span>
+                    }
+                }
+            }
+        }
+        HashMap&lt;Character, Integer&gt; map;
+<span class="nc" id="L397">        map = new HashMap&lt;Character, Integer&gt;();</span>
+<span class="nc" id="L398">        map.put(typeB, heuristicValueB);</span>
+<span class="nc" id="L399">        map.put(typeR, heuristicValueR);</span>
+<span class="nc" id="L400">        return map;</span>
+    }
+
+    private HashMap calcBoardHeuristicValue2() {
+<span class="nc" id="L404">        int heuristicValueR = 0;</span>
+<span class="nc" id="L405">        int heuristicValueB = 0;</span>
+<span class="nc bnc" id="L406" title="All 2 branches missed.">        for (int i = 0; i &lt; boardSize; i++) {</span>
+<span class="nc bnc" id="L407" title="All 2 branches missed.">            for (int j = 0; j &lt; boardSize; j++) {</span>
+<span class="nc bnc" id="L408" title="All 2 branches missed.">                if ((i + j) % 2 == 0) {</span>
+<span class="nc bnc" id="L409" title="All 2 branches missed.">                    if (isUsedByNormalPiece(typeR, i, j)) {</span>
+<span class="nc bnc" id="L410" title="All 2 branches missed.">                        if (i &lt; 4) {</span>
+<span class="nc" id="L411">                            heuristicValueR += 5;</span>
+                        } else {
+<span class="nc" id="L413">                            heuristicValueR += 7;</span>
+                        }
+                    }
+<span class="nc bnc" id="L416" title="All 2 branches missed.">                    if (isUsedByQueen(typeR, i, j)) {</span>
+<span class="nc" id="L417">                        heuristicValueR += 10;</span>
+                    }
+                }
+            }
+        }
+
+<span class="nc bnc" id="L423" title="All 2 branches missed.">        for (int i = 0; i &lt; boardSize; i++) {</span>
+<span class="nc bnc" id="L424" title="All 2 branches missed.">            for (int j = 0; j &lt; boardSize; j++) {</span>
+<span class="nc bnc" id="L425" title="All 2 branches missed.">                if ((i + j) % 2 == 0) {</span>
+<span class="nc bnc" id="L426" title="All 2 branches missed.">                    if (isUsed(typeB, i, j)) {</span>
+<span class="nc bnc" id="L427" title="All 2 branches missed.">                        if (i &gt; 3) {</span>
+<span class="nc" id="L428">                            heuristicValueB += 5;</span>
+                        } else {
+<span class="nc" id="L430">                            heuristicValueB += 7;</span>
+                        }
+                    }
+<span class="nc bnc" id="L433" title="All 2 branches missed.">                    if (isUsedByQueen(typeB, i, j)) {</span>
+<span class="nc" id="L434">                        heuristicValueB += 10;</span>
+                    }
+                }
+            }
+        }
+        HashMap&lt;Character, Integer&gt; map;
+<span class="nc" id="L440">        map = new HashMap&lt;Character, Integer&gt;();</span>
+<span class="nc" id="L441">        map.put(typeB, heuristicValueB);</span>
+<span class="nc" id="L442">        map.put(typeR, heuristicValueR);</span>
+<span class="nc" id="L443">        return map;</span>
+    }
+
+    private HashMap calcBoardHeuristicValue4() {
+        HashMap&lt;Character, Integer&gt; map;
+<span class="nc" id="L448">        map = this.calcBoardHeuristicValue2();</span>
+<span class="nc" id="L449">        float heuristicValueR = map.get(typeR);</span>
+<span class="nc" id="L450">        float heuristicValueB = map.get(typeB);</span>
+<span class="nc" id="L451">        heuristicValueR = heuristicValueR * 10 / this.pieceCount(typeR);</span>
+<span class="nc" id="L452">        heuristicValueB = heuristicValueB * 10 / this.pieceCount(typeB);</span>
+<span class="nc" id="L453">        map.put(typeB, (int) heuristicValueB);</span>
+<span class="nc" id="L454">        map.put(typeR, (int) heuristicValueR);</span>
+<span class="nc" id="L455">        return map;</span>
+    }
+
+    private HashMap calcBoardHeuristicValueEnding1() {
+        HashMap&lt;Character, Integer&gt; map;
+<span class="nc" id="L460">        map = new HashMap&lt;Character, Integer&gt;();</span>
+<span class="nc" id="L461">        int heuristicValueR = 0;</span>
+<span class="nc" id="L462">        int heuristicValueB = 0;</span>
+
+<span class="nc bnc" id="L464" title="All 2 branches missed.">        for (Chip tmp : typeRList) {</span>
+<span class="nc" id="L465">            int distance = 1;</span>
+<span class="nc bnc" id="L466" title="All 2 branches missed.">            if (tmp.isOnBoard()) {</span>
+<span class="nc bnc" id="L467" title="All 2 branches missed.">                for (int i = Math.max(0, tmp.getRow() - distance); i &lt; Math.min(boardSize, tmp.getRow() + distance); i++) {</span>
+<span class="nc bnc" id="L468" title="All 2 branches missed.">                    for (int j = Math.max(0, tmp.getCol() - distance); j &lt; Math.min(boardSize, tmp.getCol() + distance); j++) {</span>
+<span class="nc bnc" id="L469" title="All 2 branches missed.">                        if (Character.toUpperCase(checkersBoard[i][j]) == Character.toUpperCase(typeB)) {</span>
+<span class="nc" id="L470">                            heuristicValueR += distance;</span>
+                        }
+                    }
+                }
+            }
+<span class="nc" id="L475">        }</span>
+<span class="nc bnc" id="L476" title="All 2 branches missed.">        for (Chip tmp : typeBList) {</span>
+<span class="nc" id="L477">            int distance = 1;</span>
+<span class="nc bnc" id="L478" title="All 2 branches missed.">            if (tmp.isOnBoard()) {</span>
+<span class="nc bnc" id="L479" title="All 2 branches missed.">                for (int i = Math.max(0, tmp.getRow() - distance); i &lt; Math.min(boardSize, tmp.getRow() + distance); i++) {</span>
+<span class="nc bnc" id="L480" title="All 2 branches missed.">                    for (int j = Math.max(0, tmp.getCol() - distance); j &lt; Math.min(boardSize, tmp.getCol() + distance); j++) {</span>
+<span class="nc bnc" id="L481" title="All 2 branches missed.">                        if (Character.toUpperCase(checkersBoard[i][j]) == Character.toUpperCase(typeR)) {</span>
+<span class="nc" id="L482">                            heuristicValueB += distance;</span>
+                        }
+                    }
+                }
+            }
+<span class="nc" id="L487">        }</span>
+
+<span class="nc" id="L489">        map.put(typeB, heuristicValueB);</span>
+<span class="nc" id="L490">        map.put(typeR, heuristicValueR);</span>
+<span class="nc" id="L491">        return map;</span>
+    }
+
+    private HashMap calcBoardHeuristicValueEnding2() {
+        HashMap&lt;Character, Integer&gt; map;
+<span class="nc" id="L496">        map = new HashMap&lt;Character, Integer&gt;();</span>
+<span class="nc" id="L497">        int heuristicValueR = 0;</span>
+<span class="nc" id="L498">        int heuristicValueB = 0;</span>
+
+<span class="nc bnc" id="L500" title="All 2 branches missed.">        for (Chip tmp : typeRList) {</span>
+<span class="nc" id="L501">            int distance = boardSize - 1;</span>
+<span class="nc" id="L502">            boolean done = false;</span>
+<span class="nc bnc" id="L503" title="All 2 branches missed.">            if (tmp.isOnBoard()) {</span>
+<span class="nc bnc" id="L504" title="All 2 branches missed.">                for (int i = Math.min(boardSize - 1, tmp.getRow() + distance); i &gt;= Math.max(0, tmp.getRow() - distance); i--) {</span>
+<span class="nc bnc" id="L505" title="All 2 branches missed.">                    for (int j = Math.min(boardSize - 1, tmp.getCol() + distance); j &gt;= Math.max(0, tmp.getCol() - distance); j--) {</span>
+<span class="nc bnc" id="L506" title="All 2 branches missed.">                        if (Character.toUpperCase(checkersBoard[i][j]) == Character.toUpperCase(typeB)) {</span>
+<span class="nc" id="L507">                            heuristicValueR = distance;</span>
+<span class="nc" id="L508">                            done = true;</span>
+<span class="nc" id="L509">                            break;</span>
+                        }
+                    }
+<span class="nc bnc" id="L512" title="All 2 branches missed.">                    if (done) {</span>
+<span class="nc" id="L513">                        break;</span>
+                    }
+                }
+            }
+<span class="nc" id="L517">        }</span>
+<span class="nc bnc" id="L518" title="All 2 branches missed.">        for (Chip tmp : typeBList) {</span>
+<span class="nc" id="L519">            int distance = boardSize - 1;</span>
+<span class="nc" id="L520">            boolean done = false;</span>
+<span class="nc bnc" id="L521" title="All 2 branches missed.">            if (tmp.isOnBoard()) {</span>
+<span class="nc bnc" id="L522" title="All 2 branches missed.">                for (int i = Math.min(boardSize - 1, tmp.getRow() + distance); i &gt;= Math.max(0, tmp.getRow() - distance); i--) {</span>
+<span class="nc bnc" id="L523" title="All 2 branches missed.">                    for (int j = Math.min(boardSize - 1, tmp.getCol() + distance); j &gt;= Math.max(0, tmp.getCol() - distance); j--) {</span>
+<span class="nc bnc" id="L524" title="All 2 branches missed.">                        if (Character.toUpperCase(checkersBoard[i][j]) == Character.toUpperCase(typeR)) {</span>
+<span class="nc" id="L525">                            heuristicValueB = distance;</span>
+<span class="nc" id="L526">                            done = true;</span>
+<span class="nc" id="L527">                            break;</span>
+                        }
+                    }
+<span class="nc bnc" id="L530" title="All 2 branches missed.">                    if (done) {</span>
+<span class="nc" id="L531">                        break;</span>
+                    }
+                }
+            }
+<span class="nc" id="L535">        }</span>
+
+<span class="nc" id="L537">        map.put(typeB, heuristicValueB);</span>
+<span class="nc" id="L538">        map.put(typeR, heuristicValueR);</span>
+<span class="nc" id="L539">        return map;</span>
+    }
+
+    public char getTypeR() {
+<span class="nc" id="L543">        return typeR;</span>
+    }
+
+    public char getTypeB() {
+<span class="nc" id="L547">        return typeB;</span>
+    }
+
+    public boolean isMoveableByType(char type, int sRow, int sCol, int dRow, int dCol) {
+<span class="nc bnc" id="L551" title="All 2 branches missed.">        if (Character.toLowerCase(checkersBoard[sRow][sCol]) == Character.toLowerCase(type)) {</span>
+<span class="nc" id="L552">            return isMoveable(sRow, sCol, dRow, dCol);</span>
+        }
+<span class="nc" id="L554">        return false;</span>
+    }
+
+    public boolean movePieceByType(char type, int sRow, int sCol, int dRow, int dCol) {
+<span class="nc bnc" id="L558" title="All 2 branches missed.">        if (isMoveableByType(type, sRow, sCol, dRow, dCol)) {</span>
+<span class="nc" id="L559">            return movePiece(sRow, sCol, dRow, dCol);</span>
+        }
+<span class="nc" id="L561">        return false;</span>
+    }
+
+    public boolean hasMoves(int row, int col) {
+<span class="nc bnc" id="L565" title="All 2 branches missed.">        if (isMoveable(row, col, row + 1, col + 1)) {</span>
+<span class="nc" id="L566">            return true;</span>
+        }
+<span class="nc bnc" id="L568" title="All 2 branches missed.">        if (isMoveable(row, col, row - 1, col + 1)) {</span>
+<span class="nc" id="L569">            return true;</span>
+        }
+<span class="nc bnc" id="L571" title="All 2 branches missed.">        if (isMoveable(row, col, row - 1, col - 1)) {</span>
+<span class="nc" id="L572">            return true;</span>
+        }
+<span class="nc bnc" id="L574" title="All 2 branches missed.">        if (isMoveable(row, col, row + 1, col - 1)) {</span>
+<span class="nc" id="L575">            return true;</span>
+        }
+<span class="nc bnc" id="L577" title="All 2 branches missed.">        if (isMoveable(row, col, row + 2, col + 2)) {</span>
+<span class="nc" id="L578">            return true;</span>
+        }
+<span class="nc bnc" id="L580" title="All 2 branches missed.">        if (isMoveable(row, col, row - 2, col + 2)) {</span>
+<span class="nc" id="L581">            return true;</span>
+        }
+<span class="nc bnc" id="L583" title="All 2 branches missed.">        if (isMoveable(row, col, row - 2, col - 2)) {</span>
+<span class="nc" id="L584">            return true;</span>
+        }
+<span class="nc bnc" id="L586" title="All 2 branches missed.">        if (isMoveable(row, col, row + 2, col - 2)) {</span>
+<span class="nc" id="L587">            return true;</span>
+        }
+<span class="nc" id="L589">        return false;</span>
+    }
+
+    public boolean hasMoves(char type) {
+<span class="nc bnc" id="L593" title="All 2 branches missed.">        for (int i = 0; i &lt; boardSize; i++) {</span>
+<span class="nc bnc" id="L594" title="All 2 branches missed.">            for (int j = 0; j &lt; boardSize; j++) {</span>
+<span class="nc bnc" id="L595" title="All 2 branches missed.">                if ((i + j) % 2 == 0) {</span>
+<span class="nc bnc" id="L596" title="All 2 branches missed.">                    if (Character.toLowerCase(checkersBoard[i][j]) == Character.toLowerCase(type)) {</span>
+<span class="nc bnc" id="L597" title="All 2 branches missed.">                        if (hasMoves(i, j)) {</span>
+<span class="nc" id="L598">                            return true;</span>
+                        }
+                    }
+                }
+            }
+        }
+<span class="nc" id="L604">        return false;</span>
+    }
+
+    public boolean move(int sRow, int sCol, int dRow, int dCol) {
+<span class="pc bpc" id="L608" title="1 of 2 branches missed.">        if (cutPiece(sRow, sCol, (dRow + sRow) / 2, (dCol + sCol) / 2)) {</span>
+<span class="nc" id="L609">            return true;</span>
+        }
+<span class="fc bfc" id="L611" title="All 2 branches covered.">        if (movePiece(sRow, sCol, dRow, dCol)) {</span>
+<span class="fc" id="L612">            return true;</span>
+        }
+<span class="fc" id="L614">        return false;</span>
+    }
+
+    public boolean hasCuts(int row, int col) {
+<span class="nc bnc" id="L618" title="All 2 branches missed.">        if (isMoveable(row, col, row + 2, col + 2)) {</span>
+<span class="nc" id="L619">            return true;</span>
+        }
+<span class="nc bnc" id="L621" title="All 2 branches missed.">        if (isMoveable(row, col, row - 2, col + 2)) {</span>
+<span class="nc" id="L622">            return true;</span>
+        }
+<span class="nc bnc" id="L624" title="All 2 branches missed.">        if (isMoveable(row, col, row - 2, col - 2)) {</span>
+<span class="nc" id="L625">            return true;</span>
+        }
+<span class="nc bnc" id="L627" title="All 2 branches missed.">        if (isMoveable(row, col, row + 2, col - 2)) {</span>
+<span class="nc" id="L628">            return true;</span>
+        }
+<span class="nc" id="L630">        return false;</span>
+    }
+    public boolean hasCuts(char[][] board, int row, int col) {
+<span class="nc bnc" id="L633" title="All 2 branches missed.">        if (canMove(board, row, col, row + 2, col + 2)) {</span>
+<span class="nc" id="L634">            return true;</span>
+        }
+<span class="nc bnc" id="L636" title="All 2 branches missed.">        if (canMove(board,row, col, row - 2, col + 2)) {</span>
+<span class="nc" id="L637">            return true;</span>
+        }
+<span class="nc bnc" id="L639" title="All 2 branches missed.">        if (canMove(board,row, col, row - 2, col - 2)) {</span>
+<span class="nc" id="L640">            return true;</span>
+        }
+<span class="nc bnc" id="L642" title="All 2 branches missed.">        if (canMove(board,row, col, row + 2, col - 2)) {</span>
+<span class="nc" id="L643">            return true;</span>
+        }
+<span class="nc" id="L645">        return false;</span>
+    }
+
+    public boolean hasMoreCuts(char type) {
+<span class="nc bnc" id="L649" title="All 2 branches missed.">        if(lastCutPieceRow!=-1){</span>
+<span class="nc" id="L650">            return hasCuts(lastCutPieceRow, lastCutPieceCol);</span>
+        }
+<span class="nc" id="L652">        return false;</span>
+    }
+    
+    public boolean cutPieceByType(char type,int attackerRow, int attackerCol, int victimRow, int victimCol){
+<span class="nc bnc" id="L656" title="All 2 branches missed.">        if(Character.toLowerCase(checkersBoard[attackerRow][attackerCol])== Character.toLowerCase(type)){</span>
+<span class="nc" id="L657">            return cutPiece(attackerRow, attackerCol, victimRow, victimCol);</span>
+        }
+<span class="nc" id="L659">        return false;</span>
+    }
+    
+    
+<span class="fc" id="L663">    char RKing = 'R';</span>
+<span class="fc" id="L664">    char BKing = 'B';</span>
+    
+    //the board should consist of 'r' and 'b' for normal and 'R' and 'B' for kings
+    boolean canMove(char[][] board, int sRow, int sCol, int dRow, int dCol )
+{
+<span class="nc bnc" id="L669" title="All 16 branches missed.">	if(sRow == dRow || sCol == dCol || dRow&lt;0 ||dRow&gt;7 ||dCol &lt;0 || dCol &gt;7 || Math.abs(sRow - dRow) &gt;2 || Math.abs(sCol - dCol) &gt;2 )</span>
+	{
+<span class="nc" id="L671">		return false;</span>
+	}
+
+<span class="nc bnc" id="L674" title="All 4 branches missed.">	if(Math.abs(sRow - dRow) ==1 &amp;&amp; Math.abs(sCol - dCol) == 1)</span>
+	{
+<span class="nc bnc" id="L676" title="All 2 branches missed.">		if(board[dRow][dCol] == empty)</span>
+		{
+<span class="nc bnc" id="L678" title="All 4 branches missed.">                    if(board[sRow][sCol] == RKing || board[sRow][sCol] == BKing)</span>
+                    {
+<span class="nc" id="L680">                        return true; // a non capture</span>
+                    }
+<span class="nc bnc" id="L682" title="All 4 branches missed.">                    if(board[sRow][sCol] == typeB &amp;&amp; sRow &gt; dRow)</span>
+                    {
+<span class="nc" id="L684">                        return true; // a non capture</span>
+                    }
+<span class="nc bnc" id="L686" title="All 4 branches missed.">                    if(board[sRow][sCol] == typeR &amp;&amp; sRow &lt; dRow )</span>
+                    {
+<span class="nc" id="L688">                        return true; // a non capture</span>
+                    }
+		}
+	}
+
+<span class="nc bnc" id="L693" title="All 4 branches missed.">	if(Math.abs(sRow - dRow) ==2 &amp;&amp; Math.abs(sCol - dCol) == 2)</span>
+        {
+<span class="nc bnc" id="L695" title="All 6 branches missed.">                if(board[dRow][dCol] == empty &amp;&amp; board[(sRow + dRow)/2][(sCol + dCol)/2] != empty &amp;&amp; Character.toLowerCase(board[sRow ][sCol]) != Character.toLowerCase(board[(sRow + dRow)/2][(sCol + dCol)/2]))</span>
+                {
+<span class="nc bnc" id="L697" title="All 4 branches missed.">                    if(board[sRow][sCol] == RKing || board[sRow][sCol] == BKing)</span>
+                    {
+<span class="nc" id="L699">                        return true; // a capture</span>
+                    }
+<span class="nc bnc" id="L701" title="All 4 branches missed.">                    if(board[sRow][sCol] == typeB &amp;&amp; sRow &gt; dRow)</span>
+                    {
+<span class="nc" id="L703">                        return true; // a capture</span>
+                    }
+<span class="nc bnc" id="L705" title="All 4 branches missed.">                    if(board[sRow][sCol] == typeR &amp;&amp; sRow &lt; dRow )</span>
+                    {
+<span class="nc" id="L707">                        return true; // a capture</span>
+                    }
+                        
+                }
+	}
+<span class="nc" id="L712">	return false;</span>
+}
+    public List&lt;int[]&gt; getAllCaptures(char[][] board, char colour, Chip predecessorOfMultiMove)
+    {
+<span class="nc" id="L716">        ArrayList&lt;int[]&gt; ret = new ArrayList&lt;int[]&gt;();</span>
+<span class="nc bnc" id="L717" title="All 2 branches missed.">        if(predecessorOfMultiMove == null)</span>
+        {
+<span class="nc bnc" id="L719" title="All 2 branches missed.">            for( int row=0; row&lt;8; row++)</span>
+            {
+<span class="nc bnc" id="L721" title="All 2 branches missed.">                for (int col=0; col&lt;8; col++)</span>
+                {
+<span class="nc bnc" id="L723" title="All 2 branches missed.">                    if(Character.toLowerCase(board[row][col])==Character.toLowerCase(colour))</span>
+                    {
+<span class="nc bnc" id="L725" title="All 2 branches missed.">                        if (canMove(board, row, col, row + 2, col + 2)) {</span>
+<span class="nc" id="L726">                            ret.add(new int[]{row, col, row + 2, col + 2});</span>
+                        }
+<span class="nc bnc" id="L728" title="All 2 branches missed.">                        if (canMove(board, row, col, row - 2, col + 2)) {</span>
+<span class="nc" id="L729">                            ret.add(new int[]{row, col, row - 2, col + 2});</span>
+                        }
+<span class="nc bnc" id="L731" title="All 2 branches missed.">                        if (canMove(board, row, col, row - 2, col - 2)) {</span>
+<span class="nc" id="L732">                            ret.add(new int[]{row, col, row - 2, col - 2});</span>
+                        }
+<span class="nc bnc" id="L734" title="All 2 branches missed.">                        if (canMove(board, row, col, row + 2, col - 2)) {</span>
+<span class="nc" id="L735">                            ret.add(new int[]{row, col, row + 2, col - 2});</span>
+                        }
+                    }
+                }
+            }
+        }
+        else
+        {
+<span class="nc" id="L743">            int row = predecessorOfMultiMove.getRow(), col =predecessorOfMultiMove.getCol();</span>
+<span class="nc bnc" id="L744" title="All 2 branches missed.">            if(Character.toLowerCase(board[row][col])==Character.toLowerCase(colour))</span>
+            {
+<span class="nc bnc" id="L746" title="All 2 branches missed.">                if (canMove(board, row, col, row + 2, col + 2)) {</span>
+<span class="nc" id="L747">                    ret.add(new int[]{row, col, row + 2, col + 2});</span>
+                }
+<span class="nc bnc" id="L749" title="All 2 branches missed.">                if (canMove(board, row, col, row - 2, col + 2)) {</span>
+<span class="nc" id="L750">                    ret.add(new int[]{row, col, row - 2, col + 2});</span>
+                }
+<span class="nc bnc" id="L752" title="All 2 branches missed.">                if (canMove(board, row, col, row - 2, col - 2)) {</span>
+<span class="nc" id="L753">                    ret.add(new int[]{row, col, row - 2, col - 2});</span>
+                }
+<span class="nc bnc" id="L755" title="All 2 branches missed.">                if (canMove(board, row, col, row + 2, col - 2)) {</span>
+<span class="nc" id="L756">                    ret.add(new int[]{row, col, row + 2, col - 2});</span>
+                }
+            }
+        }
+<span class="nc" id="L760">        return ret;</span>
+    }
+    
+    List&lt;int[]&gt; getAllNonCaptures(char[][] board, char colour)
+    {
+<span class="nc" id="L765">        ArrayList&lt;int[]&gt; ret = new ArrayList&lt;int[]&gt;();</span>
+<span class="nc bnc" id="L766" title="All 2 branches missed.">        for( int row=0; row&lt;8; row++)</span>
+        {
+<span class="nc bnc" id="L768" title="All 2 branches missed.">            for (int col=0; col&lt;8; col++)</span>
+            {
+<span class="nc bnc" id="L770" title="All 2 branches missed.">                if(Character.toLowerCase(board[row][col])==Character.toLowerCase(colour))</span>
+                {
+<span class="nc bnc" id="L772" title="All 2 branches missed.">                    if (canMove(board, row, col, row + 1, col + 1)) {</span>
+<span class="nc" id="L773">                        ret.add(new int[]{row, col, row + 1, col + 1});</span>
+                    }
+<span class="nc bnc" id="L775" title="All 2 branches missed.">                    if (canMove(board, row, col, row - 1, col + 1)) {</span>
+<span class="nc" id="L776">                        ret.add(new int[]{row, col, row - 1, col + 1});</span>
+                    }
+<span class="nc bnc" id="L778" title="All 2 branches missed.">                    if (canMove(board, row, col, row - 1, col - 1)) {</span>
+<span class="nc" id="L779">                        ret.add(new int[]{row, col, row - 1, col - 1});</span>
+                    }
+<span class="nc bnc" id="L781" title="All 2 branches missed.">                    if (canMove(board, row, col, row + 1, col - 1)) {</span>
+<span class="nc" id="L782">                        ret.add(new int[]{row, col, row + 1, col - 1});</span>
+                    }
+                }
+            }
+        }
+<span class="nc" id="L787">        return ret;</span>
+    }
+    
+public static char[][] cloneArray(char[][] src) {
+<span class="nc" id="L791">    int length = src.length;</span>
+<span class="nc" id="L792">    char[][] target = new char[length][src[0].length];</span>
+<span class="nc bnc" id="L793" title="All 2 branches missed.">    for (int i = 0; i &lt; length; i++) {</span>
+<span class="nc" id="L794">        System.arraycopy(src[i], 0, target[i], 0, src[i].length);</span>
+    }
+<span class="nc" id="L796">    return target;</span>
+}
+    int[] getMoveFromMinMax (char colour, Chip predecessorOfMultiMove)//assumed that there is at least one possible move
+{
+    /*char[][] currentBoard = new char[boardSize][boardSize];
+    for (int i = 0; i &lt; boardSize; i++) {
+            for (int j = 0; j &lt; boardSize; j++) {
+                if ((i + j) % 2 == 0) {
+                    currentBoard[i][j] = empty;    //EMPTY cell
+                } else {
+                    currentBoard[i][j] = invalid;
+                }
+            }
+        }
+    
+    for(Chip piece : typeBList)
+    {
+        if(piece.isOnBoard())
+        {
+            if(piece.isKing())
+            {
+                currentBoard[piece.getRow()][piece.getCol()] = 'B';
+            }
+            else
+            {
+                currentBoard[piece.getRow()][piece.getCol()] = 'b';
+            }
+        }
+    }
+    
+    for(Chip piece : typeRList)
+    {
+        if(piece.isOnBoard())
+        {
+            if(piece.isKing())
+            {
+                currentBoard[piece.getRow()][piece.getCol()] = 'R';
+            }
+            else
+            {
+                currentBoard[piece.getRow()][piece.getCol()] = 'r';
+            }
+        }
+    }*/
+<span class="nc" id="L840">    char[][] currentBoard = checkersBoard;</span>
+<span class="nc bnc" id="L841" title="All 2 branches missed.">    for (int i = 0; i &lt; boardSize; i++) {</span>
+<span class="nc bnc" id="L842" title="All 2 branches missed.">            for (int j = 0; j &lt; boardSize; j++) {</span>
+<span class="nc" id="L843">                System.out.print(currentBoard[i][j]);</span>
+            }
+<span class="nc" id="L845">            System.out.println();</span>
+        }
+<span class="nc" id="L847">    System.out.println();</span>
+    
+<span class="nc" id="L849">    List&lt;int[]&gt; possibleMoves = getAllCaptures(currentBoard, colour,predecessorOfMultiMove);</span>
+    int tmpMax;
+<span class="nc" id="L851">    int[] bestMove = null;</span>
+<span class="nc bnc" id="L852" title="All 2 branches missed.">	if(!possibleMoves.isEmpty())// check if there are possible captures</span>
+	{
+<span class="nc" id="L854">		tmpMax = Integer.MIN_VALUE;</span>
+
+<span class="nc bnc" id="L856" title="All 2 branches missed.">		for(int[] move : possibleMoves)</span>
+		{
+<span class="nc" id="L858">			Node node = new Node(1,cloneArray(currentBoard));</span>
+<span class="nc" id="L859">			node.makeMove(move);</span>
+<span class="nc bnc" id="L860" title="All 2 branches missed.">                        if(hasCuts(node.board, move[2], move[3]))</span>
+                        {
+//                            List&lt;int[]&gt; multiMoves = getAllCaptures(node.board, colour, new Chip(move[2], move[3]));
+//                            for(int[] multiMove : multiMoves)
+//                            {
+//                                node = new Node(1,cloneArray(currentBoard));
+//                                node.makeMove(multiMove);
+//                                int value = findValue(node, colour, true);
+//                                if( value &gt; tmpMax)
+//                                {
+//                                        tmpMax= value;
+//                                        bestMove = move;
+//                                } 
+//                            }
+//                            continue;
+<span class="nc" id="L875">                            return move;</span>
+                        }
+<span class="nc" id="L877">                        int value = findValue(node, colour, true);</span>
+<span class="nc bnc" id="L878" title="All 2 branches missed.">			if( value &gt; tmpMax)</span>
+			{
+<span class="nc" id="L880">				tmpMax= value;</span>
+<span class="nc" id="L881">				bestMove = move;</span>
+			}
+<span class="nc" id="L883">		}</span>
+<span class="nc" id="L884">		return bestMove;</span>
+	}
+
+<span class="nc" id="L887">	possibleMoves = getAllNonCaptures(currentBoard, colour);</span>
+<span class="nc" id="L888">	tmpMax = Integer.MIN_VALUE;</span>
+
+<span class="nc bnc" id="L890" title="All 2 branches missed.">	for(int[] move : possibleMoves)</span>
+	{
+<span class="nc" id="L892">		Node node = new Node(1,cloneArray(currentBoard));</span>
+<span class="nc" id="L893">                node.makeMove(move);</span>
+<span class="nc" id="L894">                int value = findValue(node, colour, true);</span>
+<span class="nc bnc" id="L895" title="All 2 branches missed.">                if( value &gt; tmpMax)</span>
+                {
+<span class="nc" id="L897">                        tmpMax= value;</span>
+<span class="nc" id="L898">                        bestMove = move;</span>
+                }
+<span class="nc" id="L900">	}</span>
+<span class="nc" id="L901">	return bestMove;</span>
+
+}
+    
+char invertColour(char colour)
+{
+<span class="nc bnc" id="L907" title="All 2 branches missed.">    return Character.toLowerCase(colour)=='r'?'b':'r';</span>
+}
+
+int findValue(Node node, char colour, boolean isMin)
+{
+<span class="nc bnc" id="L912" title="All 2 branches missed.">	if(node.depth == maxDepth)</span>
+	{
+<span class="nc" id="L914">		return calcHeuristic(node.board, colour);</span>
+	}
+	
+<span class="nc bnc" id="L917" title="All 2 branches missed.">        List&lt;int[]&gt; possibleMoves = getAllCaptures(node.board, (node.depth%2==1)?invertColour(colour):colour, null);</span>
+        int tmp;
+<span class="nc bnc" id="L919" title="All 4 branches missed.">	if(!possibleMoves.isEmpty() &amp;&amp; !isMin)// check if there are possible captures</span>
+	{
+<span class="nc" id="L921">		tmp = Integer.MIN_VALUE;</span>
+
+<span class="nc bnc" id="L923" title="All 2 branches missed.">		for(int[] move : possibleMoves)</span>
+		{
+<span class="nc" id="L925">			Node newNode = new Node(node.depth+1,cloneArray(node.board));</span>
+<span class="nc" id="L926">			newNode.makeMove(move);</span>
+<span class="nc bnc" id="L927" title="All 2 branches missed.">                        if(hasCuts(newNode.board, move[2], move[3]))</span>
+                        {
+<span class="nc" id="L929">                            return 1000;</span>
+                        }
+<span class="nc" id="L931">                        int value = findValue(newNode, colour, true);</span>
+<span class="nc bnc" id="L932" title="All 2 branches missed.">			if( value &gt; tmp)</span>
+			{
+<span class="nc" id="L934">				tmp= value;</span>
+			}
+<span class="nc" id="L936">		}</span>
+<span class="nc" id="L937">		return tmp;</span>
+	}
+        
+<span class="nc bnc" id="L940" title="All 4 branches missed.">	if(!possibleMoves.isEmpty() &amp;&amp; isMin)// check if there are possible captures</span>
+	{
+<span class="nc" id="L942">		tmp = Integer.MAX_VALUE;</span>
+
+<span class="nc bnc" id="L944" title="All 2 branches missed.">		for(int[] move : possibleMoves)</span>
+		{
+<span class="nc" id="L946">			Node newNode = new Node(node.depth+1,cloneArray(node.board));</span>
+<span class="nc" id="L947">			newNode.makeMove(move);</span>
+<span class="nc bnc" id="L948" title="All 2 branches missed.">                        if(hasCuts(newNode.board, move[2], move[3]))</span>
+                        {
+<span class="nc" id="L950">                            return -1000;</span>
+                        }
+<span class="nc" id="L952">                        int value = findValue(newNode, colour, false);</span>
+<span class="nc bnc" id="L953" title="All 2 branches missed.">			if( value &lt; tmp)</span>
+			{
+<span class="nc" id="L955">				tmp= value;</span>
+			}
+<span class="nc" id="L957">		}</span>
+<span class="nc" id="L958">		return tmp;</span>
+	}
+        
+<span class="nc bnc" id="L961" title="All 2 branches missed.">        possibleMoves = getAllNonCaptures(node.board, (node.depth%2==1)?invertColour(colour):colour);</span>
+        
+<span class="nc bnc" id="L963" title="All 4 branches missed.">	if(!possibleMoves.isEmpty() &amp;&amp; !isMin)// check if there are possible non captures</span>
+	{
+<span class="nc" id="L965">		tmp = Integer.MIN_VALUE;</span>
+
+<span class="nc bnc" id="L967" title="All 2 branches missed.">		for(int[] move : possibleMoves)</span>
+		{
+<span class="nc" id="L969">			Node newNode = new Node(node.depth+1,cloneArray(node.board));</span>
+<span class="nc" id="L970">			newNode.makeMove(move);</span>
+<span class="nc" id="L971">                        int value = findValue(newNode, colour, true);</span>
+<span class="nc bnc" id="L972" title="All 2 branches missed.">			if( value &gt; tmp)</span>
+			{
+<span class="nc" id="L974">				tmp= value;</span>
+			}
+<span class="nc" id="L976">		}</span>
+<span class="nc" id="L977">		return tmp;</span>
+	}
+        
+<span class="nc bnc" id="L980" title="All 4 branches missed.">	if(!possibleMoves.isEmpty() &amp;&amp; isMin)// check if there are possible non captures</span>
+	{
+<span class="nc" id="L982">		tmp = Integer.MAX_VALUE;</span>
+
+<span class="nc bnc" id="L984" title="All 2 branches missed.">		for(int[] move : possibleMoves)</span>
+		{
+<span class="nc" id="L986">			Node newNode = new Node(node.depth+1,cloneArray(node.board));</span>
+<span class="nc" id="L987">			newNode.makeMove(move);</span>
+<span class="nc" id="L988">                        int value = findValue(newNode, colour, false);</span>
+<span class="nc bnc" id="L989" title="All 2 branches missed.">			if( value &lt; tmp)</span>
+			{
+<span class="nc" id="L991">				tmp= value;</span>
+			}
+<span class="nc" id="L993">		}</span>
+<span class="nc" id="L994">		return tmp;</span>
+	}
+<span class="nc" id="L996">	return calcHeuristic(node.board, colour);// if the execution reaches this line. it means that the node is a leaf.</span>
+}
+
+
+int calcHeuristic(char[][] board, char colour)
+{
+    //return new Random().nextInt(100);
+    //if(pieceCount(typeR)&gt;4 || pieceCount(typeB)&gt;4){
+<span class="nc" id="L1004">        return HeuristicUtil.calcHeuristicValue(board, colour);</span>
+    //}
+    //return HeuristicUtil.calcHeuristicValueEnding(board, colour);
+    //return eval(board, colour);
+}
+
+final static int normal = 100;         //one checker worth 100
+final static int king=200;             //a King's worth
+final static int pos=1;                //one position along the -j worth 1
+final static int edge=10;               // effect of king being on the edge
+
+
+public int eval(char [][] board, char colour){
+<span class="nc" id="L1017">        int score=0;</span>
+
+<span class="nc bnc" id="L1019" title="All 2 branches missed.">        for(int i=0;i&lt;8;i++){</span>
+<span class="nc bnc" id="L1020" title="All 2 branches missed.">            for(int j=0;j&lt;8;j++){</span>
+<span class="nc bnc" id="L1021" title="All 2 branches missed.">	            if (board[i][j] == typeR)</span>
+                {
+<span class="nc" id="L1023">                      score-=normal;</span>
+<span class="nc" id="L1024">                      score-=pos*i*i;</span>
+                }
+
+<span class="nc bnc" id="L1027" title="All 2 branches missed.">                else if (board[i][j] ==RKing){</span>
+<span class="nc" id="L1028">                    score-=king;</span>
+<span class="nc bnc" id="L1029" title="All 4 branches missed.">                    if (i==0 || i==7)</span>
+<span class="nc" id="L1030">                        score += edge;</span>
+<span class="nc bnc" id="L1031" title="All 4 branches missed.">                    if (j==0 || j==7)</span>
+<span class="nc" id="L1032">                        score += edge;</span>
+                }
+
+<span class="nc bnc" id="L1035" title="All 2 branches missed.">                else if (board[i][j] == typeB)</span>
+                {
+<span class="nc" id="L1037">                      score+=normal;</span>
+<span class="nc" id="L1038">                      score+=pos*(7-i)*(7-i);</span>
+                }
+
+<span class="nc bnc" id="L1041" title="All 2 branches missed.">                else if (board[i][j] == BKing){</span>
+<span class="nc" id="L1042">                    score+=king;</span>
+<span class="nc bnc" id="L1043" title="All 4 branches missed.">                    if (i==0 || i==7)</span>
+<span class="nc" id="L1044">                        score -= edge;</span>
+<span class="nc bnc" id="L1045" title="All 4 branches missed.">                    if (j==0 || j==7)</span>
+<span class="nc" id="L1046">                        score -= edge;</span>
+                }
+            }
+        }
+        //score += (int)(Math.random() * 10);                    //Adds a random weight
+
+<span class="nc bnc" id="L1052" title="All 2 branches missed.">        if(Character.toLowerCase(colour)== typeR)</span>
+        {
+<span class="nc" id="L1054">            score*=-1;</span>
+        }
+<span class="nc" id="L1056">        return score;</span>
+    }
+
+    public void reset() {
+<span class="nc bnc" id="L1060" title="All 2 branches missed.">        for (int i = 0; i &lt; boardSize; i++) {</span>
+<span class="nc bnc" id="L1061" title="All 2 branches missed.">            for (int j = 0; j &lt; boardSize; j++) {</span>
+<span class="nc bnc" id="L1062" title="All 2 branches missed.">                if ((i + j) % 2 == 0) {</span>
+<span class="nc" id="L1063">                    checkersBoard[i][j] = empty;    //EMPTY cell</span>
+                } else {
+<span class="nc" id="L1065">                    checkersBoard[i][j] = invalid;</span>
+                }
+            }
+        }
+        
+<span class="nc" id="L1070">        typeBList.clear();</span>
+<span class="nc" id="L1071">        typeRList.clear();</span>
+        
+<span class="nc bnc" id="L1073" title="All 2 branches missed.">        for (int i = 0; i &lt; (boardSize / 2) - 1; i++) {</span>
+            int j;
+<span class="nc bnc" id="L1075" title="All 2 branches missed.">            if (i % 2 == 0) {</span>
+<span class="nc" id="L1076">                j = 0;</span>
+            } else {
+<span class="nc" id="L1078">                j = 1;</span>
+            }
+<span class="nc bnc" id="L1080" title="All 2 branches missed.">            while (j &lt; boardSize) {</span>
+<span class="nc" id="L1081">                checkersBoard[i][j] = typeR;    //RED piece</span>
+<span class="nc" id="L1082">                typeRList.add(new Chip(j, i));</span>
+<span class="nc" id="L1083">                j += 2;</span>
+            }
+        }
+<span class="nc bnc" id="L1086" title="All 2 branches missed.">        for (int i = boardSize - 1; i &gt;= (boardSize) / 2 + 1; i--) {</span>
+            int j;
+<span class="nc bnc" id="L1088" title="All 2 branches missed.">            if (i % 2 == 0) {</span>
+<span class="nc" id="L1089">                j = 0;</span>
+            } else {
+<span class="nc" id="L1091">                j = 1;</span>
+            }
+<span class="nc bnc" id="L1093" title="All 2 branches missed.">            while (j &lt; boardSize) {</span>
+<span class="nc" id="L1094">                checkersBoard[i][j] = typeB;     //BLACK piece</span>
+<span class="nc" id="L1095">                typeBList.add(new Chip(j, i));</span>
+<span class="nc" id="L1096">                j += 2;</span>
+            }
+        }
+<span class="nc" id="L1099">    }</span>
+}
+
+
+class Node
+{
+    int depth;
+    char[][] board;
+    
+    public Node(int dep, char[][] bord)
+<span class="nc" id="L1109">    {</span>
+<span class="nc" id="L1110">        depth = dep;</span>
+<span class="nc" id="L1111">        board =bord;</span>
+        
+<span class="nc" id="L1113">    }</span>
+    
+    void makeMove(int[] move)//move is assumed to be valid
+    {
+<span class="nc" id="L1117">        char tmp = board[move[0]][move[1]];</span>
+<span class="nc" id="L1118">        board[move[0]][move[1]] = '_';</span>
+<span class="nc" id="L1119">        board[move[2]][move[3]] = tmp;</span>
+<span class="nc bnc" id="L1120" title="All 2 branches missed.">        if(Math.abs(move[0]-move[2]) == 2)</span>
+        {
+<span class="nc" id="L1122">            board[(move[0]+move[2])/2][(move[1]+move[3])/2] = '_';</span>
+        }
+<span class="nc" id="L1124">    }</span>
+    
+   
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.4.201502262128</span></div></body></html>

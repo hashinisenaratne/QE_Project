@@ -1,0 +1,438 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../.resources/report.css" type="text/css"/><link rel="shortcut icon" href="../.resources/report.gif" type="image/gif"/><title>BoardPanel.java</title><link rel="stylesheet" href="../.resources/prettify.css" type="text/css"/><script type="text/javascript" src="../.resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../.sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">CheckersGame</a> &gt; <a href="index.source.html" class="el_package">com.checkers.View</a> &gt; <span class="el_source">BoardPanel.java</span></div><h1>BoardPanel.java</h1><pre class="source lang-java linenums">package com.checkers.View;
+import com.checkers.Logic.Chip;
+import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.Font;
+import java.awt.Graphics;
+import java.awt.Graphics2D;
+import java.awt.GridBagLayout;
+import java.awt.GridLayout;
+
+import java.awt.Image;
+import java.awt.Insets;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import javax.swing.BorderFactory;
+import javax.swing.ButtonGroup;
+
+import javax.swing.ImageIcon;
+import javax.swing.JButton;
+import javax.swing.JCheckBox;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+
+import javax.swing.JPanel;
+
+public final class BoardPanel extends JPanel {
+    
+    Image boardImg, blackchipImg, redchipImg, crownImg, welcomeImg;
+    public static int gameState;// 0-welcome, 1-playing
+    public static int playerColor; //0-black, 1-red
+    com.checkers.Logic.Chip[] blackchips;
+    com.checkers.Logic.Chip[] redchips;
+    int redMax, blackMax;
+    com.checkers.Logic.CheckerBoard checkersBoard;
+    private final JButton startButton, homeButton;
+    JCheckBox checkBoxBlack, checkBoxRed;
+    JLabel labelScoreB, labelScoreR, labelMovesB, labelMovesR, labelResults;
+    static JPanel boardPanel;
+<span class="nc" id="L43">    int selectRow=0,selectCol=0, moveRow=0,moveCol=0;</span>
+<span class="nc" id="L44">    boolean manual=true,select=false,move=false, blackWin=true;</span>
+<span class="nc" id="L45">    int scoreR=0, scoreB=0, movesR=0, movesB=0;</span>
+    
+<span class="nc" id="L47">    public BoardPanel(final com.checkers.Logic.CheckerBoard cb) {</span>
+        
+<span class="nc" id="L49">        boardPanel = this;</span>
+<span class="nc" id="L50">        gameState=0;</span>
+<span class="nc" id="L51">        playerColor=0;</span>
+<span class="nc" id="L52">        checkersBoard = cb;</span>
+<span class="nc" id="L53">        redMax = 12;</span>
+<span class="nc" id="L54">        blackMax = 12;</span>
+<span class="nc" id="L55">        ImageIcon welcomeIcon = new ImageIcon(this.getClass().getResource(&quot;../../../welcome.png&quot;));</span>
+<span class="nc" id="L56">        welcomeImg = welcomeIcon.getImage(); //background image for the welcome screen</span>
+<span class="nc" id="L57">        ImageIcon boardIcon = new ImageIcon(this.getClass().getResource(&quot;../../../board.png&quot;));</span>
+<span class="nc" id="L58">        boardImg = boardIcon.getImage();</span>
+<span class="nc" id="L59">        ImageIcon blackchipIcon = new ImageIcon(this.getClass().getResource(&quot;../../../blackchip.png&quot;));</span>
+<span class="nc" id="L60">        blackchipImg = blackchipIcon.getImage();</span>
+<span class="nc" id="L61">        ImageIcon redchipIcon = new ImageIcon(this.getClass().getResource(&quot;../../../redchip.png&quot;));</span>
+<span class="nc" id="L62">        redchipImg = redchipIcon.getImage();</span>
+<span class="nc" id="L63">        ImageIcon crownIcon = new ImageIcon(this.getClass().getResource(&quot;../../../crown.png&quot;));</span>
+<span class="nc" id="L64">        crownImg = crownIcon.getImage();</span>
+        
+<span class="nc" id="L66">        startButton = new JButton(&quot;&quot;); //button to start the game</span>
+<span class="nc" id="L67">        this.setLayout(null);</span>
+<span class="nc" id="L68">        startButton.setBounds(300, 510, 200, 60);</span>
+<span class="nc" id="L69">        startButton.setOpaque(false);</span>
+<span class="nc" id="L70">        startButton.setContentAreaFilled(false);</span>
+<span class="nc" id="L71">        startButton.setBorder(BorderFactory.createLineBorder(Color.BLACK));</span>
+<span class="nc" id="L72">        startButton.addActionListener(new ActionListener() {</span>
+            @Override
+            public void actionPerformed(ActionEvent e) {
+<span class="nc" id="L75">                BoardPanel.gameState = 1;</span>
+<span class="nc" id="L76">                BoardPanel.boardPanel.repaint();</span>
+<span class="nc" id="L77">            }</span>
+        });
+<span class="nc" id="L79">        this.add(startButton);</span>
+                   
+<span class="nc" id="L81">        homeButton= new JButton(&quot;&quot;);</span>
+<span class="nc" id="L82">        homeButton.setBounds(615, 530, 150, 50);</span>
+<span class="nc" id="L83">        homeButton.setContentAreaFilled(true);</span>
+<span class="nc" id="L84">        homeButton.setFont(new Font(&quot;Serif&quot;, Font.PLAIN, 25));</span>
+<span class="nc" id="L85">        homeButton.setForeground(Color.WHITE);</span>
+<span class="nc" id="L86">        homeButton.setBackground(Color.black);</span>
+<span class="nc" id="L87">        homeButton.setFocusPainted(false);</span>
+<span class="nc" id="L88">        homeButton.setText(&quot;Home&quot;);</span>
+<span class="nc" id="L89">        homeButton.addActionListener(new ActionListener() {</span>
+            @Override
+            public void actionPerformed(ActionEvent e) {
+<span class="nc" id="L92">                BoardPanel.gameState = 0;</span>
+<span class="nc" id="L93">                BoardPanel.boardPanel.repaint();</span>
+<span class="nc" id="L94">                cb.reset();</span>
+<span class="nc" id="L95">            }</span>
+        });
+<span class="nc" id="L97">        this.add(homeButton);        </span>
+        
+<span class="nc" id="L99">        checkBoxBlack = new JCheckBox(&quot;&quot;);</span>
+<span class="nc" id="L100">        checkBoxRed = new JCheckBox(&quot;&quot;);</span>
+<span class="nc" id="L101">        ButtonGroup bg = new ButtonGroup();</span>
+<span class="nc" id="L102">        bg.add(checkBoxBlack);</span>
+<span class="nc" id="L103">        bg.add(checkBoxRed);</span>
+                
+<span class="nc" id="L105">        checkBoxBlack.setBounds(330, 310, 100, 50);</span>
+<span class="nc" id="L106">        checkBoxRed.setBounds(330, 360, 100, 50);</span>
+<span class="nc" id="L107">        checkBoxBlack.setOpaque(true);</span>
+<span class="nc" id="L108">        checkBoxBlack.setContentAreaFilled(false);</span>
+<span class="nc" id="L109">        checkBoxRed.setOpaque(true);</span>
+<span class="nc" id="L110">        checkBoxRed.setContentAreaFilled(false);</span>
+<span class="nc" id="L111">        checkBoxBlack.setSelected(true);</span>
+        
+<span class="nc" id="L113">        checkBoxBlack.addItemListener(new ItemListener() {</span>
+            @Override
+            public void itemStateChanged(ItemEvent e) {
+<span class="nc bnc" id="L116" title="All 2 branches missed.">                if(checkBoxBlack.isSelected()){</span>
+<span class="nc" id="L117">                    playerColor=0;</span>
+<span class="nc" id="L118">                    manual = true;</span>
+                }
+<span class="nc" id="L120">            }</span>
+        });
+        
+<span class="nc" id="L123">        checkBoxRed.addItemListener(new ItemListener() {</span>
+            @Override
+            public void itemStateChanged(ItemEvent e) {
+<span class="nc bnc" id="L126" title="All 2 branches missed.">                if(checkBoxRed.isSelected())</span>
+<span class="nc" id="L127">                    playerColor=1;</span>
+<span class="nc" id="L128">                    manual = false;</span>
+<span class="nc" id="L129">            }</span>
+        });
+        
+<span class="nc" id="L132">        this.add(checkBoxBlack);</span>
+<span class="nc" id="L133">        this.add(checkBoxRed);</span>
+        
+<span class="nc" id="L135">        labelScoreB = new JLabel(Integer.toString(scoreB));</span>
+<span class="nc" id="L136">        labelScoreR = new JLabel(Integer.toString(scoreR));</span>
+<span class="nc" id="L137">        labelMovesB = new JLabel(Integer.toString(movesB));</span>
+<span class="nc" id="L138">        labelMovesR = new JLabel(Integer.toString(movesR));</span>
+<span class="nc" id="L139">        labelResults = new JLabel(&quot;&quot;);</span>
+<span class="nc" id="L140">        labelScoreB.setFont(new Font(&quot;Serif&quot;, Font.PLAIN, 30));</span>
+<span class="nc" id="L141">        labelScoreR.setFont(new Font(&quot;Serif&quot;, Font.PLAIN, 30));</span>
+<span class="nc" id="L142">        labelMovesB.setFont(new Font(&quot;Serif&quot;, Font.PLAIN, 30));</span>
+<span class="nc" id="L143">        labelMovesR.setFont(new Font(&quot;Serif&quot;, Font.PLAIN, 30));</span>
+<span class="nc" id="L144">        labelResults.setFont(new Font(&quot;Serif&quot;, Font.PLAIN, 25));</span>
+<span class="nc" id="L145">        labelScoreB.setForeground(Color.WHITE);</span>
+<span class="nc" id="L146">        labelScoreR.setForeground(Color.WHITE);</span>
+<span class="nc" id="L147">        labelMovesB.setForeground(Color.WHITE);</span>
+<span class="nc" id="L148">        labelMovesR.setForeground(Color.WHITE);</span>
+<span class="nc" id="L149">        labelResults.setForeground(Color.WHITE);</span>
+<span class="nc" id="L150">        labelScoreB.setBounds(620, 380, 200, 60);</span>
+<span class="nc" id="L151">        labelScoreR.setBounds(620, 100, 200, 60);</span>
+<span class="nc" id="L152">        labelMovesB.setBounds(720, 430, 200, 60);</span>
+<span class="nc" id="L153">        labelMovesR.setBounds(720, 150, 200, 60);</span>
+<span class="nc" id="L154">        labelResults.setBounds(635, 320, 200, 60);</span>
+<span class="nc" id="L155">        this.add(labelScoreB);</span>
+<span class="nc" id="L156">        this.add(labelScoreR);</span>
+<span class="nc" id="L157">        this.add(labelMovesB);</span>
+<span class="nc" id="L158">        this.add(labelMovesR);</span>
+<span class="nc" id="L159">        this.add(labelResults);</span>
+        
+<span class="nc" id="L161">        updateChipInfo();</span>
+        
+<span class="nc" id="L163">        this.addMouseListener (new MouseAdapter() {</span>
+            @Override
+            public void mouseClicked (MouseEvent e) {
+<span class="nc bnc" id="L166" title="All 10 branches missed.">                if(gameState==1 &amp;&amp; e.getY ()&gt;=20 &amp;&amp; e.getY ()&lt;=580 &amp;&amp; e.getX ()&gt;=20 &amp;&amp; e.getX ()&lt;=580){</span>
+<span class="nc bnc" id="L167" title="All 2 branches missed.">                    if(manual){</span>
+                        char type;
+<span class="nc bnc" id="L169" title="All 2 branches missed.">                        if(playerColor==0)</span>
+<span class="nc" id="L170">                            type='b';</span>
+                        else
+<span class="nc" id="L172">                            type='r';</span>
+<span class="nc bnc" id="L173" title="All 4 branches missed.">                        if(!select &amp;&amp; !move){</span>
+<span class="nc bnc" id="L174" title="All 2 branches missed.">                            if(cb.isUsed(type, row(e.getY ()), col(e.getX ()))){</span>
+<span class="nc" id="L175">                                selectRow= row(e.getY ());</span>
+<span class="nc" id="L176">                                selectCol= col(e.getX ());</span>
+<span class="nc" id="L177">                                select=true;</span>
+                            }
+                            else{
+<span class="nc" id="L180">                                JOptionPane.showMessageDialog(</span>
+<span class="nc bnc" id="L181" title="All 2 branches missed.">                                e.getComponent (), &quot;Select a chip of &quot;+(playerColor==0?&quot;Black&quot;:&quot;Red&quot;)+&quot; color&quot;);</span>
+                            }
+                        }
+<span class="nc bnc" id="L184" title="All 4 branches missed.">                        else if(select &amp;&amp; !move){</span>
+<span class="nc bnc" id="L185" title="All 4 branches missed.">                            if(row(e.getY ())== selectRow &amp;&amp; col(e.getX ())== selectCol){</span>
+<span class="nc" id="L186">                                select=false;</span>
+                            }
+<span class="nc bnc" id="L188" title="All 2 branches missed.">                            else if(!(cb.isUsed('r', row(e.getY ()), col(e.getX ()))) &amp;&amp;</span>
+<span class="nc bnc" id="L189" title="All 2 branches missed.">                                    !(cb.isUsed('b', row(e.getY ()), col(e.getX ()))) &amp;&amp;</span>
+<span class="nc bnc" id="L190" title="All 2 branches missed.">                                    !(cb.isUsed('#', row(e.getY ()), col(e.getX ())))){</span>
+<span class="nc" id="L191">                                moveRow= row(e.getY ());</span>
+<span class="nc" id="L192">                                moveCol= col(e.getX ());</span>
+<span class="nc" id="L193">                                move=true;</span>
+                            }
+                            else{
+<span class="nc" id="L196">                            JOptionPane.showMessageDialog(</span>
+<span class="nc" id="L197">                                e.getComponent (), &quot;Cell is occupied or invalid&quot;);</span>
+                            }
+                        }
+<span class="nc bnc" id="L200" title="All 8 branches missed.">                        else if(select &amp;&amp; move &amp;&amp; moveRow== row(e.getY ()) &amp;&amp; moveCol== col(e.getX ())){</span>
+<span class="nc bnc" id="L201" title="All 2 branches missed.">                            if(cb.isMoveable(selectRow,selectCol, moveRow, moveCol)){</span>
+<span class="nc bnc" id="L202" title="All 6 branches missed.">                                if((!cb.getAllCaptures(cb.checkersBoard, getPlayerColor(),null).isEmpty()&amp;&amp; Math.abs(selectRow-moveRow) == 2) || cb.getAllCaptures(cb.checkersBoard, getPlayerColor(), null).isEmpty())</span>
+                                {
+<span class="nc" id="L204">                                    cb.move(selectRow,selectCol, moveRow, moveCol);</span>
+<span class="nc bnc" id="L205" title="All 2 branches missed.">                                    if(getPlayerColor()=='B'){</span>
+<span class="nc" id="L206">                                        addMovesB();</span>
+                                    }
+<span class="nc bnc" id="L208" title="All 2 branches missed.">                                    else if(getPlayerColor()=='R'){</span>
+<span class="nc" id="L209">                                        addMovesR();</span>
+                                    }
+<span class="nc bnc" id="L211" title="All 2 branches missed.">                                    if(cb.hasMoreCuts(getPlayerColor())){</span>
+<span class="nc" id="L212">                                        manual=true;</span>
+                                    }else{
+<span class="nc" id="L214">                                        manual=false;</span>
+                                    }   
+                                }
+                            }
+                            else{
+<span class="nc" id="L219">                                JOptionPane.showMessageDialog(</span>
+<span class="nc" id="L220">                                e.getComponent (), &quot;Not a valid move&quot;);</span>
+                                //manual=false;
+                            }                            
+<span class="nc" id="L223">                            select = move = false;</span>
+                        }
+<span class="nc" id="L225">                        BoardPanel.boardPanel.repaint();</span>
+<span class="nc" id="L226">                    }</span>
+                    else{
+<span class="nc" id="L228">                    select=false;</span>
+<span class="nc" id="L229">                    move=false;</span>
+                    }
+                }
+                
+<span class="nc" id="L233">            }</span>
+        });
+        
+<span class="nc" id="L236">    }</span>
+    
+    public void paint(Graphics g) {
+<span class="nc" id="L239">        Graphics2D g2d = (Graphics2D) g;</span>
+        //if in the welcome mode
+<span class="nc bnc" id="L241" title="All 2 branches missed.">        if (gameState == 0) {</span>
+<span class="nc" id="L242">            g2d.drawImage(welcomeImg, 0, 0, null); //show the welcome screen</span>
+<span class="nc" id="L243">            startButton.setVisible(true);</span>
+<span class="nc" id="L244">            checkBoxBlack.setVisible(true);</span>
+<span class="nc" id="L245">            checkBoxRed.setVisible(true);</span>
+<span class="nc" id="L246">            labelMovesB.setVisible(false);</span>
+<span class="nc" id="L247">            labelMovesR.setVisible(false);</span>
+<span class="nc" id="L248">            labelScoreB.setVisible(false);</span>
+<span class="nc" id="L249">            labelScoreR.setVisible(false);</span>
+<span class="nc" id="L250">            labelResults.setVisible(false);</span>
+<span class="nc" id="L251">            labelResults.setText(&quot;&quot;);</span>
+<span class="nc" id="L252">            homeButton.setVisible(false);</span>
+        } else {
+<span class="nc" id="L254">            startButton.setVisible(false);</span>
+<span class="nc" id="L255">            checkBoxBlack.setVisible(false);</span>
+<span class="nc" id="L256">            checkBoxRed.setVisible(false);</span>
+<span class="nc" id="L257">            labelMovesB.setVisible(true);</span>
+<span class="nc" id="L258">            labelMovesR.setVisible(true);</span>
+<span class="nc" id="L259">            labelScoreB.setVisible(true);</span>
+<span class="nc" id="L260">            labelScoreR.setVisible(true);</span>
+<span class="nc" id="L261">            homeButton.setVisible(true);</span>
+<span class="nc" id="L262">            g2d.drawImage(boardImg, 0, 0, null);</span>
+<span class="nc" id="L263">            updateChipInfo();</span>
+            
+<span class="nc bnc" id="L265" title="All 2 branches missed.">            for (int i = 0; i &lt; redMax; i++) {</span>
+                //place red chips on the board
+<span class="nc" id="L267">                g2d.drawImage(redchipImg, pixelXPos(redchips[i].getCol()), pixelYPos(redchips[i].getRow()), null);</span>
+                //if the chip is a king, overlap with a crown
+<span class="nc bnc" id="L269" title="All 2 branches missed.">                if (redchips[i].isKing()) {</span>
+<span class="nc" id="L270">                    g2d.drawImage(crownImg, pixelXPos(redchips[i].getCol()), pixelYPos(redchips[i].getRow()), null);</span>
+                }
+            }
+            
+<span class="nc bnc" id="L274" title="All 2 branches missed.">            for (int i = 0; i &lt; blackMax; i++) {</span>
+                //place black chips on the board
+<span class="nc" id="L276">                g2d.drawImage(blackchipImg, pixelXPos(blackchips[i].getCol()), pixelYPos(blackchips[i].getRow()), null);</span>
+                //if the chip is a king, overlap with a crown
+<span class="nc bnc" id="L278" title="All 2 branches missed.">                if (blackchips[i].isKing()) {</span>
+<span class="nc" id="L279">                    g2d.drawImage(crownImg, pixelXPos(blackchips[i].getCol()), pixelYPos(blackchips[i].getRow()), null);</span>
+                }
+            }
+<span class="nc" id="L282">            g2d.setColor(Color.GREEN);</span>
+            
+<span class="nc bnc" id="L284" title="All 2 branches missed.">            if(select){</span>
+<span class="nc" id="L285">                g2d.drawLine(pixelXPos(selectCol), pixelYPos(selectRow),</span>
+<span class="nc" id="L286">                        pixelXPos(selectCol) + 70, pixelYPos(selectRow));</span>
+<span class="nc" id="L287">                g2d.drawLine(pixelXPos(selectCol), pixelYPos(selectRow) + 70,</span>
+<span class="nc" id="L288">                        pixelXPos(selectCol) + 70, pixelYPos(selectRow) + 70);</span>
+<span class="nc" id="L289">                g2d.drawLine(pixelXPos(selectCol), pixelYPos(selectRow),</span>
+<span class="nc" id="L290">                        pixelXPos(selectCol), pixelYPos(selectRow) + 70);</span>
+<span class="nc" id="L291">                g2d.drawLine(pixelXPos(selectCol) + 70, pixelYPos(selectRow),</span>
+<span class="nc" id="L292">                        pixelXPos(selectCol) + 70, pixelYPos(selectRow) + 70);</span>
+            }
+            
+<span class="nc bnc" id="L295" title="All 2 branches missed.">            if(move){</span>
+<span class="nc" id="L296">                g2d.drawLine(pixelXPos(moveCol), pixelYPos(moveRow), </span>
+<span class="nc" id="L297">                        pixelXPos(moveCol)+70, pixelYPos(moveRow));</span>
+<span class="nc" id="L298">                g2d.drawLine(pixelXPos(moveCol), pixelYPos(moveRow)+70, </span>
+<span class="nc" id="L299">                        pixelXPos(moveCol)+70, pixelYPos(moveRow)+70);</span>
+<span class="nc" id="L300">                g2d.drawLine(pixelXPos(moveCol), pixelYPos(moveRow), </span>
+<span class="nc" id="L301">                        pixelXPos(moveCol), pixelYPos(moveRow)+70);</span>
+<span class="nc" id="L302">                g2d.drawLine(pixelXPos(moveCol)+70, pixelYPos(moveRow), </span>
+<span class="nc" id="L303">                        pixelXPos(moveCol)+70, pixelYPos(moveRow)+70);</span>
+            }
+            
+<span class="nc" id="L306">            labelMovesB.setText(Integer.toString(movesB));</span>
+<span class="nc" id="L307">            labelMovesR.setText(Integer.toString(movesR));</span>
+<span class="nc" id="L308">            labelScoreB.setText(Integer.toString(getScoreB()));</span>
+<span class="nc" id="L309">            labelScoreR.setText(Integer.toString(getScoreR()));</span>
+            
+<span class="nc bnc" id="L311" title="All 2 branches missed.">            if(gameState==2){</span>
+<span class="nc" id="L312">                homeButton.setVisible(true);</span>
+<span class="nc bnc" id="L313" title="All 2 branches missed.">                if(getPlayerColor()=='B'){</span>
+<span class="nc bnc" id="L314" title="All 2 branches missed.">                    if(blackWin){</span>
+<span class="nc" id="L315">                        labelResults.setText(&quot;You Win&quot;);</span>
+                    }
+                    else{
+<span class="nc" id="L318">                        labelResults.setText(&quot;You Lose&quot;);</span>
+                    }                        
+                }
+<span class="nc bnc" id="L321" title="All 2 branches missed.">                else if(getPlayerColor()=='R'){</span>
+<span class="nc bnc" id="L322" title="All 2 branches missed.">                    if(!blackWin){</span>
+<span class="nc" id="L323">                        labelResults.setText(&quot;You Win&quot;);</span>
+                    }
+                    else{
+<span class="nc" id="L326">                        labelResults.setText(&quot;You Lose&quot;);</span>
+                    } 
+                }
+<span class="nc" id="L329">                labelResults.setVisible(true);                </span>
+            }
+            
+        }
+        
+<span class="nc" id="L334">        this.paintComponents(g);</span>
+<span class="nc" id="L335">    }</span>
+    
+    public int pixelXPos(int col) { // (col,row) left,top
+<span class="nc" id="L338">        return col*70 + 20;</span>
+        //return (row % 2 != 1) ? col * 140 + 20 : col * 140 + 90;
+    }
+    
+    public int pixelYPos(int row) { // (col,row) left,top
+<span class="nc" id="L343">        return row * 70 + 20;</span>
+    }
+    
+    public int col(int x){
+<span class="nc" id="L347">        return ((x-20)/70);</span>
+    }
+    
+    public int row(int y){
+<span class="nc" id="L351">        return ((y-20)/70);</span>
+    }
+    
+    public void updateChipInfo() {
+        com.checkers.Logic.Chip tmpChip;
+<span class="nc" id="L356">        redMax = 0;</span>
+<span class="nc" id="L357">        blackMax = 0;</span>
+<span class="nc" id="L358">        redchips = new com.checkers.Logic.Chip[12];</span>
+<span class="nc" id="L359">        blackchips = new com.checkers.Logic.Chip[12];</span>
+        
+<span class="nc bnc" id="L361" title="All 2 branches missed.">        for (int row = 0; row &lt; checkersBoard.getSize(); row++) {</span>
+<span class="nc bnc" id="L362" title="All 2 branches missed.">            for (int col = 0; col &lt; checkersBoard.getSize(); col++) {</span>
+<span class="nc" id="L363">                tmpChip = new com.checkers.Logic.Chip(col, row);</span>
+<span class="nc bnc" id="L364" title="All 2 branches missed.">                if (checkersBoard.isUsed('R', row, col)) {</span>
+<span class="nc" id="L365">                    tmpChip.setOnBoard(true);</span>
+<span class="nc bnc" id="L366" title="All 2 branches missed.">                    if (checkersBoard.isUsedByQueen('R', row, col)) {</span>
+<span class="nc" id="L367">                        tmpChip.setIsKing(true);</span>
+                    }
+<span class="nc" id="L369">                    redchips[redMax++] = tmpChip;</span>
+                }
+<span class="nc bnc" id="L371" title="All 2 branches missed.">                if (checkersBoard.isUsed('B', row, col)) {</span>
+<span class="nc" id="L372">                    tmpChip.setOnBoard(true);</span>
+<span class="nc bnc" id="L373" title="All 2 branches missed.">                    if (checkersBoard.isUsedByQueen('B', row, col)) {</span>
+<span class="nc" id="L374">                        tmpChip.setIsKing(true);</span>
+                    }
+<span class="nc" id="L376">                    blackchips[blackMax++] = tmpChip;</span>
+                }
+            }
+        }
+<span class="nc" id="L380">    }</span>
+
+    public static int getGameState() {
+<span class="nc" id="L383">        return gameState;</span>
+    }
+    
+    public void setGameState(int state){
+<span class="nc" id="L387">        gameState= state;</span>
+<span class="nc" id="L388">    }</span>
+
+    public static char getPlayerColor() {
+<span class="nc bnc" id="L391" title="All 2 branches missed.">        if(playerColor==0)</span>
+<span class="nc" id="L392">            return 'B';</span>
+<span class="nc bnc" id="L393" title="All 2 branches missed.">        if(playerColor==1)</span>
+<span class="nc" id="L394">            return 'R';</span>
+<span class="nc" id="L395">        return '_';</span>
+    }
+
+    public boolean isMoved() {
+<span class="nc bnc" id="L399" title="All 2 branches missed.">        if(!manual){            </span>
+<span class="nc" id="L400">            return true;</span>
+        }
+<span class="nc" id="L402">        return false;</span>
+    }
+    public void setManualMove(){
+<span class="nc" id="L405">        manual=true;</span>
+<span class="nc" id="L406">    }</span>
+    
+    public void addMovesB(){
+<span class="nc" id="L409">        movesB++;</span>
+<span class="nc" id="L410">    }</span>
+    
+    public void addMovesR(){
+<span class="nc" id="L413">        movesR++;</span>
+<span class="nc" id="L414">    }</span>
+    
+    public int getScoreB(){
+<span class="nc" id="L417">        int score=0;</span>
+<span class="nc bnc" id="L418" title="All 2 branches missed.">        for(Chip redchip: checkersBoard.getTypeRList()){</span>
+<span class="nc bnc" id="L419" title="All 2 branches missed.">            if (!redchip.isOnBoard()) {</span>
+<span class="nc" id="L420">                score++;</span>
+            }
+<span class="nc" id="L422">        }</span>
+<span class="nc" id="L423">        return score;</span>
+    }
+    public int getScoreR(){
+<span class="nc" id="L426">        int score=0;</span>
+<span class="nc bnc" id="L427" title="All 2 branches missed.">        for(Chip blackchip: checkersBoard.getTypeBList()){</span>
+<span class="nc bnc" id="L428" title="All 2 branches missed.">            if(!blackchip.isOnBoard())</span>
+<span class="nc" id="L429">                score++;</span>
+<span class="nc" id="L430">        }</span>
+<span class="nc" id="L431">        return score;</span>
+    }
+     
+    public void setWin(boolean bwin){
+<span class="nc" id="L435">        blackWin = bwin;</span>
+<span class="nc" id="L436">    }</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.4.201502262128</span></div></body></html>

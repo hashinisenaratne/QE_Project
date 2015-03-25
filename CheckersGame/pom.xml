@@ -24,43 +24,78 @@
 			<configuration>
 				<source>1.7</source>
 				<target>1.7</target>
+				<jvmarg value="-XX:-UseSplitVerifier"/>
 			</configuration>
 		</plugin>
-                <plugin>
-                    <groupId>org.codehaus.mojo</groupId>
-                    <artifactId>cobertura-maven-plugin</artifactId>
-                    <executions>
-                        <execution>
-                            <id>site</id>
-                            <phase>pre-site</phase>
-                            <goals>
-                                <goal>clean</goal>
-                            </goals>
-                        </execution>
-                        <execution>
-                            <id>instrument</id>
-                            <phase>site</phase>
-                            <goals>
-                                <goal>cobertura</goal>
-                            </goals>
-                        </execution>
-                    </executions>
-                    <configuration>
-                        <formats>
-                            <format>html</format>
-                            <format>xml</format>
-                        </formats>
-                    </configuration>
-                </plugin>   
+		<plugin>
+			  <groupId>org.jacoco</groupId>
+			  <artifactId>jacoco-maven-plugin</artifactId>
+			  <version>0.7.4.201502262128</version>
+			  <executions>
+				  <execution>
+					<id>jacoco-initialize</id>
+					<phase>initialize</phase> 
+					<goals>
+					  <goal>prepare-agent</goal>
+					</goals>
+				  </execution>
+				  <execution>
+					<id>jacoco-site</id>
+					<phase>package</phase>
+					<goals>
+					  <goal>report</goal>
+					</goals>
+				  </execution>
+			</executions>
+		</plugin>
+                <!--<plugin>
+                        <groupId>org.codehaus.mojo</groupId>
+                        <artifactId>cobertura-maven-plugin</artifactId>
+                        <version>2.5.1</version>
+                        <configuration>
+                            <formats>
+                                <format>html</format>
+                                <format>xml</format>
+                            </formats>
+                            <instrumentation>
+                                <includes>
+                                    <include>**/*Test.class</include>
+                                </includes>
+                            </instrumentation>
+                        </configuration>
+                        <executions>
+                            <execution>
+                                <id>clean</id>
+                                <phase>pre-site</phase>
+                                <goals>
+                                    <goal>clean</goal>
+                                </goals>
+                            </execution>
+                            <execution>
+                                <id>instrument</id>
+                                <phase>site</phase>
+                                <goals>
+                                    <goal>instrument</goal>
+                                </goals>
+                            </execution>
+							<execution>
+                                <id>cobertura</id>
+                                <phase>site</phase>
+                                <goals>
+                                    <goal>cobertura</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>-->
 	</plugins>
   </build>
     <reporting>
-        <plugins>
+        <!--<plugins>
             <plugin>
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>cobertura-maven-plugin</artifactId>
                 <version>2.5</version>
             </plugin>
-        </plugins>
+        </plugins>-->
     </reporting>
 </project>

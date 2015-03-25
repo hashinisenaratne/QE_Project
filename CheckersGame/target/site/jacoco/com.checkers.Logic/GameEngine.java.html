@@ -1,0 +1,223 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../.resources/report.css" type="text/css"/><link rel="shortcut icon" href="../.resources/report.gif" type="image/gif"/><title>GameEngine.java</title><link rel="stylesheet" href="../.resources/prettify.css" type="text/css"/><script type="text/javascript" src="../.resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../.sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">CheckersGame</a> &gt; <a href="index.source.html" class="el_package">com.checkers.Logic</a> &gt; <span class="el_source">GameEngine.java</span></div><h1>GameEngine.java</h1><pre class="source lang-java linenums">/*
+ * To change this template, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package com.checkers.Logic;
+
+import com.checkers.View.CheckersFrame;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.sound.midi.Soundbank;
+
+/**
+ *
+ * @author user
+ */
+public class GameEngine {
+
+    private final CheckerBoard cb;
+    private com.checkers.View.CheckersFrame checkersFrame;
+    private char manualColour;
+    private int gameState;
+
+<span class="nc" id="L23">    public GameEngine() {</span>
+<span class="nc" id="L24">        cb = new CheckerBoard(8);</span>
+<span class="nc" id="L25">        checkersFrame = new CheckersFrame(cb);</span>
+<span class="nc" id="L26">        gameState = 0;</span>
+<span class="nc" id="L27">        process();</span>
+
+        
+
+//        redrawGUI();
+//
+//        cb.movePiece(2, 0, 3, 1);
+//
+//        redrawGUI();
+//
+//        cb.movePiece(5, 1, 4, 2);
+//
+//        redrawGUI();
+//
+//        cb.movePiece(2, 2, 3, 3);
+//
+//        redrawGUI();
+//
+//        if (cb.cutPiece(4, 2, 3, 1)) {
+//            System.out.println(&quot;done&quot;);
+//        } else {
+//            System.out.println(&quot;false&quot;);
+//        }
+//
+//        redrawGUI();
+//
+//        cb.movePiece(1, 1, 2, 2);
+//
+//        redrawGUI();
+//
+//        cb.movePiece(5, 7, 4, 6);
+//
+//        redrawGUI();
+//
+//        cb.movePiece(0, 2, 1, 1);
+//
+//        redrawGUI();
+//
+//        cb.cutPiece(2, 0, 1, 1);
+//
+//        redrawGUI();
+//
+//        cb.movePiece(0, 0, 1, 1);
+//
+//        redrawGUI();
+//
+//        cb.cutPiece(0, 2, 1, 1);
+//
+//        redrawGUI();
+<span class="nc" id="L76">    }</span>
+
+    public void redrawGUI() {
+        try {
+<span class="nc" id="L80">            checkersFrame.updateFrame();</span>
+<span class="nc" id="L81">            cb.printBoard();</span>
+<span class="nc" id="L82">            System.out.println(&quot;R&quot; + cb.pieceCount('R') + &quot; B&quot; + cb.pieceCount('B'));</span>
+<span class="nc" id="L83">            System.out.println(&quot;R&quot; + cb.calcHeuristicValue('R') + &quot; B&quot; + cb.calcHeuristicValue('B'));</span>
+<span class="nc" id="L84">            Thread.sleep(2000);</span>
+<span class="nc" id="L85">        } catch (InterruptedException ex) {</span>
+<span class="nc" id="L86">            Logger.getLogger(GameEngine.class.getName()).log(Level.SEVERE, null, ex);</span>
+<span class="nc" id="L87">        }</span>
+<span class="nc" id="L88">    }</span>
+
+    public void waitUntilGamestated() {
+<span class="nc bnc" id="L91" title="All 2 branches missed.">        while (checkersFrame.getGameState() &lt; 1) {</span>
+<span class="nc" id="L92">            Thread.yield();</span>
+        }
+<span class="nc" id="L94">        manualColour = checkersFrame.getPlayerColor();</span>
+<span class="nc" id="L95">        cb.reset();</span>
+<span class="nc" id="L96">        gameState = 1;</span>
+<span class="nc" id="L97">    }</span>
+
+    public void process() {
+<span class="nc" id="L100">        waitUntilGamestated();</span>
+<span class="nc bnc" id="L101" title="All 2 branches missed.">        while (gameState != 2) {</span>
+<span class="nc bnc" id="L102" title="All 2 branches missed.">            if(checkersFrame.getGameState() &lt; 1){</span>
+<span class="nc" id="L103">                break;</span>
+            }
+<span class="nc bnc" id="L105" title="All 2 branches missed.">            if(Character.toLowerCase(manualColour)!=cb.getTypeB()){ //manual color is red</span>
+<span class="nc bnc" id="L106" title="All 2 branches missed.">                if(!cb.hasMoves(cb.getTypeB())){</span>
+<span class="nc" id="L107">                    checkersFrame.setWin(false);</span>
+<span class="nc" id="L108">                    System.out.println(&quot;Red Wins&quot;);</span>
+<span class="nc" id="L109">                    gameState=2;</span>
+<span class="nc" id="L110">                    checkersFrame.setGameState(2);</span>
+<span class="nc" id="L111">                    break;</span>
+                }
+                else{
+<span class="nc" id="L114">                    takeMove(cb.getTypeB());</span>
+<span class="nc" id="L115">                    redrawGUI();</span>
+                }
+<span class="nc bnc" id="L117" title="All 2 branches missed.">                if(!cb.hasMoves(cb.getTypeR())){</span>
+<span class="nc" id="L118">                    checkersFrame.setWin(true);</span>
+<span class="nc" id="L119">                    System.out.println(&quot;Black Wins&quot;);</span>
+<span class="nc" id="L120">                    gameState=2;</span>
+<span class="nc" id="L121">                    checkersFrame.setGameState(2);</span>
+<span class="nc" id="L122">                    break;</span>
+                }
+                else{                    
+<span class="nc" id="L125">                    checkersFrame.setManualMove();</span>
+<span class="nc" id="L126">                    waitForUserMove();</span>
+                }
+            }
+            
+<span class="nc bnc" id="L130" title="All 2 branches missed.">            if(Character.toLowerCase(manualColour)!=cb.getTypeR()){ //manual color is black</span>
+<span class="nc bnc" id="L131" title="All 2 branches missed.">                if(!cb.hasMoves(cb.getTypeB())){</span>
+<span class="nc" id="L132">                    checkersFrame.setWin(false);</span>
+<span class="nc" id="L133">                    System.out.println(&quot;Red Wins&quot;);</span>
+<span class="nc" id="L134">                    gameState=2;</span>
+<span class="nc" id="L135">                    checkersFrame.setGameState(2);</span>
+<span class="nc" id="L136">                    break;</span>
+                }
+                else{                    
+<span class="nc" id="L139">                    checkersFrame.setManualMove();</span>
+<span class="nc" id="L140">                    waitForUserMove();</span>
+                }
+<span class="nc bnc" id="L142" title="All 2 branches missed.">                if(!cb.hasMoves(cb.getTypeR())){</span>
+<span class="nc" id="L143">                    checkersFrame.setWin(true);</span>
+<span class="nc" id="L144">                    System.out.println(&quot;Black Wins&quot;);</span>
+<span class="nc" id="L145">                    gameState=2;                    </span>
+<span class="nc" id="L146">                    checkersFrame.setGameState(2);</span>
+<span class="nc" id="L147">                    break;</span>
+                }
+                else{
+<span class="nc" id="L150">                    takeMove(cb.getTypeR());</span>
+<span class="nc" id="L151">                    redrawGUI();</span>
+                }
+            }
+        }
+<span class="nc" id="L155">        redrawGUI();             </span>
+<span class="nc" id="L156">        gameState = 0;</span>
+<span class="nc" id="L157">        process();</span>
+
+<span class="nc" id="L159">    }</span>
+
+    public void takeMove(char type) {
+//        int sR, sC, eR, eC;
+//        do {
+//            sR = (int) ((Math.random() * 10) % 8);
+//            sC = (int) ((Math.random() * 10) % 8);
+//            eR = sR +(int) Math.pow(-1,(int)(Math.random() * 100));
+//            eC = sC+(int) Math.pow(-1,(int)(Math.random() * 100));
+//            //System.out.println(&quot;nomove&quot; + sR + &quot;,&quot; + sC + &quot;,&quot; + eR + &quot;,&quot; + eC);
+//            if(cb.cutPieceByType(type,sR, sC, eR, eC)){
+//                break;
+//            }
+//        } while (!cb.movePieceByType(type,sR, sC, eR, eC));// || !cb.cutPiece(sR, sC, eR, eC));
+        
+<span class="nc" id="L174">        boolean isCut = false;</span>
+<span class="nc bnc" id="L175" title="All 2 branches missed.">        if(!cb.getAllCaptures(cb.checkersBoard, type, null).isEmpty())</span>
+        {
+<span class="nc" id="L177">            isCut=true;</span>
+        }
+<span class="nc" id="L179">        int[] move = cb.getMoveFromMinMax(type,null);</span>
+<span class="nc bnc" id="L180" title="All 2 branches missed.">        if(!cb.cutPieceByType(type,move[0], move[1], (move[0]+move[2])/2, (move[1]+move[3])/2))</span>
+        {
+<span class="nc" id="L182">            cb.movePieceByType(type,move[0], move[1], move[2], move[3]);</span>
+        }
+        
+<span class="nc bnc" id="L185" title="All 2 branches missed.">        if(checkersFrame.getPlayerColor()=='B'){</span>
+<span class="nc" id="L186">            checkersFrame.addMovesR();</span>
+        }
+<span class="nc bnc" id="L188" title="All 2 branches missed.">        else if(checkersFrame.getPlayerColor()=='R'){</span>
+<span class="nc" id="L189">            checkersFrame.addMovesB();</span>
+        }        
+<span class="nc" id="L191">        Thread.yield();</span>
+<span class="nc bnc" id="L192" title="All 2 branches missed.">        if(isCut)</span>
+        {
+            //while(cb.hasCuts(cb.checkersBoard,move[2], move[3]))
+<span class="nc bnc" id="L195" title="All 2 branches missed.">            while(!cb.getAllCaptures(cb.checkersBoard, type, new Chip(move[2], move[3])).isEmpty())</span>
+            {
+<span class="nc" id="L197">                move = cb.getMoveFromMinMax(type,new Chip(move[2], move[3]));</span>
+<span class="nc bnc" id="L198" title="All 2 branches missed.">                if(!cb.cutPieceByType(type,move[0], move[1], (move[0]+move[2])/2, (move[1]+move[3])/2))</span>
+                {
+<span class="nc" id="L200">                    cb.movePieceByType(type,move[0], move[1], move[2], move[3]);</span>
+                }
+
+<span class="nc bnc" id="L203" title="All 2 branches missed.">                if(checkersFrame.getPlayerColor()=='B'){</span>
+<span class="nc" id="L204">                    checkersFrame.addMovesR();</span>
+                }
+<span class="nc bnc" id="L206" title="All 2 branches missed.">                else if(checkersFrame.getPlayerColor()=='R'){</span>
+<span class="nc" id="L207">                    checkersFrame.addMovesB();</span>
+                }
+<span class="nc" id="L209">                Thread.yield();</span>
+            }
+        }
+        //System.out.println(&quot;move&quot; + sR + &quot;,&quot; + sC + &quot;,&quot; + eR + &quot;,&quot; + eC);
+<span class="nc" id="L213">    }</span>
+    public void waitForUserMove(){
+<span class="nc bnc" id="L215" title="All 2 branches missed.">        while(!checkersFrame.isUserMoved()){</span>
+<span class="nc" id="L216">            Thread.yield();</span>
+<span class="nc bnc" id="L217" title="All 2 branches missed.">            if(checkersFrame.getGameState() &lt; 1){</span>
+<span class="nc" id="L218">                break;</span>
+            }
+        }
+<span class="nc" id="L221">    }</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.4.201502262128</span></div></body></html>
