@@ -177,24 +177,24 @@ public final class BoardPanel extends JPanel {
 <span class="nc" id="L177">                                select=true;</span>
                             }
                             else{
-<span class="nc" id="L180">                                JOptionPane.showMessageDialog(</span>
-<span class="nc bnc" id="L181" title="All 2 branches missed.">                                e.getComponent (), &quot;Select a chip of &quot;+(playerColor==0?&quot;Black&quot;:&quot;Red&quot;)+&quot; color&quot;);</span>
+<span class="nc bnc" id="L180" title="All 2 branches missed.">                                JOptionPane.showMessageDialog(</span>
+                                e.getComponent (), &quot;Select a chip of &quot;+(playerColor==0?&quot;Black&quot;:&quot;Red&quot;)+&quot; color&quot;);
                             }
                         }
 <span class="nc bnc" id="L184" title="All 4 branches missed.">                        else if(select &amp;&amp; !move){</span>
 <span class="nc bnc" id="L185" title="All 4 branches missed.">                            if(row(e.getY ())== selectRow &amp;&amp; col(e.getX ())== selectCol){</span>
 <span class="nc" id="L186">                                select=false;</span>
                             }
-<span class="nc bnc" id="L188" title="All 2 branches missed.">                            else if(!(cb.isUsed('r', row(e.getY ()), col(e.getX ()))) &amp;&amp;</span>
-<span class="nc bnc" id="L189" title="All 2 branches missed.">                                    !(cb.isUsed('b', row(e.getY ()), col(e.getX ()))) &amp;&amp;</span>
-<span class="nc bnc" id="L190" title="All 2 branches missed.">                                    !(cb.isUsed('#', row(e.getY ()), col(e.getX ())))){</span>
+<span class="nc bnc" id="L188" title="All 6 branches missed.">                            else if(!(cb.isUsed('r', row(e.getY ()), col(e.getX ()))) &amp;&amp;</span>
+                                    !(cb.isUsed('b', row(e.getY ()), col(e.getX ()))) &amp;&amp;
+                                    !(cb.isUsed('#', row(e.getY ()), col(e.getX ())))){
 <span class="nc" id="L191">                                moveRow= row(e.getY ());</span>
 <span class="nc" id="L192">                                moveCol= col(e.getX ());</span>
 <span class="nc" id="L193">                                move=true;</span>
                             }
                             else{
 <span class="nc" id="L196">                            JOptionPane.showMessageDialog(</span>
-<span class="nc" id="L197">                                e.getComponent (), &quot;Cell is occupied or invalid&quot;);</span>
+                                e.getComponent (), &quot;Cell is occupied or invalid&quot;);
                             }
                         }
 <span class="nc bnc" id="L200" title="All 8 branches missed.">                        else if(select &amp;&amp; move &amp;&amp; moveRow== row(e.getY ()) &amp;&amp; moveCol== col(e.getX ())){</span>
@@ -217,7 +217,7 @@ public final class BoardPanel extends JPanel {
                             }
                             else{
 <span class="nc" id="L219">                                JOptionPane.showMessageDialog(</span>
-<span class="nc" id="L220">                                e.getComponent (), &quot;Not a valid move&quot;);</span>
+                                e.getComponent (), &quot;Not a valid move&quot;);
                                 //manual=false;
                             }                            
 <span class="nc" id="L223">                            select = move = false;</span>
@@ -283,24 +283,24 @@ public final class BoardPanel extends JPanel {
             
 <span class="nc bnc" id="L284" title="All 2 branches missed.">            if(select){</span>
 <span class="nc" id="L285">                g2d.drawLine(pixelXPos(selectCol), pixelYPos(selectRow),</span>
-<span class="nc" id="L286">                        pixelXPos(selectCol) + 70, pixelYPos(selectRow));</span>
+                        pixelXPos(selectCol) + 70, pixelYPos(selectRow));
 <span class="nc" id="L287">                g2d.drawLine(pixelXPos(selectCol), pixelYPos(selectRow) + 70,</span>
-<span class="nc" id="L288">                        pixelXPos(selectCol) + 70, pixelYPos(selectRow) + 70);</span>
+                        pixelXPos(selectCol) + 70, pixelYPos(selectRow) + 70);
 <span class="nc" id="L289">                g2d.drawLine(pixelXPos(selectCol), pixelYPos(selectRow),</span>
-<span class="nc" id="L290">                        pixelXPos(selectCol), pixelYPos(selectRow) + 70);</span>
+                        pixelXPos(selectCol), pixelYPos(selectRow) + 70);
 <span class="nc" id="L291">                g2d.drawLine(pixelXPos(selectCol) + 70, pixelYPos(selectRow),</span>
-<span class="nc" id="L292">                        pixelXPos(selectCol) + 70, pixelYPos(selectRow) + 70);</span>
+                        pixelXPos(selectCol) + 70, pixelYPos(selectRow) + 70);
             }
             
 <span class="nc bnc" id="L295" title="All 2 branches missed.">            if(move){</span>
 <span class="nc" id="L296">                g2d.drawLine(pixelXPos(moveCol), pixelYPos(moveRow), </span>
-<span class="nc" id="L297">                        pixelXPos(moveCol)+70, pixelYPos(moveRow));</span>
+                        pixelXPos(moveCol)+70, pixelYPos(moveRow));
 <span class="nc" id="L298">                g2d.drawLine(pixelXPos(moveCol), pixelYPos(moveRow)+70, </span>
-<span class="nc" id="L299">                        pixelXPos(moveCol)+70, pixelYPos(moveRow)+70);</span>
+                        pixelXPos(moveCol)+70, pixelYPos(moveRow)+70);
 <span class="nc" id="L300">                g2d.drawLine(pixelXPos(moveCol), pixelYPos(moveRow), </span>
-<span class="nc" id="L301">                        pixelXPos(moveCol), pixelYPos(moveRow)+70);</span>
+                        pixelXPos(moveCol), pixelYPos(moveRow)+70);
 <span class="nc" id="L302">                g2d.drawLine(pixelXPos(moveCol)+70, pixelYPos(moveRow), </span>
-<span class="nc" id="L303">                        pixelXPos(moveCol)+70, pixelYPos(moveRow)+70);</span>
+                        pixelXPos(moveCol)+70, pixelYPos(moveRow)+70);
             }
             
 <span class="nc" id="L306">            labelMovesB.setText(Integer.toString(movesB));</span>

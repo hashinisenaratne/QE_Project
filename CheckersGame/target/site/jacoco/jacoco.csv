@@ -1,14 +1,14 @@
 GROUP,PACKAGE,CLASS,INSTRUCTION_MISSED,INSTRUCTION_COVERED,BRANCH_MISSED,BRANCH_COVERED,LINE_MISSED,LINE_COVERED,COMPLEXITY_MISSED,COMPLEXITY_COVERED,METHOD_MISSED,METHOD_COVERED
-CheckersGame,com.checkers.Logic,HeuristicUtil,921,0,138,0,176,0,84,0,15,0
-CheckersGame,com.checkers.Logic,CheckerBoard,3173,445,439,63,483,82,266,26,35,6
-CheckersGame,com.checkers.Logic,GameEngine,441,0,40,0,90,0,26,0,6,0
+CheckersGame,com.checkers.Logic,CheckerBoard,2763,931,372,130,433,148,241,61,35,16
 CheckersGame,com.checkers.Logic,Node,76,0,2,0,10,0,3,0,2,0
+CheckersGame,com.checkers.Logic,HeuristicUtil,921,0,138,0,176,0,84,0,15,0
+CheckersGame,com.checkers.Logic,Chip,10,52,0,4,4,18,3,9,3,7
 CheckersGame,com.checkers.Logic,ISProject,8,0,0,0,3,0,2,0,2,0
-CheckersGame,com.checkers.Logic,Chip,14,48,0,4,6,16,4,8,4,6
+CheckersGame,com.checkers.Logic,GameEngine,441,0,40,0,90,0,26,0,6,0
+CheckersGame,com.checkers.View,BoardPanel,1135,0,50,0,194,0,42,0,17,0
 CheckersGame,com.checkers.View,BoardPanel.new ActionListener() {...},11,0,0,0,4,0,2,0,2,0
 CheckersGame,com.checkers.View,BoardPanel.new ActionListener() {...},17,0,0,0,5,0,2,0,2,0
 CheckersGame,com.checkers.View,BoardPanel.new ItemListener() {...},18,0,2,0,5,0,3,0,2,0
 CheckersGame,com.checkers.View,BoardPanel.new ItemListener() {...},18,0,2,0,5,0,3,0,2,0
-CheckersGame,com.checkers.View,BoardPanel.new MouseAdapter() {...},343,0,58,0,43,0,31,0,2,0
-CheckersGame,com.checkers.View,BoardPanel,1135,0,50,0,202,0,42,0,17,0
+CheckersGame,com.checkers.View,BoardPanel.new MouseAdapter() {...},343,0,58,0,38,0,31,0,2,0
 CheckersGame,com.checkers.View,CheckersFrame,70,0,0,0,26,0,10,0,10,0
