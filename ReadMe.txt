@@ -1,2 +1,1 @@
-Developing a good test suite for an existing software.
-Developing a continuous integration system for the software.
+The purpose of this project is to develop a complete test suite for the "Checkers" project and add continuous integration

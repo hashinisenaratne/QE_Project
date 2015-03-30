@@ -1,9 +1,5 @@
-package com.checkers.Logic;
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 
+import Logic.CheckerBoard;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -15,12 +11,16 @@ import static org.junit.Assert.*;
  *
  * @author Dinu
  */
-public class CheckerBoardTwoTest {
+public class CheckerBoardTest2 {
 
     private char[][] customCheckersBoardInstance;
     private CheckerBoard boardforTest;
+    char typeR = 'r';
+    char typeB = 'b';
+    char empty = '_';
+    char invalid = '#';
 
-    public CheckerBoardTwoTest() {
+    public CheckerBoardTest2() {
     }
 
     @BeforeClass
@@ -44,11 +44,8 @@ public class CheckerBoardTwoTest {
     }
 
     @Test
-    public void TestMove() {
-        char typeR = 'r';
-        char typeB = 'b';
-        char empty = '_';
-        char invalid = '#';
+    public void testMove() {
+
         customCheckersBoardInstance[6][2] = empty;
         customCheckersBoardInstance[5][3] = typeR;
         customCheckersBoardInstance[7][5] = empty;
@@ -56,19 +53,57 @@ public class CheckerBoardTwoTest {
         assertTrue(boardforTest.move(5, 5, 4, 4));
         assertFalse(boardforTest.move(5, 3, 5, 4));
         assertFalse(boardforTest.move(5, 5, 6, 4));
+        assertFalse(boardforTest.move(0, 0, 1, 1));
+        setCustomCheckerBoard();
 
     }
 
+    @Test
+    public void testHasCuts() {
+        customCheckersBoardInstance[6][2] = empty;
+        customCheckersBoardInstance[5][3] = typeR;
+        customCheckersBoardInstance[7][5] = empty;
+        customCheckersBoardInstance[6][4] = typeB;
+        assertTrue(boardforTest.hasCuts(6, 4));
+        assertTrue(boardforTest.hasCuts(5, 3));
+        assertFalse(boardforTest.hasCuts(5, 5));
+        assertFalse(boardforTest.hasCuts(1, 1));
+        assertTrue(boardforTest.hasCuts(customCheckersBoardInstance, 5, 3));
+        assertTrue(boardforTest.hasCuts(customCheckersBoardInstance, 6, 4));
+        assertFalse(boardforTest.hasCuts(customCheckersBoardInstance, 5, 5));
+        assertFalse(boardforTest.hasCuts(customCheckersBoardInstance, 1, 1));
+        setCustomCheckerBoard();
+    }
+    
+    @Test
+    public void testHasMoreCuts(){
+ 
+         boardforTest.setLastCutPieceRow(-1);
+         assertFalse(boardforTest.hasMoreCuts(typeR));
+    }
+    
+    @Test
+    public void testCutPeiceByType(){
+        customCheckersBoardInstance[3][7]=typeR;
+        customCheckersBoardInstance[4][6]= typeB;
+        customCheckersBoardInstance[2][6]= empty;
+        customCheckersBoardInstance[5][5]= empty;
+        setRBLists();
+        assertTrue(boardforTest.cutPieceByType(typeR, 3, 7, 4, 6));
+        assertFalse(boardforTest.cutPieceByType(typeB, 4, 6, 3, 7));
+        setCustomCheckerBoard();
+    }
+    
+    @Test
+    public void testCanMove(){
+        
+    }
     /**
      * Initialize a custom checker board for testing
      */
     private void setCustomCheckerBoard() {
         int boardSize = 8;
         customCheckersBoardInstance = new char[boardSize][boardSize];
-        char typeR = 'r';
-        char typeB = 'b';
-        char empty = '_';
-        char invalid = '#';
 
         for (int i = 0; i < boardSize; i++) {
             for (int j = 0; j < boardSize; j++) {
@@ -106,4 +141,22 @@ public class CheckerBoardTwoTest {
 
 
     }
+    
+    
+   private void setRBLists(){
+       int boardSize=customCheckersBoardInstance.length;
+       boardforTest.clearTypeBList();
+       boardforTest.clearTypeRList();
+       for(int i=0;i<boardSize;i++){
+           for (int j=0;j<boardSize;j++){
+               if(customCheckersBoardInstance[i][j]==typeB){
+                   boardforTest.addToTypeBList(i, j);
+               }else if(customCheckersBoardInstance[i][j]==typeR){
+                   boardforTest.addToTypeRList(i, j);
+                          }
+           }
+       }
+       
+       
+   }
 }
