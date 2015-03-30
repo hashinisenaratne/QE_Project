@@ -2,7 +2,7 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.checkers.Logic;
+package Logic;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -21,8 +21,10 @@ public class CheckerBoard {
     private char typeR, typeB, empty, invalid;
     private List<Chip> typeRList;
     private List<Chip> typeBList;
-    private int lastCutPieceRow,lastCutPieceCol;
+    private int lastCutPieceRow, lastCutPieceCol;
     private int maxDepth = 6;
+    char RKing = 'R';
+    char BKing = 'B';
 
     public CheckerBoard(int size) {
         boardSize = size;
@@ -33,8 +35,8 @@ public class CheckerBoard {
         invalid = '#';
         typeRList = new LinkedList<>();
         typeBList = new LinkedList<>();
-        lastCutPieceRow=-1;
-        lastCutPieceCol=-1;
+        lastCutPieceRow = -1;
+        lastCutPieceCol = -1;
         for (int i = 0; i < boardSize; i++) {
             for (int j = 0; j < boardSize; j++) {
                 if ((i + j) % 2 == 0) {
@@ -86,8 +88,8 @@ public class CheckerBoard {
         }
         System.out.println("*********************************");
     }
-    
-    public void setCheckersBoard(char[][] customBoardInstance){
+
+    public void setCheckersBoard(char[][] customBoardInstance) {
         checkersBoard = customBoardInstance;
     }
 
@@ -114,9 +116,9 @@ public class CheckerBoard {
             if (Character.toLowerCase(tmpType) == typeB && dRow == 0) {
                 checkersBoard[dRow][dCol] = Character.toUpperCase(typeB);     //uppercase typeB to represent BLACK QUEEN
                 typeBList.get(typeBList.indexOf(new Chip(dCol, dRow))).setIsKing(true);
-        }
-            lastCutPieceRow=-1;
-            lastCutPieceCol=-1;
+            }
+            lastCutPieceRow = -1;
+            lastCutPieceCol = -1;
             return true;
         }
         return false;
@@ -169,45 +171,44 @@ public class CheckerBoard {
         }
         return false;
     }
-    
-    /*public boolean isACut(int sRow, int sCol, int dRow, int dCol) { //this will be always used after true in isMoveable()
-        char tmpType = checkersBoard[dRow][dCol];
-        Chip tmpChip;
-        if (tmpType == typeR) {
-            tmpChip = typeRList.get(typeRList.indexOf(new Chip(dCol, dRow)));
-            if(!tmpChip.isKing()){
-                if(sRow-dRow == (-2) && Math.abs(sCol-dCol)== 2){
-                    return true;
-                }
-            }
-            else{
-                if(Math.abs(sRow-dRow) == 2 && Math.abs(sCol-dCol)== 2){
-                    return true;
-                }
-            }
-        }
-        else if (tmpType == typeB) {
-            tmpChip = typeBList.get(typeBList.indexOf(new Chip(dCol, dRow)));
-            if(!tmpChip.isKing()){
-                if(sRow-dRow == 2 && Math.abs(sCol-dCol)== 2){
-                    return true;
-                }
-            }
-            else{
-                if(Math.abs(sRow-dRow) == 2 && Math.abs(sCol-dCol)== 2){
-                    return true;
-                }
-            }
-        }
-        return false;
-    }*/
 
+    /*public boolean isACut(int sRow, int sCol, int dRow, int dCol) { //this will be always used after true in isMoveable()
+     char tmpType = checkersBoard[dRow][dCol];
+     Chip tmpChip;
+     if (tmpType == typeR) {
+     tmpChip = typeRList.get(typeRList.indexOf(new Chip(dCol, dRow)));
+     if(!tmpChip.isKing()){
+     if(sRow-dRow == (-2) && Math.abs(sCol-dCol)== 2){
+     return true;
+     }
+     }
+     else{
+     if(Math.abs(sRow-dRow) == 2 && Math.abs(sCol-dCol)== 2){
+     return true;
+     }
+     }
+     }
+     else if (tmpType == typeB) {
+     tmpChip = typeBList.get(typeBList.indexOf(new Chip(dCol, dRow)));
+     if(!tmpChip.isKing()){
+     if(sRow-dRow == 2 && Math.abs(sCol-dCol)== 2){
+     return true;
+     }
+     }
+     else{
+     if(Math.abs(sRow-dRow) == 2 && Math.abs(sCol-dCol)== 2){
+     return true;
+     }
+     }
+     }
+     return false;
+     }*/
     public boolean cutPiece(int attackerRow, int attackerCol, int victimRow, int victimCol) {
         char tmpAttacker, tmpVictim;
-        if(attackerRow<0 || attackerCol<0 || victimRow<0 || victimCol<0){
+        if (attackerRow < 0 || attackerCol < 0 || victimRow < 0 || victimCol < 0) {
             return false;
         }
-        if(attackerRow>=boardSize || attackerCol>=boardSize || victimRow>=boardSize || victimCol>=boardSize){
+        if (attackerRow >= boardSize || attackerCol >= boardSize || victimRow >= boardSize || victimCol >= boardSize) {
             return false;
         }
         if (checkersBoard[attackerRow][attackerCol] == empty || checkersBoard[victimRow][victimCol] == empty) {
@@ -222,68 +223,61 @@ public class CheckerBoard {
             if (attackerRow > victimRow) {
                 if (isMoveable(attackerRow, attackerCol, victimRow - 1, victimCol - 1)) {
                     movePiece(attackerRow, attackerCol, victimRow - 1, victimCol - 1);
-                    lastCutPieceRow=victimRow-1;
-                    lastCutPieceCol=victimCol-1;
+                    lastCutPieceRow = victimRow - 1;
+                    lastCutPieceCol = victimCol - 1;
                     checkersBoard[victimRow][victimCol] = empty;
                     if (tmpVictim == typeR) {
                         int index = typeRList.indexOf(new Chip(victimCol, victimRow));
                         typeRList.get(index).setOnBoard(false);
                         typeRList.get(index).setCol(-1);
-                    }
-                    else if (tmpVictim == typeB) {
+                    } else if (tmpVictim == typeB) {
                         int index = typeBList.indexOf(new Chip(victimCol, victimRow));
                         typeBList.get(index).setOnBoard(false);
                         typeBList.get(index).setCol(-1);
                     }
                     return true;
-                }
-                else if (isMoveable(attackerRow, attackerCol, victimRow - 1, victimCol + 1)) {
+                } else if (isMoveable(attackerRow, attackerCol, victimRow - 1, victimCol + 1)) {
                     movePiece(attackerRow, attackerCol, victimRow - 1, victimCol + 1);
-                    lastCutPieceRow=victimRow-1;
-                    lastCutPieceCol=victimCol+1;
+                    lastCutPieceRow = victimRow - 1;
+                    lastCutPieceCol = victimCol + 1;
                     checkersBoard[victimRow][victimCol] = empty;
                     if (tmpVictim == typeR) {
                         int index = typeRList.indexOf(new Chip(victimCol, victimRow));
                         typeRList.get(index).setOnBoard(false);
                         typeRList.get(index).setCol(-1);
-                    }
-                    else if (tmpVictim == typeB) {
+                    } else if (tmpVictim == typeB) {
                         int index = typeBList.indexOf(new Chip(victimCol, victimRow));
                         typeBList.get(index).setOnBoard(false);
                         typeBList.get(index).setCol(-1);
                     }
                     return true;
                 }
-            }
-            else if (attackerRow < victimRow) {
+            } else if (attackerRow < victimRow) {
                 if (isMoveable(attackerRow, attackerCol, victimRow + 1, victimCol - 1)) {
                     movePiece(attackerRow, attackerCol, victimRow + 1, victimCol - 1);
-                    lastCutPieceRow=victimRow+1;
-                    lastCutPieceCol=victimCol-1;
+                    lastCutPieceRow = victimRow + 1;
+                    lastCutPieceCol = victimCol - 1;
                     checkersBoard[victimRow][victimCol] = empty;
                     if (tmpVictim == typeR) {
                         int index = typeRList.indexOf(new Chip(victimCol, victimRow));
                         typeRList.get(index).setOnBoard(false);
                         typeRList.get(index).setCol(-1);
-                    }
-                    else if (tmpVictim == typeB) {
+                    } else if (tmpVictim == typeB) {
                         int index = typeBList.indexOf(new Chip(victimCol, victimRow));
                         typeBList.get(index).setOnBoard(false);
                         typeBList.get(index).setCol(-1);
                     }
                     return true;
-                }
-                else if (isMoveable(attackerRow, attackerCol, victimRow + 1, victimCol + 1)) {
+                } else if (isMoveable(attackerRow, attackerCol, victimRow + 1, victimCol + 1)) {
                     movePiece(attackerRow, attackerCol, victimRow + 1, victimCol + 1);
-                    lastCutPieceRow=victimRow+1;
-                    lastCutPieceCol=victimCol+1;
+                    lastCutPieceRow = victimRow + 1;
+                    lastCutPieceCol = victimCol + 1;
                     checkersBoard[victimRow][victimCol] = empty;
                     if (tmpVictim == typeR) {
                         int index = typeRList.indexOf(new Chip(victimCol, victimRow));
                         typeRList.get(index).setOnBoard(false);
                         typeRList.get(index).setCol(-1);
-                    }
-                    else if (tmpVictim == typeB) {
+                    } else if (tmpVictim == typeB) {
                         int index = typeBList.indexOf(new Chip(victimCol, victimRow));
                         typeBList.get(index).setOnBoard(false);
                         typeBList.get(index).setCol(-1);
@@ -629,99 +623,80 @@ public class CheckerBoard {
         }
         return false;
     }
+
     public boolean hasCuts(char[][] board, int row, int col) {
         if (canMove(board, row, col, row + 2, col + 2)) {
             return true;
         }
-        if (canMove(board,row, col, row - 2, col + 2)) {
+        if (canMove(board, row, col, row - 2, col + 2)) {
             return true;
         }
-        if (canMove(board,row, col, row - 2, col - 2)) {
+        if (canMove(board, row, col, row - 2, col - 2)) {
             return true;
         }
-        if (canMove(board,row, col, row + 2, col - 2)) {
+        if (canMove(board, row, col, row + 2, col - 2)) {
             return true;
         }
         return false;
     }
 
     public boolean hasMoreCuts(char type) {
-        if(lastCutPieceRow!=-1){
+        if (lastCutPieceRow != -1) {
             return hasCuts(lastCutPieceRow, lastCutPieceCol);
         }
         return false;
     }
-    
-    public boolean cutPieceByType(char type,int attackerRow, int attackerCol, int victimRow, int victimCol){
-        if(Character.toLowerCase(checkersBoard[attackerRow][attackerCol])== Character.toLowerCase(type)){
+
+    public boolean cutPieceByType(char type, int attackerRow, int attackerCol, int victimRow, int victimCol) {
+        if (Character.toLowerCase(checkersBoard[attackerRow][attackerCol]) == Character.toLowerCase(type)) {
             return cutPiece(attackerRow, attackerCol, victimRow, victimCol);
         }
         return false;
     }
-    
-    
-    char RKing = 'R';
-    char BKing = 'B';
-    
+
     //the board should consist of 'r' and 'b' for normal and 'R' and 'B' for kings
-    boolean canMove(char[][] board, int sRow, int sCol, int dRow, int dCol )
-{
-	if(sRow == dRow || sCol == dCol || dRow<0 ||dRow>7 ||dCol <0 || dCol >7 || Math.abs(sRow - dRow) >2 || Math.abs(sCol - dCol) >2 )
-	{
-		return false;
-	}
+    boolean canMove(char[][] board, int sRow, int sCol, int dRow, int dCol) {
+        if (sRow == dRow || sCol == dCol || dRow < 0 || dRow > 7 || dCol < 0 || dCol > 7 || Math.abs(sRow - dRow) > 2 || Math.abs(sCol - dCol) > 2) {
+            return false;
+        }
 
-	if(Math.abs(sRow - dRow) ==1 && Math.abs(sCol - dCol) == 1)
-	{
-		if(board[dRow][dCol] == empty)
-		{
-                    if(board[sRow][sCol] == RKing || board[sRow][sCol] == BKing)
-                    {
-                        return true; // a non capture
-                    }
-                    if(board[sRow][sCol] == typeB && sRow > dRow)
-                    {
-                        return true; // a non capture
-                    }
-                    if(board[sRow][sCol] == typeR && sRow < dRow )
-                    {
-                        return true; // a non capture
-                    }
-		}
-	}
-
-	if(Math.abs(sRow - dRow) ==2 && Math.abs(sCol - dCol) == 2)
-        {
-                if(board[dRow][dCol] == empty && board[(sRow + dRow)/2][(sCol + dCol)/2] != empty && Character.toLowerCase(board[sRow ][sCol]) != Character.toLowerCase(board[(sRow + dRow)/2][(sCol + dCol)/2]))
-                {
-                    if(board[sRow][sCol] == RKing || board[sRow][sCol] == BKing)
-                    {
-                        return true; // a capture
-                    }
-                    if(board[sRow][sCol] == typeB && sRow > dRow)
-                    {
-                        return true; // a capture
-                    }
-                    if(board[sRow][sCol] == typeR && sRow < dRow )
-                    {
-                        return true; // a capture
-                    }
-                        
+        if (Math.abs(sRow - dRow) == 1 && Math.abs(sCol - dCol) == 1) {
+            if (board[dRow][dCol] == empty) {
+                if (board[sRow][sCol] == RKing || board[sRow][sCol] == BKing) {
+                    return true; // a non capture
                 }
-	}
-	return false;
-}
-    public List<int[]> getAllCaptures(char[][] board, char colour, Chip predecessorOfMultiMove)
-    {
+                if (board[sRow][sCol] == typeB && sRow > dRow) {
+                    return true; // a non capture
+                }
+                if (board[sRow][sCol] == typeR && sRow < dRow) {
+                    return true; // a non capture
+                }
+            }
+        }
+
+        if (Math.abs(sRow - dRow) == 2 && Math.abs(sCol - dCol) == 2) {
+            if (board[dRow][dCol] == empty && board[(sRow + dRow) / 2][(sCol + dCol) / 2] != empty && Character.toLowerCase(board[sRow][sCol]) != Character.toLowerCase(board[(sRow + dRow) / 2][(sCol + dCol) / 2])) {
+                if (board[sRow][sCol] == RKing || board[sRow][sCol] == BKing) {
+                    return true; // a capture
+                }
+                if (board[sRow][sCol] == typeB && sRow > dRow) {
+                    return true; // a capture
+                }
+                if (board[sRow][sCol] == typeR && sRow < dRow) {
+                    return true; // a capture
+                }
+
+            }
+        }
+        return false;
+    }
+
+    public List<int[]> getAllCaptures(char[][] board, char colour, Chip predecessorOfMultiMove) {
         ArrayList<int[]> ret = new ArrayList<int[]>();
-        if(predecessorOfMultiMove == null)
-        {
-            for( int row=0; row<8; row++)
-            {
-                for (int col=0; col<8; col++)
-                {
-                    if(Character.toLowerCase(board[row][col])==Character.toLowerCase(colour))
-                    {
+        if (predecessorOfMultiMove == null) {
+            for (int row = 0; row < 8; row++) {
+                for (int col = 0; col < 8; col++) {
+                    if (Character.toLowerCase(board[row][col]) == Character.toLowerCase(colour)) {
                         if (canMove(board, row, col, row + 2, col + 2)) {
                             ret.add(new int[]{row, col, row + 2, col + 2});
                         }
@@ -737,12 +712,9 @@ public class CheckerBoard {
                     }
                 }
             }
-        }
-        else
-        {
-            int row = predecessorOfMultiMove.getRow(), col =predecessorOfMultiMove.getCol();
-            if(Character.toLowerCase(board[row][col])==Character.toLowerCase(colour))
-            {
+        } else {
+            int row = predecessorOfMultiMove.getRow(), col = predecessorOfMultiMove.getCol();
+            if (Character.toLowerCase(board[row][col]) == Character.toLowerCase(colour)) {
                 if (canMove(board, row, col, row + 2, col + 2)) {
                     ret.add(new int[]{row, col, row + 2, col + 2});
                 }
@@ -759,16 +731,12 @@ public class CheckerBoard {
         }
         return ret;
     }
-    
-    List<int[]> getAllNonCaptures(char[][] board, char colour)
-    {
+
+    List<int[]> getAllNonCaptures(char[][] board, char colour) {
         ArrayList<int[]> ret = new ArrayList<int[]>();
-        for( int row=0; row<8; row++)
-        {
-            for (int col=0; col<8; col++)
-            {
-                if(Character.toLowerCase(board[row][col])==Character.toLowerCase(colour))
-                {
+        for (int row = 0; row < 8; row++) {
+            for (int col = 0; col < 8; col++) {
+                if (Character.toLowerCase(board[row][col]) == Character.toLowerCase(colour)) {
                     if (canMove(board, row, col, row + 1, col + 1)) {
                         ret.add(new int[]{row, col, row + 1, col + 1});
                     }
@@ -786,79 +754,78 @@ public class CheckerBoard {
         }
         return ret;
     }
-    
-public static char[][] cloneArray(char[][] src) {
-    int length = src.length;
-    char[][] target = new char[length][src[0].length];
-    for (int i = 0; i < length; i++) {
-        System.arraycopy(src[i], 0, target[i], 0, src[i].length);
+
+    public static char[][] cloneArray(char[][] src) {
+        int length = src.length;
+        char[][] target = new char[length][src[0].length];
+        for (int i = 0; i < length; i++) {
+            System.arraycopy(src[i], 0, target[i], 0, src[i].length);
+        }
+        return target;
     }
-    return target;
-}
-    int[] getMoveFromMinMax (char colour, Chip predecessorOfMultiMove)//assumed that there is at least one possible move
-{
-    /*char[][] currentBoard = new char[boardSize][boardSize];
-    for (int i = 0; i < boardSize; i++) {
-            for (int j = 0; j < boardSize; j++) {
-                if ((i + j) % 2 == 0) {
-                    currentBoard[i][j] = empty;    //EMPTY cell
-                } else {
-                    currentBoard[i][j] = invalid;
-                }
-            }
-        }
-    
-    for(Chip piece : typeBList)
+
+    int[] getMoveFromMinMax(char colour, Chip predecessorOfMultiMove)//assumed that there is at least one possible move
     {
-        if(piece.isOnBoard())
-        {
-            if(piece.isKing())
-            {
-                currentBoard[piece.getRow()][piece.getCol()] = 'B';
-            }
-            else
-            {
-                currentBoard[piece.getRow()][piece.getCol()] = 'b';
-            }
-        }
-    }
+        /*char[][] currentBoard = new char[boardSize][boardSize];
+         for (int i = 0; i < boardSize; i++) {
+         for (int j = 0; j < boardSize; j++) {
+         if ((i + j) % 2 == 0) {
+         currentBoard[i][j] = empty;    //EMPTY cell
+         } else {
+         currentBoard[i][j] = invalid;
+         }
+         }
+         }
     
-    for(Chip piece : typeRList)
-    {
-        if(piece.isOnBoard())
-        {
-            if(piece.isKing())
-            {
-                currentBoard[piece.getRow()][piece.getCol()] = 'R';
-            }
-            else
-            {
-                currentBoard[piece.getRow()][piece.getCol()] = 'r';
-            }
-        }
-    }*/
-    char[][] currentBoard = checkersBoard;
-    for (int i = 0; i < boardSize; i++) {
+         for(Chip piece : typeBList)
+         {
+         if(piece.isOnBoard())
+         {
+         if(piece.isKing())
+         {
+         currentBoard[piece.getRow()][piece.getCol()] = 'B';
+         }
+         else
+         {
+         currentBoard[piece.getRow()][piece.getCol()] = 'b';
+         }
+         }
+         }
+    
+         for(Chip piece : typeRList)
+         {
+         if(piece.isOnBoard())
+         {
+         if(piece.isKing())
+         {
+         currentBoard[piece.getRow()][piece.getCol()] = 'R';
+         }
+         else
+         {
+         currentBoard[piece.getRow()][piece.getCol()] = 'r';
+         }
+         }
+         }*/
+        char[][] currentBoard = checkersBoard;
+        for (int i = 0; i < boardSize; i++) {
             for (int j = 0; j < boardSize; j++) {
                 System.out.print(currentBoard[i][j]);
             }
             System.out.println();
         }
-    System.out.println();
-    
-    List<int[]> possibleMoves = getAllCaptures(currentBoard, colour,predecessorOfMultiMove);
-    int tmpMax;
-    int[] bestMove = null;
-	if(!possibleMoves.isEmpty())// check if there are possible captures
-	{
-		tmpMax = Integer.MIN_VALUE;
+        System.out.println();
 
-		for(int[] move : possibleMoves)
-		{
-			Node node = new Node(1,cloneArray(currentBoard));
-			node.makeMove(move);
-                        if(hasCuts(node.board, move[2], move[3]))
-                        {
+        List<int[]> possibleMoves = getAllCaptures(currentBoard, colour, predecessorOfMultiMove);
+        int tmpMax;
+        int[] bestMove = null;
+        if (!possibleMoves.isEmpty())// check if there are possible captures
+        {
+            tmpMax = Integer.MIN_VALUE;
+
+            for (int[] move : possibleMoves) {
+                Node node = new Node(1, cloneArray(currentBoard));
+                node.makeMove(move);
+                if (hasCuts(node.board, move[2], move[3])) {
 //                            List<int[]> multiMoves = getAllCaptures(node.board, colour, new Chip(move[2], move[3]));
 //                            for(int[] multiMove : multiMoves)
 //                            {
@@ -872,186 +839,161 @@ public static char[][] cloneArray(char[][] src) {
 //                                } 
 //                            }
 //                            continue;
-                            return move;
-                        }
-                        int value = findValue(node, colour, true);
-			if( value > tmpMax)
-			{
-				tmpMax= value;
-				bestMove = move;
-			}
-		}
-		return bestMove;
-	}
-
-	possibleMoves = getAllNonCaptures(currentBoard, colour);
-	tmpMax = Integer.MIN_VALUE;
-
-	for(int[] move : possibleMoves)
-	{
-		Node node = new Node(1,cloneArray(currentBoard));
-                node.makeMove(move);
+                    return move;
+                }
                 int value = findValue(node, colour, true);
-                if( value > tmpMax)
-                {
-                        tmpMax= value;
-                        bestMove = move;
+                if (value > tmpMax) {
+                    tmpMax = value;
+                    bestMove = move;
                 }
-	}
-	return bestMove;
+            }
+            return bestMove;
+        }
 
-}
-    
-char invertColour(char colour)
-{
-    return Character.toLowerCase(colour)=='r'?'b':'r';
-}
+        possibleMoves = getAllNonCaptures(currentBoard, colour);
+        tmpMax = Integer.MIN_VALUE;
 
-int findValue(Node node, char colour, boolean isMin)
-{
-	if(node.depth == maxDepth)
-	{
-		return calcHeuristic(node.board, colour);
-	}
-	
-        List<int[]> possibleMoves = getAllCaptures(node.board, (node.depth%2==1)?invertColour(colour):colour, null);
+        for (int[] move : possibleMoves) {
+            Node node = new Node(1, cloneArray(currentBoard));
+            node.makeMove(move);
+            int value = findValue(node, colour, true);
+            if (value > tmpMax) {
+                tmpMax = value;
+                bestMove = move;
+            }
+        }
+        return bestMove;
+
+    }
+
+    char invertColour(char colour) {
+        return Character.toLowerCase(colour) == 'r' ? 'b' : 'r';
+    }
+
+    int findValue(Node node, char colour, boolean isMin) {
+        if (node.depth == maxDepth) {
+            return calcHeuristic(node.board, colour);
+        }
+
+        List<int[]> possibleMoves = getAllCaptures(node.board, (node.depth % 2 == 1) ? invertColour(colour) : colour, null);
         int tmp;
-	if(!possibleMoves.isEmpty() && !isMin)// check if there are possible captures
-	{
-		tmp = Integer.MIN_VALUE;
+        if (!possibleMoves.isEmpty() && !isMin)// check if there are possible captures
+        {
+            tmp = Integer.MIN_VALUE;
 
-		for(int[] move : possibleMoves)
-		{
-			Node newNode = new Node(node.depth+1,cloneArray(node.board));
-			newNode.makeMove(move);
-                        if(hasCuts(newNode.board, move[2], move[3]))
-                        {
-                            return 1000;
-                        }
-                        int value = findValue(newNode, colour, true);
-			if( value > tmp)
-			{
-				tmp= value;
-			}
-		}
-		return tmp;
-	}
-        
-	if(!possibleMoves.isEmpty() && isMin)// check if there are possible captures
-	{
-		tmp = Integer.MAX_VALUE;
+            for (int[] move : possibleMoves) {
+                Node newNode = new Node(node.depth + 1, cloneArray(node.board));
+                newNode.makeMove(move);
+                if (hasCuts(newNode.board, move[2], move[3])) {
+                    return 1000;
+                }
+                int value = findValue(newNode, colour, true);
+                if (value > tmp) {
+                    tmp = value;
+                }
+            }
+            return tmp;
+        }
 
-		for(int[] move : possibleMoves)
-		{
-			Node newNode = new Node(node.depth+1,cloneArray(node.board));
-			newNode.makeMove(move);
-                        if(hasCuts(newNode.board, move[2], move[3]))
-                        {
-                            return -1000;
-                        }
-                        int value = findValue(newNode, colour, false);
-			if( value < tmp)
-			{
-				tmp= value;
-			}
-		}
-		return tmp;
-	}
-        
-        possibleMoves = getAllNonCaptures(node.board, (node.depth%2==1)?invertColour(colour):colour);
-        
-	if(!possibleMoves.isEmpty() && !isMin)// check if there are possible non captures
-	{
-		tmp = Integer.MIN_VALUE;
+        if (!possibleMoves.isEmpty() && isMin)// check if there are possible captures
+        {
+            tmp = Integer.MAX_VALUE;
 
-		for(int[] move : possibleMoves)
-		{
-			Node newNode = new Node(node.depth+1,cloneArray(node.board));
-			newNode.makeMove(move);
-                        int value = findValue(newNode, colour, true);
-			if( value > tmp)
-			{
-				tmp= value;
-			}
-		}
-		return tmp;
-	}
-        
-	if(!possibleMoves.isEmpty() && isMin)// check if there are possible non captures
-	{
-		tmp = Integer.MAX_VALUE;
+            for (int[] move : possibleMoves) {
+                Node newNode = new Node(node.depth + 1, cloneArray(node.board));
+                newNode.makeMove(move);
+                if (hasCuts(newNode.board, move[2], move[3])) {
+                    return -1000;
+                }
+                int value = findValue(newNode, colour, false);
+                if (value < tmp) {
+                    tmp = value;
+                }
+            }
+            return tmp;
+        }
 
-		for(int[] move : possibleMoves)
-		{
-			Node newNode = new Node(node.depth+1,cloneArray(node.board));
-			newNode.makeMove(move);
-                        int value = findValue(newNode, colour, false);
-			if( value < tmp)
-			{
-				tmp= value;
-			}
-		}
-		return tmp;
-	}
-	return calcHeuristic(node.board, colour);// if the execution reaches this line. it means that the node is a leaf.
-}
+        possibleMoves = getAllNonCaptures(node.board, (node.depth % 2 == 1) ? invertColour(colour) : colour);
 
+        if (!possibleMoves.isEmpty() && !isMin)// check if there are possible non captures
+        {
+            tmp = Integer.MIN_VALUE;
 
-int calcHeuristic(char[][] board, char colour)
-{
-    //return new Random().nextInt(100);
-    //if(pieceCount(typeR)>4 || pieceCount(typeB)>4){
+            for (int[] move : possibleMoves) {
+                Node newNode = new Node(node.depth + 1, cloneArray(node.board));
+                newNode.makeMove(move);
+                int value = findValue(newNode, colour, true);
+                if (value > tmp) {
+                    tmp = value;
+                }
+            }
+            return tmp;
+        }
+
+        if (!possibleMoves.isEmpty() && isMin)// check if there are possible non captures
+        {
+            tmp = Integer.MAX_VALUE;
+
+            for (int[] move : possibleMoves) {
+                Node newNode = new Node(node.depth + 1, cloneArray(node.board));
+                newNode.makeMove(move);
+                int value = findValue(newNode, colour, false);
+                if (value < tmp) {
+                    tmp = value;
+                }
+            }
+            return tmp;
+        }
+        return calcHeuristic(node.board, colour);// if the execution reaches this line. it means that the node is a leaf.
+    }
+
+    int calcHeuristic(char[][] board, char colour) {
+        //return new Random().nextInt(100);
+        //if(pieceCount(typeR)>4 || pieceCount(typeB)>4){
         return HeuristicUtil.calcHeuristicValue(board, colour);
-    //}
-    //return HeuristicUtil.calcHeuristicValueEnding(board, colour);
-    //return eval(board, colour);
-}
+        //}
+        //return HeuristicUtil.calcHeuristicValueEnding(board, colour);
+        //return eval(board, colour);
+    }
+    final static int normal = 100;         //one checker worth 100
+    final static int king = 200;             //a King's worth
+    final static int pos = 1;                //one position along the -j worth 1
+    final static int edge = 10;               // effect of king being on the edge
 
-final static int normal = 100;         //one checker worth 100
-final static int king=200;             //a King's worth
-final static int pos=1;                //one position along the -j worth 1
-final static int edge=10;               // effect of king being on the edge
+    public int eval(char[][] board, char colour) {
+        int score = 0;
 
-
-public int eval(char [][] board, char colour){
-        int score=0;
-
-        for(int i=0;i<8;i++){
-            for(int j=0;j<8;j++){
-	            if (board[i][j] == typeR)
-                {
-                      score-=normal;
-                      score-=pos*i*i;
-                }
-
-                else if (board[i][j] ==RKing){
-                    score-=king;
-                    if (i==0 || i==7)
+        for (int i = 0; i < 8; i++) {
+            for (int j = 0; j < 8; j++) {
+                if (board[i][j] == typeR) {
+                    score -= normal;
+                    score -= pos * i * i;
+                } else if (board[i][j] == RKing) {
+                    score -= king;
+                    if (i == 0 || i == 7) {
                         score += edge;
-                    if (j==0 || j==7)
+                    }
+                    if (j == 0 || j == 7) {
                         score += edge;
-                }
-
-                else if (board[i][j] == typeB)
-                {
-                      score+=normal;
-                      score+=pos*(7-i)*(7-i);
-                }
-
-                else if (board[i][j] == BKing){
-                    score+=king;
-                    if (i==0 || i==7)
+                    }
+                } else if (board[i][j] == typeB) {
+                    score += normal;
+                    score += pos * (7 - i) * (7 - i);
+                } else if (board[i][j] == BKing) {
+                    score += king;
+                    if (i == 0 || i == 7) {
                         score -= edge;
-                    if (j==0 || j==7)
+                    }
+                    if (j == 0 || j == 7) {
                         score -= edge;
+                    }
                 }
             }
         }
         //score += (int)(Math.random() * 10);                    //Adds a random weight
 
-        if(Character.toLowerCase(colour)== typeR)
-        {
-            score*=-1;
+        if (Character.toLowerCase(colour) == typeR) {
+            score *= -1;
         }
         return score;
     }
@@ -1066,10 +1008,10 @@ public int eval(char [][] board, char colour){
                 }
             }
         }
-        
+
         typeBList.clear();
         typeRList.clear();
-        
+
         for (int i = 0; i < (boardSize / 2) - 1; i++) {
             int j;
             if (i % 2 == 0) {
@@ -1097,31 +1039,69 @@ public int eval(char [][] board, char colour){
             }
         }
     }
-}
 
+    public void setLastCutPieceRow(int rowNumber) {
+        lastCutPieceRow = rowNumber;
+    }
 
-class Node
-{
-    int depth;
-    char[][] board;
-    
-    public Node(int dep, char[][] bord)
-    {
-        depth = dep;
-        board =bord;
-        
+    public void setLastCutPieceCol(int colNumber) {
+        lastCutPieceCol = colNumber;
+    }
+
+    public int getLastCutPieceRow() {
+        return lastCutPieceRow;
+    }
+
+    public int getLastCutPieceCol() {
+        return lastCutPieceCol;
     }
     
+    public void removeFromTypeRList(int row, int col){
+        typeRList.remove(typeRList.indexOf(new Chip(col,row)));
+    }
+    
+    public void removeFromTypeBList(int row, int col){
+        typeBList.remove(typeBList.indexOf(new Chip(col,row)));
+    }
+    
+    public void addToTypeRList(int row, int col){
+        Chip chip= new Chip(col, row);
+        typeRList.add(chip);
+    }
+    
+    public void clearTypeRList(){
+        typeRList= new LinkedList<Chip>();
+    }
+    
+    public void clearTypeBList(){
+        typeBList = new LinkedList<Chip>();
+    }
+    
+    
+    public void addToTypeBList(int row, int col){
+        Chip chip= new Chip(col, row);
+        typeBList.add(chip);
+    }
+}
+
+class Node {
+
+    int depth;
+    char[][] board;
+
+    public Node(int dep, char[][] bord) {
+        depth = dep;
+        board = bord;
+
+    }
+
     void makeMove(int[] move)//move is assumed to be valid
     {
         char tmp = board[move[0]][move[1]];
         board[move[0]][move[1]] = '_';
         board[move[2]][move[3]] = tmp;
-        if(Math.abs(move[0]-move[2]) == 2)
-        {
-            board[(move[0]+move[2])/2][(move[1]+move[3])/2] = '_';
+        if (Math.abs(move[0] - move[2]) == 2) {
+            board[(move[0] + move[2]) / 2][(move[1] + move[3]) / 2] = '_';
         }
     }
-    
-   
 }
