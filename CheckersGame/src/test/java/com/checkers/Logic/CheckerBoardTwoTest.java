@@ -1,5 +1,7 @@
+package com.checkers.Logic;
 
-import Logic.CheckerBoard;
+
+
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -11,7 +13,7 @@ import static org.junit.Assert.*;
  *
  * @author Dinu
  */
-public class CheckerBoardTest2 {
+public class CheckerBoardTwoTest {
 
     private char[][] customCheckersBoardInstance;
     private CheckerBoard boardforTest;
@@ -20,7 +22,7 @@ public class CheckerBoardTest2 {
     char empty = '_';
     char invalid = '#';
 
-    public CheckerBoardTest2() {
+    public CheckerBoardTwoTest() {
     }
 
     @BeforeClass
