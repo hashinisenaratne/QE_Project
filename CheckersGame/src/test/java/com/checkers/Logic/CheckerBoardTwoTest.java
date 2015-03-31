@@ -230,6 +230,50 @@ public class CheckerBoardTwoTest {
             }
         }
         resetCustomCheckerBoard();
+    }
+
+    @Test
+    public void testGetAllNonCaptures() {
+
+        List<int[]> captureListExpected = new ArrayList<int[]>();
+        List<int[]> captureListActual = new ArrayList<int[]>();
+
+        // for typeR
+        captureListExpected.add(new int[]{2, 0, 3, 1});
+        captureListExpected.add(new int[]{2, 2, 3, 3});
+        captureListExpected.add(new int[]{2, 2, 3, 1});
+        captureListExpected.add(new int[]{2, 4, 3, 5});
+        captureListExpected.add(new int[]{2, 4, 3, 3});
+        captureListExpected.add(new int[]{2, 6, 3, 7});
+        captureListExpected.add(new int[]{2, 6, 3, 5});
+
+        captureListActual = boardforTest.getAllNonCaptures(customCheckersBoardInstance, typeR);
+        assertEquals(captureListActual.size(), captureListExpected.size());
+        for (int i = 0; i < captureListExpected.size(); i++) {
+            for (int j = 0; j < captureListExpected.get(i).length; j++) {
+                assertEquals(captureListActual.get(i)[j], captureListExpected.get(i)[j]);
+            }
+        }
+        resetCustomCheckerBoard();
+
+        // for typeB
+        captureListExpected.clear();
+        captureListExpected.add(new int[]{5, 1, 4, 2});
+        captureListExpected.add(new int[]{5, 1, 4, 0});
+        captureListExpected.add(new int[]{5, 3, 4, 4});
+        captureListExpected.add(new int[]{5, 3, 4, 2});
+        captureListExpected.add(new int[]{5, 5, 4, 6});
+        captureListExpected.add(new int[]{5, 5, 4, 4});
+        captureListExpected.add(new int[]{5, 7, 4, 6});
+        captureListActual.clear();
+        captureListActual = boardforTest.getAllNonCaptures(customCheckersBoardInstance, typeB);
+        assertEquals(captureListActual.size(), captureListExpected.size());
+        for (int i = 0; i < captureListExpected.size(); i++) {
+            for (int j = 0; j < captureListExpected.get(i).length; j++) {
+                assertEquals(captureListActual.get(i)[j], captureListExpected.get(i)[j]);
+            }
+        }
+        resetCustomCheckerBoard();
 
     }
 
