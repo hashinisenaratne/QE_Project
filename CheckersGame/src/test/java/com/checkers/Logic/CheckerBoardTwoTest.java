@@ -297,7 +297,7 @@ public class CheckerBoardTwoTest {
     }
 
     @Test
-    public void testGetMoveFromMinMax(){
+    public void testGetMoveFromMinMax() {
         // test when predecessorOfMultiMove == null
         Chip predecessorMultiMove = null;
         // when there is captures
@@ -313,20 +313,44 @@ public class CheckerBoardTwoTest {
         customCheckersBoardInstance[0][4] = empty;
         customCheckersBoardInstance[4][2] = typeR;
         customCheckersBoardInstance[3][3] = typeR;
-        
-        int[] expectedMove= new int[]{2,2,4,0};
-        int[] actualMove= boardforTest.getMoveFromMinMax(typeR, predecessorMultiMove);
+
+        int[] expectedMove = new int[]{2, 2, 4, 0};
+        int[] actualMove = boardforTest.getMoveFromMinMax(typeR, predecessorMultiMove);
         assertThat(actualMove, is(expectedMove));
-        
+
         // when there is no captures
         resetCustomCheckerBoard();
         boardforTest.setCheckersBoard(customCheckersBoardInstance);
-        expectedMove=new int[]{2,0,3,1};
-        actualMove=null;
-        actualMove=boardforTest.getMoveFromMinMax(typeR, predecessorMultiMove);
+        expectedMove = new int[]{2, 0, 3, 1};
+        actualMove = null;
+        actualMove = boardforTest.getMoveFromMinMax(typeR, predecessorMultiMove);
         assertThat(actualMove, is(expectedMove));
 
     }
+
+    @Test
+    public void testInvertColor() {
+        assertEquals(boardforTest.invertColour(typeR), typeB);
+        assertEquals(boardforTest.invertColour(typeB), typeR);
+    }
+
+    @Test
+    public void testFindValue() {
+        //   System.out.println(boardforTest.findValue(new Node(typeR, customCheckersBoardInstance), typeR, false));
+    }
+
+    @Test
+    public void testCalcHeuristic() {
+        // for initial state, no captures
+        assertEquals(boardforTest.calcHeuristic(customCheckersBoardInstance, typeR), 0);
+        // when there is a capture
+        customCheckersBoardInstance[6][2] = empty;
+        customCheckersBoardInstance[5][3] = typeR;
+        customCheckersBoardInstance[7][5] = empty;
+        customCheckersBoardInstance[6][4] = typeB;
+        assertEquals(boardforTest.calcHeuristic(customCheckersBoardInstance, typeR), 28);
+    }
+
     /**
      * Initialize a custom checker board for testing and reset it
      */

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<testsuite failures="0" time="1.053" errors="0" skipped="0" tests="9" name="com.checkers.Logic.CheckerBoardTwoTest">
+<testsuite failures="0" time="1.13" errors="0" skipped="0" tests="12" name="com.checkers.Logic.CheckerBoardTwoTest">
   <properties>
     <property name="java.runtime.name" value="Java(TM) SE Runtime Environment"/>
     <property name="sun.boot.library.path" value="C:\Program Files\Java\jdk1.7.0_75\jre\bin"/>
@@ -14,7 +14,6 @@
     <property name="user.country" value="US"/>
     <property name="sun.java.launcher" value="SUN_STANDARD"/>
     <property name="sun.os.patch.level" value="Service Pack 1"/>
-    <property name="test" value="com.checkers.Logic.CheckerBoardTwoTest"/>
     <property name="java.vm.specification.name" value="Java Virtual Machine Specification"/>
     <property name="user.dir" value="D:\test\CheckersGame"/>
     <property name="java.runtime.version" value="1.7.0_75-b13"/>
@@ -44,7 +43,7 @@
     <property name="java.vm.specification.version" value="1.7"/>
     <property name="sun.arch.data.model" value="64"/>
     <property name="java.home" value="C:\Program Files\Java\jdk1.7.0_75\jre"/>
-    <property name="sun.java.command" value="org.codehaus.plexus.classworlds.launcher.Launcher -Dtest=com.checkers.Logic.CheckerBoardTwoTest test-compile surefire:test"/>
+    <property name="sun.java.command" value="org.codehaus.plexus.classworlds.launcher.Launcher clean install"/>
     <property name="java.specification.vendor" value="Oracle Corporation"/>
     <property name="user.language" value="en"/>
     <property name="awt.toolkit" value="sun.awt.windows.WToolkit"/>
@@ -61,13 +60,16 @@
     <property name="sun.desktop" value="windows"/>
     <property name="sun.cpu.isalist" value="amd64"/>
   </properties>
-  <testcase time="0.01" classname="com.checkers.Logic.CheckerBoardTwoTest" name="testGetAllCaptures"/>
+  <testcase time="0.079" classname="com.checkers.Logic.CheckerBoardTwoTest" name="testCalcHeuristic"/>
+  <testcase time="0" classname="com.checkers.Logic.CheckerBoardTwoTest" name="testInvertColor"/>
+  <testcase time="0" classname="com.checkers.Logic.CheckerBoardTwoTest" name="testGetAllCaptures"/>
   <testcase time="0" classname="com.checkers.Logic.CheckerBoardTwoTest" name="testMove"/>
   <testcase time="0" classname="com.checkers.Logic.CheckerBoardTwoTest" name="testCutPeiceByType"/>
   <testcase time="0" classname="com.checkers.Logic.CheckerBoardTwoTest" name="testGetAllNonCaptures"/>
-  <testcase time="0.001" classname="com.checkers.Logic.CheckerBoardTwoTest" name="testCanMove"/>
+  <testcase time="0" classname="com.checkers.Logic.CheckerBoardTwoTest" name="testCanMove"/>
   <testcase time="0" classname="com.checkers.Logic.CheckerBoardTwoTest" name="testHasCuts"/>
-  <testcase time="0.748" classname="com.checkers.Logic.CheckerBoardTwoTest" name="testGetMoveFromMinMax"/>
-  <testcase time="0.005" classname="com.checkers.Logic.CheckerBoardTwoTest" name="testCloneArray"/>
-  <testcase time="0" classname="com.checkers.Logic.CheckerBoardTwoTest" name="testHasMoreCuts"/>
+  <testcase time="0.778" classname="com.checkers.Logic.CheckerBoardTwoTest" name="testGetMoveFromMinMax"/>
+  <testcase time="0" classname="com.checkers.Logic.CheckerBoardTwoTest" name="testFindValue"/>
+  <testcase time="0.008" classname="com.checkers.Logic.CheckerBoardTwoTest" name="testCloneArray"/>
+  <testcase time="0.001" classname="com.checkers.Logic.CheckerBoardTwoTest" name="testHasMoreCuts"/>
 </testsuite>
