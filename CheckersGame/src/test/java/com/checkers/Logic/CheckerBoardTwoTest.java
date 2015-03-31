@@ -277,6 +277,56 @@ public class CheckerBoardTwoTest {
 
     }
 
+    @Test
+    public void testCloneArray() {
+        char[][] expectedArray = new char[5][2];
+        expectedArray[0][0] = typeB;
+        expectedArray[0][1] = typeR;
+        expectedArray[1][0] = empty;
+        expectedArray[1][1] = rKing;
+        expectedArray[2][0] = bKing;
+        expectedArray[2][1] = invalid;
+        expectedArray[3][0] = typeB;
+        expectedArray[3][1] = typeR;
+        expectedArray[4][0] = typeR;
+        expectedArray[4][1] = typeR;
+        char[][] actualArray = CheckerBoard.cloneArray(expectedArray);
+        for (int i = 0; i < expectedArray.length; i++) {
+            assertArrayEquals(expectedArray[i], actualArray[i]);
+        }
+    }
+
+    @Test
+    public void testGetMoveFromMinMax(){
+        // test when predecessorOfMultiMove == null
+        Chip predecessorMultiMove = null;
+        // when there is captures
+        // set the board for typeR
+        customCheckersBoardInstance[5][7] = empty;
+        customCheckersBoardInstance[5][1] = empty;
+        customCheckersBoardInstance[6][0] = empty;
+        customCheckersBoardInstance[3][1] = typeB;
+        customCheckersBoardInstance[1][3] = typeB;
+        customCheckersBoardInstance[3][5] = typeB;
+        customCheckersBoardInstance[2][0] = empty;
+        customCheckersBoardInstance[1][1] = empty;
+        customCheckersBoardInstance[0][4] = empty;
+        customCheckersBoardInstance[4][2] = typeR;
+        customCheckersBoardInstance[3][3] = typeR;
+        
+        int[] expectedMove= new int[]{2,2,4,0};
+        int[] actualMove= boardforTest.getMoveFromMinMax(typeR, predecessorMultiMove);
+        assertThat(actualMove, is(expectedMove));
+        
+        // when there is no captures
+        resetCustomCheckerBoard();
+        boardforTest.setCheckersBoard(customCheckersBoardInstance);
+        expectedMove=new int[]{2,0,3,1};
+        actualMove=null;
+        actualMove=boardforTest.getMoveFromMinMax(typeR, predecessorMultiMove);
+        assertThat(actualMove, is(expectedMove));
+
+    }
     /**
      * Initialize a custom checker board for testing and reset it
      */
