@@ -1,11 +1,16 @@
 package com.checkers.Logic;
 
+import java.util.ArrayList;
+import java.util.List;
+import org.apache.commons.collections.CollectionUtils;
+import org.hamcrest.CoreMatchers;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import static org.junit.Assert.*;
+import static org.hamcrest.CoreMatchers.*;
 
 /**
  *
@@ -36,7 +41,7 @@ public class CheckerBoardTwoTest {
     @Before
     public void setUp() {
         boardforTest = new CheckerBoard(8);
-        setCustomCheckerBoard();
+        resetCustomCheckerBoard();
         boardforTest.setCheckersBoard(customCheckersBoardInstance);
 
     }
@@ -56,7 +61,7 @@ public class CheckerBoardTwoTest {
         assertFalse(boardforTest.move(5, 3, 5, 4));
         assertFalse(boardforTest.move(5, 5, 6, 4));
         assertFalse(boardforTest.move(0, 0, 1, 1));
-        setCustomCheckerBoard();
+        resetCustomCheckerBoard();
 
     }
 
@@ -74,7 +79,7 @@ public class CheckerBoardTwoTest {
         assertTrue(boardforTest.hasCuts(customCheckersBoardInstance, 6, 4));
         assertFalse(boardforTest.hasCuts(customCheckersBoardInstance, 5, 5));
         assertFalse(boardforTest.hasCuts(customCheckersBoardInstance, 1, 1));
-        setCustomCheckerBoard();
+        resetCustomCheckerBoard();
     }
 
     @Test
@@ -93,9 +98,14 @@ public class CheckerBoardTwoTest {
         setRBLists();
         assertTrue(boardforTest.cutPieceByType(typeR, 3, 7, 4, 6));
         assertFalse(boardforTest.cutPieceByType(typeB, 4, 6, 3, 7));
-        setCustomCheckerBoard();
+        resetCustomCheckerBoard();
     }
 
+    /**
+     * Test canMove method in the CheckerBoard class. The objective of canMove
+     * method is to return true if a chip in a given location can be moved to a
+     * destination location.
+     */
     @Test
     public void testCanMove() {
         customCheckersBoardInstance[3][7] = typeR;
@@ -140,14 +150,93 @@ public class CheckerBoardTwoTest {
         assertTrue(boardforTest.canMove(customCheckersBoardInstance, 5, 1, 3, 3));
         //// where the chip is red
         assertTrue(boardforTest.canMove(customCheckersBoardInstance, 3, 7, 5, 5));
-        setCustomCheckerBoard();
+        resetCustomCheckerBoard();
+
+    }
+
+    @Test
+    public void testGetAllCaptures() {
+
+        // test when predecessorOfMultiMove == null
+        Chip predecessorMultiMove = null;
+
+        // set the board for typeR
+        customCheckersBoardInstance[5][7] = empty;
+        customCheckersBoardInstance[5][1] = empty;
+        customCheckersBoardInstance[6][0] = empty;
+        customCheckersBoardInstance[3][1] = typeB;
+        customCheckersBoardInstance[1][3] = typeB;
+        customCheckersBoardInstance[3][5] = typeB;
+        customCheckersBoardInstance[2][0] = empty;
+        customCheckersBoardInstance[1][1] = empty;
+        customCheckersBoardInstance[0][4] = empty;
+        customCheckersBoardInstance[4][2] = typeR;
+        customCheckersBoardInstance[3][3] = typeR;
+
+        List<int[]> captureListExpected = new ArrayList<int[]>();
+        captureListExpected.add(new int[]{2, 2, 4, 0});// (row,col,row+2,col-2)
+        captureListExpected.add(new int[]{2, 4, 4, 6});// (row,col,row+2,col+2)
+        captureListExpected.add(new int[]{2, 6, 4, 4});// (row,col,row+2,col-2)
+        // (row,col, row-2,col+2),(row,col,row-2,col-2) cuts are illegal for typeR
+
+        List<int[]> captureListActual = new ArrayList<int[]>();
+        captureListActual = boardforTest.getAllCaptures(customCheckersBoardInstance, typeR, predecessorMultiMove);
+        assertEquals(captureListActual.size(), captureListExpected.size());
+        for (int i = 0; i < captureListExpected.size(); i++) {
+            for (int j = 0; j < captureListExpected.get(i).length; j++) {
+                assertEquals(captureListActual.get(i)[j], captureListExpected.get(i)[j]);
+            }
+        }
+        resetCustomCheckerBoard();
+
+        // set the board for typeB
+        customCheckersBoardInstance[2][6] = empty;
+        customCheckersBoardInstance[4][6] = typeR;
+        captureListExpected.clear();
+        captureListExpected.add(new int[]{5, 5, 3, 7});// (row,col,row-2,col+2)
+        captureListExpected.add(new int[]{5, 7, 3, 5});// (row,col,row-2,col-2)
+        // (row,col, row+2,col+2),(row,col,row+2,col-2) cuts are illegal for typeB
+
+        captureListActual.clear();
+        captureListActual = boardforTest.getAllCaptures(customCheckersBoardInstance, typeB, predecessorMultiMove);
+        assertEquals(captureListActual.size(), captureListExpected.size());
+        for (int i = 0; i < captureListExpected.size(); i++) {
+            for (int j = 0; j < captureListExpected.get(i).length; j++) {
+                assertEquals(captureListActual.get(i)[j], captureListExpected.get(i)[j]);
+            }
+        }
+        resetCustomCheckerBoard();
+
+
+        // test when predecessorOfMultiMove != null
+        predecessorMultiMove = new Chip(3, 5);
+
+        customCheckersBoardInstance[7][1] = empty;
+        customCheckersBoardInstance[7][5] = empty;
+        customCheckersBoardInstance[5][1] = empty;
+        customCheckersBoardInstance[5][3] = typeR;
+        customCheckersBoardInstance[4][2] = typeB;
+        customCheckersBoardInstance[2][4] = empty;
+
+        captureListExpected.clear();
+        captureListExpected.add(new int[]{5, 3, 7, 5});
+        captureListExpected.add(new int[]{5, 3, 7, 1});
+        captureListActual.clear();
+        captureListActual = boardforTest.getAllCaptures(customCheckersBoardInstance, typeR, predecessorMultiMove);
+        assertEquals(captureListActual.size(), captureListExpected.size());
+        for (int i = 0; i < captureListExpected.size(); i++) {
+            for (int j = 0; j < captureListExpected.get(i).length; j++) {
+                assertEquals(captureListActual.get(i)[j], captureListExpected.get(i)[j]);
+            }
+        }
+        resetCustomCheckerBoard();
 
     }
 
     /**
-     * Initialize a custom checker board for testing
+     * Initialize a custom checker board for testing and reset it
      */
-    private void setCustomCheckerBoard() {
+    private void resetCustomCheckerBoard() {
         int boardSize = 8;
         customCheckersBoardInstance = new char[boardSize][boardSize];
 

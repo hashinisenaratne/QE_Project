@@ -653,33 +653,33 @@ public class CheckerBoard {
 
     //the board should consist of 'r' and 'b' for normal and 'R' and 'B' for kings
     boolean canMove(char[][] board, int sRow, int sCol, int dRow, int dCol) {
-<span class="pc bpc" id="L656" title="5 of 16 branches missed.">        if (sRow == dRow || sCol == dCol || dRow &lt; 0 || dRow &gt; 7 || dCol &lt; 0 || dCol &gt; 7 || Math.abs(sRow - dRow) &gt; 2 || Math.abs(sCol - dCol) &gt; 2) {</span>
+<span class="fc bfc" id="L656" title="All 16 branches covered.">        if (sRow == dRow || sCol == dCol || dRow &lt; 0 || dRow &gt; 7 || dCol &lt; 0 || dCol &gt; 7 || Math.abs(sRow - dRow) &gt; 2 || Math.abs(sCol - dCol) &gt; 2) {</span>
 <span class="fc" id="L657">            return false;</span>
         }
 
-<span class="pc bpc" id="L660" title="3 of 4 branches missed.">        if (Math.abs(sRow - dRow) == 1 &amp;&amp; Math.abs(sCol - dCol) == 1) {</span>
-<span class="nc bnc" id="L661" title="All 2 branches missed.">            if (board[dRow][dCol] == empty) {</span>
-<span class="nc bnc" id="L662" title="All 4 branches missed.">                if (board[sRow][sCol] == RKing || board[sRow][sCol] == BKing) {</span>
-<span class="nc" id="L663">                    return true; // a non capture</span>
+<span class="pc bpc" id="L660" title="1 of 4 branches missed.">        if (Math.abs(sRow - dRow) == 1 &amp;&amp; Math.abs(sCol - dCol) == 1) {</span>
+<span class="pc bpc" id="L661" title="1 of 2 branches missed.">            if (board[dRow][dCol] == empty) {</span>
+<span class="pc bpc" id="L662" title="1 of 4 branches missed.">                if (board[sRow][sCol] == RKing || board[sRow][sCol] == BKing) {</span>
+<span class="fc" id="L663">                    return true; // a non capture</span>
                 }
-<span class="nc bnc" id="L665" title="All 4 branches missed.">                if (board[sRow][sCol] == typeB &amp;&amp; sRow &gt; dRow) {</span>
-<span class="nc" id="L666">                    return true; // a non capture</span>
+<span class="pc bpc" id="L665" title="1 of 4 branches missed.">                if (board[sRow][sCol] == typeB &amp;&amp; sRow &gt; dRow) {</span>
+<span class="fc" id="L666">                    return true; // a non capture</span>
                 }
-<span class="nc bnc" id="L668" title="All 4 branches missed.">                if (board[sRow][sCol] == typeR &amp;&amp; sRow &lt; dRow) {</span>
-<span class="nc" id="L669">                    return true; // a non capture</span>
+<span class="pc bpc" id="L668" title="2 of 4 branches missed.">                if (board[sRow][sCol] == typeR &amp;&amp; sRow &lt; dRow) {</span>
+<span class="fc" id="L669">                    return true; // a non capture</span>
                 }
             }
         }
 
 <span class="pc bpc" id="L674" title="2 of 4 branches missed.">        if (Math.abs(sRow - dRow) == 2 &amp;&amp; Math.abs(sCol - dCol) == 2) {</span>
 <span class="fc bfc" id="L675" title="All 6 branches covered.">            if (board[dRow][dCol] == empty &amp;&amp; board[(sRow + dRow) / 2][(sCol + dCol) / 2] != empty &amp;&amp; Character.toLowerCase(board[sRow][sCol]) != Character.toLowerCase(board[(sRow + dRow) / 2][(sCol + dCol) / 2])) {</span>
-<span class="pc bpc" id="L676" title="2 of 4 branches missed.">                if (board[sRow][sCol] == RKing || board[sRow][sCol] == BKing) {</span>
-<span class="nc" id="L677">                    return true; // a capture</span>
+<span class="pc bpc" id="L676" title="1 of 4 branches missed.">                if (board[sRow][sCol] == RKing || board[sRow][sCol] == BKing) {</span>
+<span class="fc" id="L677">                    return true; // a capture</span>
                 }
 <span class="pc bpc" id="L679" title="1 of 4 branches missed.">                if (board[sRow][sCol] == typeB &amp;&amp; sRow &gt; dRow) {</span>
 <span class="fc" id="L680">                    return true; // a capture</span>
                 }
-<span class="pc bpc" id="L682" title="2 of 4 branches missed.">                if (board[sRow][sCol] == typeR &amp;&amp; sRow &lt; dRow) {</span>
+<span class="pc bpc" id="L682" title="1 of 4 branches missed.">                if (board[sRow][sCol] == typeR &amp;&amp; sRow &lt; dRow) {</span>
 <span class="fc" id="L683">                    return true; // a capture</span>
                 }
 
@@ -689,44 +689,44 @@ public class CheckerBoard {
     }
 
     public List&lt;int[]&gt; getAllCaptures(char[][] board, char colour, Chip predecessorOfMultiMove) {
-<span class="nc" id="L692">        ArrayList&lt;int[]&gt; ret = new ArrayList&lt;int[]&gt;();</span>
-<span class="nc bnc" id="L693" title="All 2 branches missed.">        if (predecessorOfMultiMove == null) {</span>
-<span class="nc bnc" id="L694" title="All 2 branches missed.">            for (int row = 0; row &lt; 8; row++) {</span>
-<span class="nc bnc" id="L695" title="All 2 branches missed.">                for (int col = 0; col &lt; 8; col++) {</span>
-<span class="nc bnc" id="L696" title="All 2 branches missed.">                    if (Character.toLowerCase(board[row][col]) == Character.toLowerCase(colour)) {</span>
-<span class="nc bnc" id="L697" title="All 2 branches missed.">                        if (canMove(board, row, col, row + 2, col + 2)) {</span>
-<span class="nc" id="L698">                            ret.add(new int[]{row, col, row + 2, col + 2});</span>
+<span class="fc" id="L692">        ArrayList&lt;int[]&gt; ret = new ArrayList&lt;int[]&gt;();</span>
+<span class="fc bfc" id="L693" title="All 2 branches covered.">        if (predecessorOfMultiMove == null) {</span>
+<span class="fc bfc" id="L694" title="All 2 branches covered.">            for (int row = 0; row &lt; 8; row++) {</span>
+<span class="fc bfc" id="L695" title="All 2 branches covered.">                for (int col = 0; col &lt; 8; col++) {</span>
+<span class="fc bfc" id="L696" title="All 2 branches covered.">                    if (Character.toLowerCase(board[row][col]) == Character.toLowerCase(colour)) {</span>
+<span class="fc bfc" id="L697" title="All 2 branches covered.">                        if (canMove(board, row, col, row + 2, col + 2)) {</span>
+<span class="fc" id="L698">                            ret.add(new int[]{row, col, row + 2, col + 2});</span>
                         }
-<span class="nc bnc" id="L700" title="All 2 branches missed.">                        if (canMove(board, row, col, row - 2, col + 2)) {</span>
-<span class="nc" id="L701">                            ret.add(new int[]{row, col, row - 2, col + 2});</span>
+<span class="fc bfc" id="L700" title="All 2 branches covered.">                        if (canMove(board, row, col, row - 2, col + 2)) {</span>
+<span class="fc" id="L701">                            ret.add(new int[]{row, col, row - 2, col + 2});</span>
                         }
-<span class="nc bnc" id="L703" title="All 2 branches missed.">                        if (canMove(board, row, col, row - 2, col - 2)) {</span>
-<span class="nc" id="L704">                            ret.add(new int[]{row, col, row - 2, col - 2});</span>
+<span class="fc bfc" id="L703" title="All 2 branches covered.">                        if (canMove(board, row, col, row - 2, col - 2)) {</span>
+<span class="fc" id="L704">                            ret.add(new int[]{row, col, row - 2, col - 2});</span>
                         }
-<span class="nc bnc" id="L706" title="All 2 branches missed.">                        if (canMove(board, row, col, row + 2, col - 2)) {</span>
-<span class="nc" id="L707">                            ret.add(new int[]{row, col, row + 2, col - 2});</span>
+<span class="fc bfc" id="L706" title="All 2 branches covered.">                        if (canMove(board, row, col, row + 2, col - 2)) {</span>
+<span class="fc" id="L707">                            ret.add(new int[]{row, col, row + 2, col - 2});</span>
                         }
                     }
                 }
             }
         } else {
-<span class="nc" id="L713">            int row = predecessorOfMultiMove.getRow(), col = predecessorOfMultiMove.getCol();</span>
-<span class="nc bnc" id="L714" title="All 2 branches missed.">            if (Character.toLowerCase(board[row][col]) == Character.toLowerCase(colour)) {</span>
-<span class="nc bnc" id="L715" title="All 2 branches missed.">                if (canMove(board, row, col, row + 2, col + 2)) {</span>
-<span class="nc" id="L716">                    ret.add(new int[]{row, col, row + 2, col + 2});</span>
+<span class="fc" id="L713">            int row = predecessorOfMultiMove.getRow(), col = predecessorOfMultiMove.getCol();</span>
+<span class="pc bpc" id="L714" title="1 of 2 branches missed.">            if (Character.toLowerCase(board[row][col]) == Character.toLowerCase(colour)) {</span>
+<span class="pc bpc" id="L715" title="1 of 2 branches missed.">                if (canMove(board, row, col, row + 2, col + 2)) {</span>
+<span class="fc" id="L716">                    ret.add(new int[]{row, col, row + 2, col + 2});</span>
                 }
-<span class="nc bnc" id="L718" title="All 2 branches missed.">                if (canMove(board, row, col, row - 2, col + 2)) {</span>
+<span class="pc bpc" id="L718" title="1 of 2 branches missed.">                if (canMove(board, row, col, row - 2, col + 2)) {</span>
 <span class="nc" id="L719">                    ret.add(new int[]{row, col, row - 2, col + 2});</span>
                 }
-<span class="nc bnc" id="L721" title="All 2 branches missed.">                if (canMove(board, row, col, row - 2, col - 2)) {</span>
+<span class="pc bpc" id="L721" title="1 of 2 branches missed.">                if (canMove(board, row, col, row - 2, col - 2)) {</span>
 <span class="nc" id="L722">                    ret.add(new int[]{row, col, row - 2, col - 2});</span>
                 }
-<span class="nc bnc" id="L724" title="All 2 branches missed.">                if (canMove(board, row, col, row + 2, col - 2)) {</span>
-<span class="nc" id="L725">                    ret.add(new int[]{row, col, row + 2, col - 2});</span>
+<span class="pc bpc" id="L724" title="1 of 2 branches missed.">                if (canMove(board, row, col, row + 2, col - 2)) {</span>
+<span class="fc" id="L725">                    ret.add(new int[]{row, col, row + 2, col - 2});</span>
                 }
             }
         }
-<span class="nc" id="L729">        return ret;</span>
+<span class="fc" id="L729">        return ret;</span>
     }
 
     List&lt;int[]&gt; getAllNonCaptures(char[][] board, char colour) {
