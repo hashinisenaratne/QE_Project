@@ -763,46 +763,7 @@ public class CheckerBoard {
 
     int[] getMoveFromMinMax(char colour, Chip predecessorOfMultiMove)//assumed that there is at least one possible move
     {
-        /*char[][] currentBoard = new char[boardSize][boardSize];
-         for (int i = 0; i < boardSize; i++) {
-         for (int j = 0; j < boardSize; j++) {
-         if ((i + j) % 2 == 0) {
-         currentBoard[i][j] = empty;    //EMPTY cell
-         } else {
-         currentBoard[i][j] = invalid;
-         }
-         }
-         }
-    
-         for(Chip piece : typeBList)
-         {
-         if(piece.isOnBoard())
-         {
-         if(piece.isKing())
-         {
-         currentBoard[piece.getRow()][piece.getCol()] = 'B';
-         }
-         else
-         {
-         currentBoard[piece.getRow()][piece.getCol()] = 'b';
-         }
-         }
-         }
-    
-         for(Chip piece : typeRList)
-         {
-         if(piece.isOnBoard())
-         {
-         if(piece.isKing())
-         {
-         currentBoard[piece.getRow()][piece.getCol()] = 'R';
-         }
-         else
-         {
-         currentBoard[piece.getRow()][piece.getCol()] = 'r';
-         }
-         }
-         }*/
+       
         char[][] currentBoard = checkersBoard;
         for (int i = 0; i < boardSize; i++) {
             for (int j = 0; j < boardSize; j++) {
@@ -823,19 +784,7 @@ public class CheckerBoard {
                 Node node = new Node(1, cloneArray(currentBoard));
                 node.makeMove(move);
                 if (hasCuts(node.board, move[2], move[3])) {
-//                            List<int[]> multiMoves = getAllCaptures(node.board, colour, new Chip(move[2], move[3]));
-//                            for(int[] multiMove : multiMoves)
-//                            {
-//                                node = new Node(1,cloneArray(currentBoard));
-//                                node.makeMove(multiMove);
-//                                int value = findValue(node, colour, true);
-//                                if( value > tmpMax)
-//                                {
-//                                        tmpMax= value;
-//                                        bestMove = move;
-//                                } 
-//                            }
-//                            continue;
+
                     return move;
                 }
                 int value = findValue(node, colour, true);
