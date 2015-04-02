@@ -98,8 +98,16 @@ public class CheckerBoardOneTest {
 
   /*
    * @Test public void testPrintBoard() { fail("Not yet implemented"); }
-   * @Test public void testMovePiece() { fail("Not yet implemented"); }
    */
+  @Test
+  public void testMovePiece() {
+    assertFalse(boardforTest.movePiece(0, 9, 2, 5));
+    // System.out.println(customCheckersBoardInstance[4][6]);
+    assertFalse(boardforTest.movePiece(6, 4, 4, 6));
+    assertTrue(boardforTest.movePiece(2, 4, 3, 5));
+
+  }
+
   @Test
   public void testIsMoveable() {
 
