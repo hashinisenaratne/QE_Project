@@ -1,5 +1,6 @@
 package com.checkers.Logic;
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
@@ -192,6 +193,8 @@ public class CheckerBoardOneTest {
 
   @Test
   public void testCutPiece() {
+
+    // assertFalse(boardforTest.cutPiece(attackerRow, attackerCol, victimRow, victimCol));
     assertFalse(boardforTest.cutPiece(-1, 5, 2, 5));
     assertFalse(boardforTest.cutPiece(2, 5, -4, 5));
     assertFalse(boardforTest.cutPiece(0, -3, 2, 5));
@@ -240,6 +243,71 @@ public class CheckerBoardOneTest {
   }
 
   @Test
+  public void testGetSize() {
+    assertEquals(8, boardforTest.getSize());
+
+  }
+
+  @Test
+  public void testGetTypeRList() {
+    assertNotNull(boardforTest.getTypeRList());
+
+  }
+
+  @Test
+  public void testGetTypeBList() {
+    assertNotNull(boardforTest.getTypeBList());
+
+  }
+  
+  @Test
+  public void testPieceCount() {
+    assertTrue(boardforTest.pieceCount(typeB) <= 12);
+    assertTrue(boardforTest.pieceCount(typeR) <= 12);
+
+  }
+
+  @Test
+  public void testIsUsed() {
+    assertTrue(boardforTest.isUsed(typeB, 5, 3));
+    assertTrue(boardforTest.isUsed(typeR, 1, 5));
+
+    assertFalse(boardforTest.isUsed(typeB, 1, 3));
+    assertFalse(boardforTest.isUsed(typeR, 6, 2));
+
+    customCheckersBoardInstance[7][3] = rKing;
+    assertTrue(boardforTest.isUsed(typeR, 7, 3));
+
+    customCheckersBoardInstance[0][4] = bKing;
+    assertTrue(boardforTest.isUsed(typeB, 0, 4));
+  }
+
+  /*
+   * @Test public void testIsUsedByNormalPiece() { fail("Not yet implemented"); }
+   * @Test public void testIsUsedByQueen() { fail("Not yet implemented"); }
+   * @Test public void testCalcHeuristicValue() { fail("Not yet implemented"); }
+   * @Test public void testCalcHeuristicValueEnding() { fail("Not yet implemented"); }
+   */
+
+  @Test
+  public void testGetTypeR() {
+    assertEquals('r', boardforTest.getTypeR());
+
+  }
+
+  @Test
+  public void testGetTypeB() {
+    assertEquals('b', boardforTest.getTypeB());
+
+  }
+
+  /*
+   * @Test public void testIsMoveableByType() { fail("Not yet implemented"); }
+   * @Test public void testMovePieceByType() { fail("Not yet implemented"); }
+   * @Test public void testHasMovesIntInt() { fail("Not yet implemented"); }
+   */
+
+  @Test
   public void testHasMoves() {
     assertTrue(boardforTest.hasMoves(5, 3));
     assertTrue(boardforTest.hasMoves(2, 6));
@@ -266,22 +334,32 @@ public class CheckerBoardOneTest {
     customCheckersBoardInstance[3][3] = empty;
     assertTrue(boardforTest.hasMoves(5, 1));
   }
-  /*
-   * @Test public void testPieceCount() { fail("Not yet implemented"); }
-   * @Test public void testIsUsed() { fail("Not yet implemented"); }
-   * @Test public void testIsUsedByNormalPiece() { fail("Not yet implemented"); }
-   * @Test public void testIsUsedByQueen() { fail("Not yet implemented"); }
-   * @Test public void testGetSize() { fail("Not yet implemented"); }
-   * @Test public void testGetTypeRList() { fail("Not yet implemented"); }
-   * @Test public void testGetTypeBList() { fail("Not yet implemented"); }
-   * @Test public void testCalcHeuristicValue() { fail("Not yet implemented"); }
-   * @Test public void testCalcHeuristicValueEnding() { fail("Not yet implemented"); }
-   * @Test public void testGetTypeR() { fail("Not yet implemented"); }
-   * @Test public void testGetTypeB() { fail("Not yet implemented"); }
-   * @Test public void testIsMoveableByType() { fail("Not yet implemented"); }
-   * @Test public void testMovePieceByType() { fail("Not yet implemented"); }
-   * @Test public void testHasMovesIntInt() { fail("Not yet implemented"); }
-   */
 
+  @Test
+  public void testHasMovesChar() {
+    assertTrue(boardforTest.hasMoves(typeB));
+    assertTrue(boardforTest.hasMoves(typeR));
+
+    customCheckersBoardInstance[3][1] = typeB;
+    customCheckersBoardInstance[3][3] = typeB;
+    customCheckersBoardInstance[3][5] = typeB;
+    customCheckersBoardInstance[3][7] = typeB;
+    customCheckersBoardInstance[4][0] = typeB;
+    customCheckersBoardInstance[4][2] = typeB;
+    customCheckersBoardInstance[4][4] = typeB;
+    customCheckersBoardInstance[4][6] = typeB;
+
+    customCheckersBoardInstance[7][1] = empty;
+    customCheckersBoardInstance[7][3] = empty;
+    customCheckersBoardInstance[7][5] = empty;
+    customCheckersBoardInstance[7][7] = empty;
+    customCheckersBoardInstance[6][0] = empty;
+    customCheckersBoardInstance[6][2] = empty;
+    customCheckersBoardInstance[6][4] = empty;
+    customCheckersBoardInstance[6][6] = empty;
+
+    assertFalse(boardforTest.hasMoves(typeB));
+    assertFalse(boardforTest.hasMoves(typeR));
+  }
 
 }
