@@ -4,6 +4,8 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
+import java.util.List;
+
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -23,6 +25,8 @@ public class CheckerBoardOneTest {
   char invalid = '#';
   char rKing = 'R';
   char bKing = 'B';
+  private List<Chip> typeRList1;
+  private List<Chip> typeBList2;
 
   @BeforeClass
   public static void setUpClass() {
@@ -96,15 +100,38 @@ public class CheckerBoardOneTest {
     assertNotNull("checker board is null",customCheckersBoardInstance);
   }
 
-  /*
-   * @Test public void testPrintBoard() { fail("Not yet implemented"); }
-   */
+  @Test
+  public void testPrintBoard() {
+    // boardforTest.printBoard();
+  }
+
   @Test
   public void testMovePiece() {
+    // test for invalid moves
     assertFalse(boardforTest.movePiece(0, 9, 2, 5));
-    // System.out.println(customCheckersBoardInstance[4][6]);
     assertFalse(boardforTest.movePiece(6, 4, 4, 6));
+
+    // test for valid moves normal
     assertTrue(boardforTest.movePiece(2, 4, 3, 5));
+    assertTrue(boardforTest.movePiece(5, 7, 4, 6));
+
+    // test for valid moves advanced
+    customCheckersBoardInstance[5][3] = typeR;
+    boardforTest.removeFromTypeBList(5, 3);
+    boardforTest.addToTypeRList(5, 3);
+    customCheckersBoardInstance[7][5] = empty;
+    boardforTest.removeFromTypeBList(7, 5);
+    // boardforTest.printBoard();
+    assertTrue(boardforTest.movePiece(5, 3, 7, 5));
+    // boardforTest.printBoard();
+
+    customCheckersBoardInstance[2][4] = typeB;
+    boardforTest.addToTypeBList(2, 4);
+    customCheckersBoardInstance[0][2] = empty;
+    boardforTest.removeFromTypeRList(7, 5);
+    // boardforTest.printBoard();
+    assertTrue(boardforTest.movePiece(2, 4, 0, 2));
+    // boardforTest.printBoard();
 
   }
 
