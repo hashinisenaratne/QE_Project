@@ -5,7 +5,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Random;
 
 /**
  *
@@ -152,7 +151,7 @@ public class CheckerBoard {
                 //not allowing too long moves
                 return false;
             }
-            if (Math.abs(dCol - sCol) == 2 && Math.abs(dRow - sRow) == 2) {
+            if (Math.abs(dCol - sCol) == 2) {
                 if (Character.toLowerCase(checkersBoard[sRow][sCol]) == Character.toLowerCase(typeR)) {
                     if (Character.toLowerCase(checkersBoard[(dRow + sRow) / 2][(dCol + sCol) / 2]) != Character.toLowerCase(typeB)) {
                         return false;
