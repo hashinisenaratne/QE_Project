@@ -170,24 +170,103 @@ public class CheckerBoardOneTest {
     assertFalse("Piece cannot move backward", boardforTest.isMoveable(5, 7, 6, 6));
 
     // test for a larger move for both pieces
+    customCheckersBoardInstance[5][3] = empty;
+    assertFalse("Can't allow large moves", boardforTest.isMoveable(2, 2, 5, 3));
+    customCheckersBoardInstance[1][1] = typeR;
+    customCheckersBoardInstance[2][6] = empty;
+    assertFalse("Can't allow large moves", boardforTest.isMoveable(1, 1, 2, 6));
     assertFalse("Can't allow large moves", boardforTest.isMoveable(2, 2, 6, 6));
-    assertFalse("Can't allow large moves", boardforTest.isMoveable(5, 5, 3, 1));
 
     // test for 1 cell moves
     assertTrue("Valid 1 move cell", boardforTest.isMoveable(2, 2, 3, 3));
-    assertTrue("Valid 1 move cell", boardforTest.isMoveable(7, 7, 6, 6));
+    // assertTrue("Valid 1 move cell", boardforTest.isMoveable(7, 7, 6, 6));
 
     // test for valid cutting pieces
-    assertFalse("A red piece can't cut a red piece", boardforTest.isMoveable(1, 3, 3, 5));
     customCheckersBoardInstance[3][3] = typeB;
     assertTrue("A red piece can cut a black piece", boardforTest.isMoveable(2, 2, 4, 4));
-    assertFalse("A black piece can't cut a black piece", boardforTest.isMoveable(6, 4, 4, 6));
-    customCheckersBoardInstance[4][6] = typeR;
-    assertTrue(boardforTest.isMoveable(5, 7, 3, 5));
+    assertFalse("A black piece can't cut a black piece", boardforTest.isMoveable(1, 3, 3, 5));
 
+    // System.out.println("test Is Moveable");
+    // boardforTest.printBoard();
+  }
+
+  @Test
+  public void testCutPiece() {
+    assertFalse(boardforTest.cutPiece(-1, 5, 2, 5));
+    assertFalse(boardforTest.cutPiece(2, 5, -4, 5));
+    assertFalse(boardforTest.cutPiece(0, -3, 2, 5));
+    assertFalse(boardforTest.cutPiece(1, 5, 2, -9));
+
+    assertFalse(boardforTest.cutPiece(10, 5, 2, 5));
+    assertFalse(boardforTest.cutPiece(2, 5, 9, 5));
+    assertFalse(boardforTest.cutPiece(0, 8, 2, 5));
+    assertFalse(boardforTest.cutPiece(1, 5, 2, 15));
+
+    assertFalse(boardforTest.cutPiece(4, 2, 2, 5));
+    assertFalse(boardforTest.cutPiece(3, 7, 5, 5));
+    assertFalse(boardforTest.cutPiece(5, 1, 4, 0));
+    assertFalse(boardforTest.cutPiece(2, 4, 3, 5));
+
+    assertFalse(boardforTest.cutPiece(5, 3, 5, 3));
+    assertFalse(boardforTest.cutPiece(2, 6, 2, 6));
+
+    boardforTest.printBoard();
+    customCheckersBoardInstance[2][2] = empty;
+    boardforTest.removeFromTypeRList(2, 2);
+    customCheckersBoardInstance[4][2] = typeR;
+    boardforTest.addToTypeRList(4, 2);
+    assertTrue(boardforTest.cutPiece(5, 1, 4, 2));
+    setUp();
+    customCheckersBoardInstance[2][2] = empty;
+    boardforTest.removeFromTypeRList(2, 2);
+    customCheckersBoardInstance[4][2] = typeR;
+    boardforTest.addToTypeRList(4, 2);
+    assertTrue(boardforTest.cutPiece(5, 3, 4, 2));
+
+    customCheckersBoardInstance[5][5] = empty;
+    boardforTest.removeFromTypeBList(5, 5);
+    customCheckersBoardInstance[3][5] = typeB;
+    boardforTest.addToTypeBList(3, 5);
+    assertTrue(boardforTest.cutPiece(2, 4, 3, 5));
+    setUp();
+    customCheckersBoardInstance[5][5] = empty;
+    boardforTest.removeFromTypeBList(5, 5);
+    customCheckersBoardInstance[3][5] = typeB;
+    boardforTest.addToTypeBList(3, 5);
+    assertTrue(boardforTest.cutPiece(2, 6, 3, 5));
+
+    // System.out.println("test Cut Piece board");
+    // boardforTest.printBoard();
+  }
+
+  @Test
+  public void testHasMoves() {
+    assertTrue(boardforTest.hasMoves(5, 3));
+    assertTrue(boardforTest.hasMoves(2, 6));
+    assertTrue(boardforTest.hasMoves(5, 1));
+    assertFalse(boardforTest.hasMoves(1, 1));
+    customCheckersBoardInstance[4][4] = typeB;
+    customCheckersBoardInstance[3][3] = typeR;
+
+    System.out.println("test Has Moves");
+    boardforTest.printBoard();
+    assertTrue(boardforTest.hasMoves(3, 3));
+    customCheckersBoardInstance[4][2] = typeR;
+    customCheckersBoardInstance[5][5] = empty;
+    assertTrue(boardforTest.hasMoves(3, 3));
+    assertTrue(boardforTest.hasMoves(5, 3));
+    assertTrue(boardforTest.hasMoves(5, 7));
+
+    customCheckersBoardInstance[3][1] = typeR;
+    customCheckersBoardInstance[6][0] = empty;
+    assertTrue(boardforTest.hasMoves(4, 2));
+
+    customCheckersBoardInstance[4][0] = typeR;
+    customCheckersBoardInstance[6][0] = typeB;
+    customCheckersBoardInstance[3][3] = empty;
+    assertTrue(boardforTest.hasMoves(5, 1));
   }
   /*
-   * @Test public void testCutPiece() { fail("Not yet implemented"); }
    * @Test public void testPieceCount() { fail("Not yet implemented"); }
    * @Test public void testIsUsed() { fail("Not yet implemented"); }
    * @Test public void testIsUsedByNormalPiece() { fail("Not yet implemented"); }
@@ -202,6 +281,7 @@ public class CheckerBoardOneTest {
    * @Test public void testIsMoveableByType() { fail("Not yet implemented"); }
    * @Test public void testMovePieceByType() { fail("Not yet implemented"); }
    * @Test public void testHasMovesIntInt() { fail("Not yet implemented"); }
-   * @Test public void testHasMovesChar() { fail("Not yet implemented"); }
    */
+
+
 }
