@@ -120,7 +120,7 @@ public class HeuristicUtilTest
     }
     
     @Test
-    public void testCalcBoardHeuristicValueEnding() {
+    public void testCalcBoardHeuristicValueEnding1() {
     	customCheckersBoardInstance[0][0] = bKing;
         customCheckersBoardInstance[0][2] = rKing;
         customCheckersBoardInstance[0][4] = typeB;

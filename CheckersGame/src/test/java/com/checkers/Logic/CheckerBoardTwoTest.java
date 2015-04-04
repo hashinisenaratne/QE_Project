@@ -1,6 +1,7 @@
 package com.checkers.Logic;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import org.apache.commons.collections.CollectionUtils;
 import org.hamcrest.CoreMatchers;
@@ -349,8 +350,90 @@ public class CheckerBoardTwoTest {
         customCheckersBoardInstance[7][5] = empty;
         customCheckersBoardInstance[6][4] = typeB;
         assertEquals(boardforTest.calcHeuristic(customCheckersBoardInstance, typeR), 28);
+        resetCustomCheckerBoard();
+        boardforTest.setCheckersBoard(customCheckersBoardInstance);
+    }
+    
+    
+    @Test
+    public void testCalcHeuristicValueEnding() {
+    	customCheckersBoardInstance[0][0] = bKing;
+        customCheckersBoardInstance[0][2] = rKing;
+        customCheckersBoardInstance[0][4] = typeB;
+        customCheckersBoardInstance[7][1] = typeR;
+        assertEquals(-3, boardforTest.calcHeuristicValueEnding(typeB));
+        assertEquals(3, boardforTest.calcHeuristicValueEnding(typeR));
+        assertEquals(-1, boardforTest.calcHeuristicValueEnding(empty));
+        resetCustomCheckerBoard();
+    }
+    
+    @Test
+    public void testCalcHeuristicValue() {
+    	customCheckersBoardInstance[0][0] = bKing;
+        customCheckersBoardInstance[0][2] = rKing;
+        customCheckersBoardInstance[0][4] = typeB;
+        customCheckersBoardInstance[7][1] = typeR;
+        assertEquals(29, boardforTest.calcHeuristicValue(typeB));
+        assertEquals(-29, boardforTest.calcHeuristicValue(typeR));
+        assertEquals(-1, boardforTest.calcHeuristicValue(empty));
+        
+        clearCustomCheckerBoard();
+        customCheckersBoardInstance[0][0] = bKing;
+        assertEquals(29, boardforTest.calcHeuristicValue(typeB));
+        resetCustomCheckerBoard();
+        
+        clearCustomCheckerBoard();
+        customCheckersBoardInstance[0][0] = bKing;
+        assertEquals(-29, boardforTest.calcHeuristicValue(typeR));
+        resetCustomCheckerBoard();
+        
+        clearCustomCheckerBoard();
+        customCheckersBoardInstance[0][0] = rKing;
+        assertEquals(-29, boardforTest.calcHeuristicValue(typeR));
+        resetCustomCheckerBoard();
+        
+        clearCustomCheckerBoard();
+        customCheckersBoardInstance[0][0] = rKing;
+        assertEquals(29, boardforTest.calcHeuristicValue(typeB));
+        resetCustomCheckerBoard();
     }
 
+    @Test
+    public void testCalcBoardHeuristicValue2() {
+    	customCheckersBoardInstance[0][0] = bKing;
+        customCheckersBoardInstance[0][2] = rKing;
+        customCheckersBoardInstance[0][4] = typeB;
+        customCheckersBoardInstance[7][1] = typeR;
+        HashMap<Character, Integer> map = boardforTest.calcBoardHeuristicValue2();
+        assertEquals(79, (int)map.get(typeB));
+        assertEquals(62, (int)map.get(typeR));
+        resetCustomCheckerBoard();
+    }
+
+    @Test
+    public void testCalcBoardHeuristicValue4() {
+    	customCheckersBoardInstance[0][0] = bKing;
+        customCheckersBoardInstance[0][2] = rKing;
+        customCheckersBoardInstance[0][4] = typeB;
+        customCheckersBoardInstance[7][1] = typeR;
+        HashMap<Character, Integer> map = boardforTest.calcBoardHeuristicValue4();
+        assertEquals(60, (int)map.get(typeB));
+        assertEquals(56, (int)map.get(typeR));     
+        resetCustomCheckerBoard();
+    }
+    
+    @Test
+    public void testCalcBoardHeuristicValueEnding2() {
+    	customCheckersBoardInstance[0][0] = bKing;
+        customCheckersBoardInstance[0][2] = rKing;
+        customCheckersBoardInstance[0][4] = typeB;
+        customCheckersBoardInstance[7][1] = typeR;
+        HashMap<Character, Integer> map = boardforTest.calcBoardHeuristicValueEnding2();
+        assertEquals(7, (int)map.get(typeB));
+        assertEquals(7, (int)map.get(typeR));
+        resetCustomCheckerBoard();
+    }
+    
     /**
      * Initialize a custom checker board for testing and reset it
      */
@@ -410,5 +493,20 @@ public class CheckerBoardTwoTest {
         }
 
 
+    }
+    
+    private void clearCustomCheckerBoard() {
+        int boardSize = 8;
+        customCheckersBoardInstance = new char[boardSize][boardSize];
+
+        for (int i = 0; i < boardSize; i++) {
+            for (int j = 0; j < boardSize; j++) {
+                if ((i + j) % 2 == 0) {
+                    customCheckersBoardInstance[i][j] = empty;    //EMPTY cell
+                } else {
+                    customCheckersBoardInstance[i][j] = invalid;
+                }
+            }
+        }
     }
 }

@@ -63,7 +63,7 @@
     <property name="sun.cpu.isalist" value="amd64"/>
   </properties>
   <testcase classname="com.checkers.Logic.HeuristicUtilTest" name="testPieceCount" time="0"/>
-  <testcase classname="com.checkers.Logic.HeuristicUtilTest" name="testCalcBoardHeuristicValueEnding" time="0"/>
+  <testcase classname="com.checkers.Logic.HeuristicUtilTest" name="testCalcBoardHeuristicValueEnding1" time="0"/>
   <testcase classname="com.checkers.Logic.HeuristicUtilTest" name="testCalcBoardHeuristicValueEnding2" time="0"/>
   <testcase classname="com.checkers.Logic.HeuristicUtilTest" name="testCalcHeuristicValue" time="0"/>
   <testcase classname="com.checkers.Logic.HeuristicUtilTest" name="testCalcBoardHeuristicValue2" time="0"/>

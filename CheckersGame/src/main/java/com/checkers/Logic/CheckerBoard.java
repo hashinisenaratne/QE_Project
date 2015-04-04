@@ -390,7 +390,7 @@ public class CheckerBoard {
         return map;
     }
 
-    private HashMap calcBoardHeuristicValue2() {
+    public HashMap calcBoardHeuristicValue2() {
         int heuristicValueR = 0;
         int heuristicValueB = 0;
         for (int i = 0; i < boardSize; i++) {
@@ -433,7 +433,7 @@ public class CheckerBoard {
         return map;
     }
 
-    private HashMap calcBoardHeuristicValue4() {
+    public HashMap calcBoardHeuristicValue4() {
         HashMap<Character, Integer> map;
         map = this.calcBoardHeuristicValue2();
         float heuristicValueR = map.get(typeR);
@@ -481,7 +481,7 @@ public class CheckerBoard {
         return map;
     }
 
-    private HashMap calcBoardHeuristicValueEnding2() {
+    public HashMap calcBoardHeuristicValueEnding2() {
         HashMap<Character, Integer> map;
         map = new HashMap<Character, Integer>();
         int heuristicValueR = 0;
