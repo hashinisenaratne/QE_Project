@@ -302,4 +302,8 @@ public static boolean isUsedByNormalPiece(char type, int row, int col) {
         }
         return true;
     }
+    
+    public static void setboard(char[][] board) {
+        checkersBoard=board;
+    }
 }

@@ -266,8 +266,8 @@ public static boolean isUsedByNormalPiece(char type, int row, int col) {
     }
 
     public static boolean isUsedByQueen(char type, int row, int col) {
-<span class="pc bpc" id="L269" title="1 of 2 branches missed.">        if (checkersBoard[row][col] == Character.toUpperCase(type)) {</span>
-<span class="nc" id="L270">            return true;</span>
+<span class="fc bfc" id="L269" title="All 2 branches covered.">        if (checkersBoard[row][col] == Character.toUpperCase(type)) {</span>
+<span class="fc" id="L270">            return true;</span>
         }
 <span class="fc" id="L272">        return false;</span>
     }
@@ -278,17 +278,17 @@ public static boolean isUsedByNormalPiece(char type, int row, int col) {
 <span class="fc" id="L278">        return false;</span>
     }
     public static int pieceCount(char type) {
-<span class="nc" id="L281">        int count = 0;</span>
-<span class="nc bnc" id="L282" title="All 2 branches missed.">        for (int i = 0; i &lt; boardSize; i++) {</span>
-<span class="nc bnc" id="L283" title="All 2 branches missed.">            for (int j = 0; j &lt; boardSize; j++) {</span>
-<span class="nc bnc" id="L284" title="All 2 branches missed.">                if ((i + j) % 2 == 0) {</span>
-<span class="nc bnc" id="L285" title="All 2 branches missed.">                    if (isUsed(type, i, j)) {</span>
-<span class="nc" id="L286">                        count++;</span>
+<span class="fc" id="L281">        int count = 0;</span>
+<span class="fc bfc" id="L282" title="All 2 branches covered.">        for (int i = 0; i &lt; boardSize; i++) {</span>
+<span class="fc bfc" id="L283" title="All 2 branches covered.">            for (int j = 0; j &lt; boardSize; j++) {</span>
+<span class="fc bfc" id="L284" title="All 2 branches covered.">                if ((i + j) % 2 == 0) {</span>
+<span class="fc bfc" id="L285" title="All 2 branches covered.">                    if (isUsed(type, i, j)) {</span>
+<span class="fc" id="L286">                        count++;</span>
                     }
                 }
             }
         }
-<span class="nc" id="L291">        return count;</span>
+<span class="fc" id="L291">        return count;</span>
     }
     public static boolean isOnlyKings(){
 <span class="pc bpc" id="L294" title="1 of 2 branches missed.">        for (int i = 0; i &lt; boardSize; i++) {</span>
@@ -302,5 +302,9 @@ public static boolean isUsedByNormalPiece(char type, int row, int col) {
         }
 <span class="nc" id="L303">        return true;</span>
     }
+    
+    public static void setboard(char[][] board) {
+<span class="fc" id="L307">        checkersBoard=board;</span>
+<span class="fc" id="L308">    }</span>
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.4.201502262128</span></div></body></html>
