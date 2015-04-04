@@ -238,8 +238,43 @@ public class CheckerBoardOneTest {
     boardforTest.addToTypeBList(3, 5);
     assertTrue(boardforTest.cutPiece(2, 6, 3, 5));
 
-    // System.out.println("test Cut Piece board");
-    // boardforTest.printBoard();
+    setUp();
+    customCheckersBoardInstance[7][5] = rKing;
+    boardforTest.removeFromTypeBList(7, 5);
+    boardforTest.addToTypeRList(7, 5);
+    customCheckersBoardInstance[5][3] = empty;
+    boardforTest.removeFromTypeBList(5, 3);
+    assertTrue(boardforTest.cutPiece(7, 5, 6, 4));
+
+    setUp();
+    customCheckersBoardInstance[7][5] = rKing;
+    boardforTest.removeFromTypeBList(7, 5);
+    boardforTest.addToTypeRList(7, 5);
+    customCheckersBoardInstance[5][7] = empty;
+    boardforTest.removeFromTypeBList(5, 7);
+    assertTrue(boardforTest.cutPiece(7, 5, 6, 6));
+
+    setUp();
+    customCheckersBoardInstance[0][4] = bKing;
+    boardforTest.removeFromTypeRList(0, 4);
+    boardforTest.addToTypeBList(0, 4);
+    customCheckersBoardInstance[2][2] = empty;
+    boardforTest.removeFromTypeRList(2, 2);
+    assertTrue(boardforTest.cutPiece(0, 4, 1, 3));
+
+    setUp();
+    customCheckersBoardInstance[0][4] = bKing;
+    boardforTest.removeFromTypeRList(0, 4);
+    boardforTest.addToTypeBList(0, 4);
+    customCheckersBoardInstance[2][6] = empty;
+    boardforTest.removeFromTypeRList(2, 6);
+    assertTrue(boardforTest.cutPiece(0, 4, 1, 5));
+
+    setUp();
+    customCheckersBoardInstance[5][5] = typeR;
+    boardforTest.removeFromTypeBList(5, 5);
+    boardforTest.addToTypeRList(5, 5);
+    assertFalse(boardforTest.cutPiece(5, 3, 5, 5));
   }
 
   @Test
@@ -282,9 +317,23 @@ public class CheckerBoardOneTest {
     assertTrue(boardforTest.isUsed(typeB, 0, 4));
   }
 
+  @Test
+  public void testIsUsedByNormalPiece() {
+    assertTrue(boardforTest.isUsedByNormalPiece(typeB, 5, 5));
+    assertFalse(boardforTest.isUsedByNormalPiece(typeR, 5, 1));
+
+  }
+
+  @Test
+  public void testIsUsedByQueen() {
+    customCheckersBoardInstance[7][3] = rKing;
+    assertTrue(boardforTest.isUsedByQueen(typeR, 7, 3));
+
+    assertFalse(boardforTest.isUsedByQueen(typeB, 7, 5));
+
+  }
+
   /*
-   * @Test public void testIsUsedByNormalPiece() { fail("Not yet implemented"); }
-   * @Test public void testIsUsedByQueen() { fail("Not yet implemented"); }
    * @Test public void testCalcHeuristicValue() { fail("Not yet implemented"); }
    * @Test public void testCalcHeuristicValueEnding() { fail("Not yet implemented"); }
    */
