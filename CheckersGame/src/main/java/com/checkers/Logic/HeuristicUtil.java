@@ -86,7 +86,7 @@ public class HeuristicUtil {
         return -1;
     }
 
-    private static HashMap calcBoardHeuristicValue3() {
+    public static HashMap calcBoardHeuristicValue3() {
         int heuristicValueR = 0;
         int heuristicValueB = 0;
         for (int i = 0; i < boardSize; i++) {
@@ -120,7 +120,7 @@ public class HeuristicUtil {
         return map;
     }
 
-    private static HashMap calcBoardHeuristicValue2() {
+    public static HashMap calcBoardHeuristicValue2() {
         int heuristicValueR = 0;
         int heuristicValueB = 0;
         for (int i = 0; i < boardSize; i++) {
@@ -163,7 +163,7 @@ public class HeuristicUtil {
         return map;
     }
 
-    private static HashMap calcBoardHeuristicValue4() {
+    public static HashMap calcBoardHeuristicValue4() {
         HashMap<Character, Integer> map;
         map = HeuristicUtil.calcBoardHeuristicValue2();
         float heuristicValueR = map.get(typeR);
@@ -175,7 +175,7 @@ public class HeuristicUtil {
         return map;
     }
 
-    private static HashMap calcBoardHeuristicValueEnding1() {
+    public static HashMap calcBoardHeuristicValueEnding1() {
         HashMap<Character, Integer> map;
         map = new HashMap<Character, Integer>();
         int heuristicValueR = 0;
@@ -211,7 +211,7 @@ public class HeuristicUtil {
         return map;
     }
 
-    private static HashMap calcBoardHeuristicValueEnding2() {
+    public static HashMap calcBoardHeuristicValueEnding2() {
         HashMap<Character, Integer> map;
         map = new HashMap<Character, Integer>();
         int heuristicValueR = 0;

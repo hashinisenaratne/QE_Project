@@ -40,53 +40,53 @@ import java.util.List;
 <span class="fc" id="L40">        HashMap&lt;Character, Integer&gt; map=null;</span>
 <span class="fc" id="L41">        int heuristicValueR=0;</span>
 <span class="fc" id="L42">        int heuristicValueB=0;</span>
-<span class="pc bpc" id="L43" title="1 of 2 branches missed.">        if(!isOnlyKings()){</span>
+<span class="fc bfc" id="L43" title="All 2 branches covered.">        if(!isOnlyKings()){</span>
 <span class="fc" id="L44">            map = calcBoardHeuristicValue3();            </span>
 <span class="fc" id="L45">            heuristicValueR = map.get(typeR);</span>
 <span class="fc" id="L46">            heuristicValueB = map.get(typeB);</span>
         }else{
-<span class="nc" id="L48">            map=calcBoardHeuristicValueEnding1();</span>
-<span class="nc bnc" id="L49" title="All 2 branches missed.">            if(pieceCount(typeR)&gt;pieceCount(typeB)){</span>
-<span class="nc bnc" id="L50" title="All 2 branches missed.">                if(type==typeR){</span>
-<span class="nc" id="L51">                    heuristicValueR=map.get(typeB);</span>
-<span class="nc" id="L52">                    heuristicValueB=map.get(typeR);</span>
+<span class="fc" id="L48">            map=calcBoardHeuristicValueEnding1();</span>
+<span class="fc bfc" id="L49" title="All 2 branches covered.">            if(pieceCount(typeR)&gt;pieceCount(typeB)){</span>
+<span class="fc bfc" id="L50" title="All 2 branches covered.">                if(type==typeR){</span>
+<span class="fc" id="L51">                    heuristicValueR=map.get(typeB);</span>
+<span class="fc" id="L52">                    heuristicValueB=map.get(typeR);</span>
                 }else{
-<span class="nc" id="L54">                    heuristicValueR=map.get(typeR);</span>
-<span class="nc" id="L55">                    heuristicValueB=map.get(typeB);</span>
+<span class="fc" id="L54">                    heuristicValueR=map.get(typeR);</span>
+<span class="fc" id="L55">                    heuristicValueB=map.get(typeB);</span>
                 }
             }else{
-<span class="nc bnc" id="L58" title="All 2 branches missed.">                if(type==typeR){</span>
-<span class="nc" id="L59">                    heuristicValueR=map.get(typeR);</span>
-<span class="nc" id="L60">                    heuristicValueB=map.get(typeB);</span>
+<span class="fc bfc" id="L58" title="All 2 branches covered.">                if(type==typeR){</span>
+<span class="fc" id="L59">                    heuristicValueR=map.get(typeR);</span>
+<span class="fc" id="L60">                    heuristicValueB=map.get(typeB);</span>
                 }else{
-<span class="nc" id="L62">                    heuristicValueR=map.get(typeB);</span>
-<span class="nc" id="L63">                    heuristicValueB=map.get(typeR);</span>
+<span class="fc" id="L62">                    heuristicValueR=map.get(typeB);</span>
+<span class="fc" id="L63">                    heuristicValueB=map.get(typeR);</span>
                 }
             }
         }
-<span class="pc bpc" id="L67" title="1 of 2 branches missed.">        if (Character.toLowerCase(type) == Character.toLowerCase(typeR)) {</span>
+<span class="fc bfc" id="L67" title="All 2 branches covered.">        if (Character.toLowerCase(type) == Character.toLowerCase(typeR)) {</span>
 <span class="fc" id="L68">            return heuristicValueR - heuristicValueB;</span>
-<span class="nc bnc" id="L69" title="All 2 branches missed.">        } else if (Character.toLowerCase(type) == Character.toLowerCase(typeB)) {</span>
-<span class="nc" id="L70">            return heuristicValueB - heuristicValueR;</span>
+<span class="fc bfc" id="L69" title="All 2 branches covered.">        } else if (Character.toLowerCase(type) == Character.toLowerCase(typeB)) {</span>
+<span class="fc" id="L70">            return heuristicValueB - heuristicValueR;</span>
         }
-<span class="nc" id="L72">        return -1;</span>
+<span class="fc" id="L72">        return -1;</span>
     }
 
     public static int calcHeuristicValueEnding(char[][] board,char type) {
-<span class="nc" id="L76">        checkersBoard=board;</span>
-<span class="nc" id="L77">        populateList();</span>
-<span class="nc" id="L78">        HashMap&lt;Character, Integer&gt; map = calcBoardHeuristicValueEnding1();</span>
-<span class="nc" id="L79">        int heuristicValueR = map.get(typeR);</span>
-<span class="nc" id="L80">        int heuristicValueB = map.get(typeB);</span>
-<span class="nc bnc" id="L81" title="All 2 branches missed.">        if (Character.toLowerCase(type) == Character.toLowerCase(typeR)) {</span>
-<span class="nc" id="L82">            return heuristicValueR - heuristicValueB;</span>
-<span class="nc bnc" id="L83" title="All 2 branches missed.">        } else if (Character.toLowerCase(type) == Character.toLowerCase(typeB)) {</span>
-<span class="nc" id="L84">            return heuristicValueB - heuristicValueR;</span>
+<span class="fc" id="L76">        checkersBoard=board;</span>
+<span class="fc" id="L77">        populateList();</span>
+<span class="fc" id="L78">        HashMap&lt;Character, Integer&gt; map = calcBoardHeuristicValueEnding1();</span>
+<span class="fc" id="L79">        int heuristicValueR = map.get(typeR);</span>
+<span class="fc" id="L80">        int heuristicValueB = map.get(typeB);</span>
+<span class="fc bfc" id="L81" title="All 2 branches covered.">        if (Character.toLowerCase(type) == Character.toLowerCase(typeR)) {</span>
+<span class="fc" id="L82">            return heuristicValueR - heuristicValueB;</span>
+<span class="fc bfc" id="L83" title="All 2 branches covered.">        } else if (Character.toLowerCase(type) == Character.toLowerCase(typeB)) {</span>
+<span class="fc" id="L84">            return heuristicValueB - heuristicValueR;</span>
         }
-<span class="nc" id="L86">        return -1;</span>
+<span class="fc" id="L86">        return -1;</span>
     }
 
-    private static HashMap calcBoardHeuristicValue3() {
+    public static HashMap calcBoardHeuristicValue3() {
 <span class="fc" id="L90">        int heuristicValueR = 0;</span>
 <span class="fc" id="L91">        int heuristicValueB = 0;</span>
 <span class="fc bfc" id="L92" title="All 2 branches covered.">        for (int i = 0; i &lt; boardSize; i++) {</span>
@@ -95,8 +95,8 @@ import java.util.List;
 <span class="fc bfc" id="L95" title="All 2 branches covered.">                    if (isUsedByNormalPiece(typeR, i, j)) {</span>
 <span class="fc" id="L96">                        heuristicValueR += 5 + i;</span>
                     }
-<span class="pc bpc" id="L98" title="1 of 2 branches missed.">                    if (isUsedByQueen(typeR, i, j)) {</span>
-<span class="nc" id="L99">                        heuristicValueR += 5 + i + 5;</span>
+<span class="fc bfc" id="L98" title="All 2 branches covered.">                    if (isUsedByQueen(typeR, i, j)) {</span>
+<span class="fc" id="L99">                        heuristicValueR += 5 + i + 5;</span>
                     }
                 }
             }
@@ -107,8 +107,8 @@ import java.util.List;
 <span class="fc bfc" id="L107" title="All 2 branches covered.">                    if (isUsed(typeB, i, j)) {</span>
 <span class="fc" id="L108">                        heuristicValueB += 5 + (7 - i);</span>
                     }
-<span class="pc bpc" id="L110" title="1 of 2 branches missed.">                    if (isUsedByQueen(typeB, i, j)) {</span>
-<span class="nc" id="L111">                        heuristicValueB += 5 + (7 - i) + 5;</span>
+<span class="fc bfc" id="L110" title="All 2 branches covered.">                    if (isUsedByQueen(typeB, i, j)) {</span>
+<span class="fc" id="L111">                        heuristicValueB += 5 + (7 - i) + 5;</span>
                     }
                 }
             }
@@ -120,143 +120,143 @@ import java.util.List;
 <span class="fc" id="L120">        return map;</span>
     }
 
-    private static HashMap calcBoardHeuristicValue2() {
-<span class="nc" id="L124">        int heuristicValueR = 0;</span>
-<span class="nc" id="L125">        int heuristicValueB = 0;</span>
-<span class="nc bnc" id="L126" title="All 2 branches missed.">        for (int i = 0; i &lt; boardSize; i++) {</span>
-<span class="nc bnc" id="L127" title="All 2 branches missed.">            for (int j = 0; j &lt; boardSize; j++) {</span>
-<span class="nc bnc" id="L128" title="All 2 branches missed.">                if ((i + j) % 2 == 0) {</span>
-<span class="nc bnc" id="L129" title="All 2 branches missed.">                    if (isUsedByNormalPiece(typeR, i, j)) {</span>
-<span class="nc bnc" id="L130" title="All 2 branches missed.">                        if (i &lt; 4) {</span>
-<span class="nc" id="L131">                            heuristicValueR += 5;</span>
+    public static HashMap calcBoardHeuristicValue2() {
+<span class="fc" id="L124">        int heuristicValueR = 0;</span>
+<span class="fc" id="L125">        int heuristicValueB = 0;</span>
+<span class="fc bfc" id="L126" title="All 2 branches covered.">        for (int i = 0; i &lt; boardSize; i++) {</span>
+<span class="fc bfc" id="L127" title="All 2 branches covered.">            for (int j = 0; j &lt; boardSize; j++) {</span>
+<span class="fc bfc" id="L128" title="All 2 branches covered.">                if ((i + j) % 2 == 0) {</span>
+<span class="fc bfc" id="L129" title="All 2 branches covered.">                    if (isUsedByNormalPiece(typeR, i, j)) {</span>
+<span class="fc bfc" id="L130" title="All 2 branches covered.">                        if (i &lt; 4) {</span>
+<span class="fc" id="L131">                            heuristicValueR += 5;</span>
                         } else {
-<span class="nc" id="L133">                            heuristicValueR += 7;</span>
+<span class="fc" id="L133">                            heuristicValueR += 7;</span>
                         }
                     }
-<span class="nc bnc" id="L136" title="All 2 branches missed.">                    if (isUsedByQueen(typeR, i, j)) {</span>
-<span class="nc" id="L137">                        heuristicValueR += 10;</span>
+<span class="fc bfc" id="L136" title="All 2 branches covered.">                    if (isUsedByQueen(typeR, i, j)) {</span>
+<span class="fc" id="L137">                        heuristicValueR += 10;</span>
                     }
                 }
             }
         }
 
-<span class="nc bnc" id="L143" title="All 2 branches missed.">        for (int i = 0; i &lt; boardSize; i++) {</span>
-<span class="nc bnc" id="L144" title="All 2 branches missed.">            for (int j = 0; j &lt; boardSize; j++) {</span>
-<span class="nc bnc" id="L145" title="All 2 branches missed.">                if ((i + j) % 2 == 0) {</span>
-<span class="nc bnc" id="L146" title="All 2 branches missed.">                    if (isUsed(typeB, i, j)) {</span>
-<span class="nc bnc" id="L147" title="All 2 branches missed.">                        if (i &gt; 3) {</span>
-<span class="nc" id="L148">                            heuristicValueB += 5;</span>
+<span class="fc bfc" id="L143" title="All 2 branches covered.">        for (int i = 0; i &lt; boardSize; i++) {</span>
+<span class="fc bfc" id="L144" title="All 2 branches covered.">            for (int j = 0; j &lt; boardSize; j++) {</span>
+<span class="fc bfc" id="L145" title="All 2 branches covered.">                if ((i + j) % 2 == 0) {</span>
+<span class="fc bfc" id="L146" title="All 2 branches covered.">                    if (isUsed(typeB, i, j)) {</span>
+<span class="fc bfc" id="L147" title="All 2 branches covered.">                        if (i &gt; 3) {</span>
+<span class="fc" id="L148">                            heuristicValueB += 5;</span>
                         } else {
-<span class="nc" id="L150">                            heuristicValueB += 7;</span>
+<span class="fc" id="L150">                            heuristicValueB += 7;</span>
                         }
                     }
-<span class="nc bnc" id="L153" title="All 2 branches missed.">                    if (isUsedByQueen(typeB, i, j)) {</span>
-<span class="nc" id="L154">                        heuristicValueB += 10;</span>
+<span class="fc bfc" id="L153" title="All 2 branches covered.">                    if (isUsedByQueen(typeB, i, j)) {</span>
+<span class="fc" id="L154">                        heuristicValueB += 10;</span>
                     }
                 }
             }
         }
         HashMap&lt;Character, Integer&gt; map;
-<span class="nc" id="L160">        map = new HashMap&lt;Character, Integer&gt;();</span>
-<span class="nc" id="L161">        map.put(typeB, heuristicValueB);</span>
-<span class="nc" id="L162">        map.put(typeR, heuristicValueR);</span>
-<span class="nc" id="L163">        return map;</span>
+<span class="fc" id="L160">        map = new HashMap&lt;Character, Integer&gt;();</span>
+<span class="fc" id="L161">        map.put(typeB, heuristicValueB);</span>
+<span class="fc" id="L162">        map.put(typeR, heuristicValueR);</span>
+<span class="fc" id="L163">        return map;</span>
     }
 
-    private static HashMap calcBoardHeuristicValue4() {
+    public static HashMap calcBoardHeuristicValue4() {
         HashMap&lt;Character, Integer&gt; map;
-<span class="nc" id="L168">        map = HeuristicUtil.calcBoardHeuristicValue2();</span>
-<span class="nc" id="L169">        float heuristicValueR = map.get(typeR);</span>
-<span class="nc" id="L170">        float heuristicValueB = map.get(typeB);</span>
-<span class="nc" id="L171">        heuristicValueR = heuristicValueR * 10 / HeuristicUtil.pieceCount(typeR);</span>
-<span class="nc" id="L172">        heuristicValueB = heuristicValueB * 10 / HeuristicUtil.pieceCount(typeB);</span>
-<span class="nc" id="L173">        map.put(typeB, (int) heuristicValueB);</span>
-<span class="nc" id="L174">        map.put(typeR, (int) heuristicValueR);</span>
-<span class="nc" id="L175">        return map;</span>
+<span class="fc" id="L168">        map = HeuristicUtil.calcBoardHeuristicValue2();</span>
+<span class="fc" id="L169">        float heuristicValueR = map.get(typeR);</span>
+<span class="fc" id="L170">        float heuristicValueB = map.get(typeB);</span>
+<span class="fc" id="L171">        heuristicValueR = heuristicValueR * 10 / HeuristicUtil.pieceCount(typeR);</span>
+<span class="fc" id="L172">        heuristicValueB = heuristicValueB * 10 / HeuristicUtil.pieceCount(typeB);</span>
+<span class="fc" id="L173">        map.put(typeB, (int) heuristicValueB);</span>
+<span class="fc" id="L174">        map.put(typeR, (int) heuristicValueR);</span>
+<span class="fc" id="L175">        return map;</span>
     }
 
-    private static HashMap calcBoardHeuristicValueEnding1() {
+    public static HashMap calcBoardHeuristicValueEnding1() {
         HashMap&lt;Character, Integer&gt; map;
-<span class="nc" id="L180">        map = new HashMap&lt;Character, Integer&gt;();</span>
-<span class="nc" id="L181">        int heuristicValueR = 0;</span>
-<span class="nc" id="L182">        int heuristicValueB = 0;</span>
+<span class="fc" id="L180">        map = new HashMap&lt;Character, Integer&gt;();</span>
+<span class="fc" id="L181">        int heuristicValueR = 0;</span>
+<span class="fc" id="L182">        int heuristicValueB = 0;</span>
 
-<span class="nc bnc" id="L184" title="All 2 branches missed.">        for (Chip tmp : typeRList) {</span>
-<span class="nc" id="L185">            int distance = 1;</span>
-<span class="nc bnc" id="L186" title="All 2 branches missed.">            if (tmp.isOnBoard()) {</span>
-<span class="nc bnc" id="L187" title="All 2 branches missed.">                for (int i = Math.max(0, tmp.getRow() - distance); i &lt; Math.min(boardSize, tmp.getRow() + distance); i++) {</span>
-<span class="nc bnc" id="L188" title="All 2 branches missed.">                    for (int j = Math.max(0, tmp.getCol() - distance); j &lt; Math.min(boardSize, tmp.getCol() + distance); j++) {</span>
-<span class="nc bnc" id="L189" title="All 2 branches missed.">                        if (Character.toUpperCase(checkersBoard[i][j]) == Character.toUpperCase(typeB)) {</span>
-<span class="nc" id="L190">                            heuristicValueR += distance;</span>
+<span class="fc bfc" id="L184" title="All 2 branches covered.">        for (Chip tmp : typeRList) {</span>
+<span class="fc" id="L185">            int distance = 1;</span>
+<span class="pc bpc" id="L186" title="1 of 2 branches missed.">            if (tmp.isOnBoard()) {</span>
+<span class="fc bfc" id="L187" title="All 2 branches covered.">                for (int i = Math.max(0, tmp.getRow() - distance); i &lt; Math.min(boardSize, tmp.getRow() + distance); i++) {</span>
+<span class="fc bfc" id="L188" title="All 2 branches covered.">                    for (int j = Math.max(0, tmp.getCol() - distance); j &lt; Math.min(boardSize, tmp.getCol() + distance); j++) {</span>
+<span class="fc bfc" id="L189" title="All 2 branches covered.">                        if (Character.toUpperCase(checkersBoard[i][j]) == Character.toUpperCase(typeB)) {</span>
+<span class="fc" id="L190">                            heuristicValueR += distance;</span>
                         }
                     }
                 }
             }
-<span class="nc" id="L195">        }</span>
-<span class="nc bnc" id="L196" title="All 2 branches missed.">        for (Chip tmp : typeBList) {</span>
-<span class="nc" id="L197">            int distance = 1;</span>
-<span class="nc bnc" id="L198" title="All 2 branches missed.">            if (tmp.isOnBoard()) {</span>
-<span class="nc bnc" id="L199" title="All 2 branches missed.">                for (int i = Math.max(0, tmp.getRow() - distance); i &lt; Math.min(boardSize, tmp.getRow() + distance); i++) {</span>
-<span class="nc bnc" id="L200" title="All 2 branches missed.">                    for (int j = Math.max(0, tmp.getCol() - distance); j &lt; Math.min(boardSize, tmp.getCol() + distance); j++) {</span>
-<span class="nc bnc" id="L201" title="All 2 branches missed.">                        if (Character.toUpperCase(checkersBoard[i][j]) == Character.toUpperCase(typeR)) {</span>
-<span class="nc" id="L202">                            heuristicValueB += distance;</span>
+<span class="fc" id="L195">        }</span>
+<span class="fc bfc" id="L196" title="All 2 branches covered.">        for (Chip tmp : typeBList) {</span>
+<span class="fc" id="L197">            int distance = 1;</span>
+<span class="pc bpc" id="L198" title="1 of 2 branches missed.">            if (tmp.isOnBoard()) {</span>
+<span class="fc bfc" id="L199" title="All 2 branches covered.">                for (int i = Math.max(0, tmp.getRow() - distance); i &lt; Math.min(boardSize, tmp.getRow() + distance); i++) {</span>
+<span class="fc bfc" id="L200" title="All 2 branches covered.">                    for (int j = Math.max(0, tmp.getCol() - distance); j &lt; Math.min(boardSize, tmp.getCol() + distance); j++) {</span>
+<span class="fc bfc" id="L201" title="All 2 branches covered.">                        if (Character.toUpperCase(checkersBoard[i][j]) == Character.toUpperCase(typeR)) {</span>
+<span class="fc" id="L202">                            heuristicValueB += distance;</span>
                         }
                     }
                 }
             }
-<span class="nc" id="L207">        }</span>
+<span class="fc" id="L207">        }</span>
 
-<span class="nc" id="L209">        map.put(typeB, heuristicValueB);</span>
-<span class="nc" id="L210">        map.put(typeR, heuristicValueR);</span>
-<span class="nc" id="L211">        return map;</span>
+<span class="fc" id="L209">        map.put(typeB, heuristicValueB);</span>
+<span class="fc" id="L210">        map.put(typeR, heuristicValueR);</span>
+<span class="fc" id="L211">        return map;</span>
     }
 
-    private static HashMap calcBoardHeuristicValueEnding2() {
+    public static HashMap calcBoardHeuristicValueEnding2() {
         HashMap&lt;Character, Integer&gt; map;
-<span class="nc" id="L216">        map = new HashMap&lt;Character, Integer&gt;();</span>
-<span class="nc" id="L217">        int heuristicValueR = 0;</span>
-<span class="nc" id="L218">        int heuristicValueB = 0;</span>
+<span class="fc" id="L216">        map = new HashMap&lt;Character, Integer&gt;();</span>
+<span class="fc" id="L217">        int heuristicValueR = 0;</span>
+<span class="fc" id="L218">        int heuristicValueB = 0;</span>
 
-<span class="nc bnc" id="L220" title="All 2 branches missed.">        for (Chip tmp : typeRList) {</span>
-<span class="nc" id="L221">            int distance = boardSize - 1;</span>
-<span class="nc" id="L222">            boolean done = false;</span>
-<span class="nc bnc" id="L223" title="All 2 branches missed.">            if (tmp.isOnBoard()) {</span>
-<span class="nc bnc" id="L224" title="All 2 branches missed.">                for (int i = Math.min(boardSize - 1, tmp.getRow() + distance); i &gt;= Math.max(0, tmp.getRow() - distance); i--) {</span>
-<span class="nc bnc" id="L225" title="All 2 branches missed.">                    for (int j = Math.min(boardSize - 1, tmp.getCol() + distance); j &gt;= Math.max(0, tmp.getCol() - distance); j--) {</span>
-<span class="nc bnc" id="L226" title="All 2 branches missed.">                        if (Character.toUpperCase(checkersBoard[i][j]) == Character.toUpperCase(typeB)) {</span>
-<span class="nc" id="L227">                            heuristicValueR = distance;</span>
-<span class="nc" id="L228">                            done = true;</span>
-<span class="nc" id="L229">                            break;</span>
+<span class="fc bfc" id="L220" title="All 2 branches covered.">        for (Chip tmp : typeRList) {</span>
+<span class="fc" id="L221">            int distance = boardSize - 1;</span>
+<span class="fc" id="L222">            boolean done = false;</span>
+<span class="pc bpc" id="L223" title="1 of 2 branches missed.">            if (tmp.isOnBoard()) {</span>
+<span class="pc bpc" id="L224" title="1 of 2 branches missed.">                for (int i = Math.min(boardSize - 1, tmp.getRow() + distance); i &gt;= Math.max(0, tmp.getRow() - distance); i--) {</span>
+<span class="pc bpc" id="L225" title="1 of 2 branches missed.">                    for (int j = Math.min(boardSize - 1, tmp.getCol() + distance); j &gt;= Math.max(0, tmp.getCol() - distance); j--) {</span>
+<span class="pc bpc" id="L226" title="1 of 2 branches missed.">                        if (Character.toUpperCase(checkersBoard[i][j]) == Character.toUpperCase(typeB)) {</span>
+<span class="fc" id="L227">                            heuristicValueR = distance;</span>
+<span class="fc" id="L228">                            done = true;</span>
+<span class="fc" id="L229">                            break;</span>
                         }
                     }
-<span class="nc bnc" id="L232" title="All 2 branches missed.">                    if (done) {</span>
-<span class="nc" id="L233">                        break;</span>
+<span class="pc bpc" id="L232" title="1 of 2 branches missed.">                    if (done) {</span>
+<span class="fc" id="L233">                        break;</span>
                     }
                 }
             }
-<span class="nc" id="L237">        }</span>
-<span class="nc bnc" id="L238" title="All 2 branches missed.">        for (Chip tmp : typeBList) {</span>
-<span class="nc" id="L239">            int distance = boardSize - 1;</span>
-<span class="nc" id="L240">            boolean done = false;</span>
-<span class="nc bnc" id="L241" title="All 2 branches missed.">            if (tmp.isOnBoard()) {</span>
-<span class="nc bnc" id="L242" title="All 2 branches missed.">                for (int i = Math.min(boardSize - 1, tmp.getRow() + distance); i &gt;= Math.max(0, tmp.getRow() - distance); i--) {</span>
-<span class="nc bnc" id="L243" title="All 2 branches missed.">                    for (int j = Math.min(boardSize - 1, tmp.getCol() + distance); j &gt;= Math.max(0, tmp.getCol() - distance); j--) {</span>
-<span class="nc bnc" id="L244" title="All 2 branches missed.">                        if (Character.toUpperCase(checkersBoard[i][j]) == Character.toUpperCase(typeR)) {</span>
-<span class="nc" id="L245">                            heuristicValueB = distance;</span>
-<span class="nc" id="L246">                            done = true;</span>
-<span class="nc" id="L247">                            break;</span>
+<span class="fc" id="L237">        }</span>
+<span class="fc bfc" id="L238" title="All 2 branches covered.">        for (Chip tmp : typeBList) {</span>
+<span class="fc" id="L239">            int distance = boardSize - 1;</span>
+<span class="fc" id="L240">            boolean done = false;</span>
+<span class="pc bpc" id="L241" title="1 of 2 branches missed.">            if (tmp.isOnBoard()) {</span>
+<span class="pc bpc" id="L242" title="1 of 2 branches missed.">                for (int i = Math.min(boardSize - 1, tmp.getRow() + distance); i &gt;= Math.max(0, tmp.getRow() - distance); i--) {</span>
+<span class="pc bpc" id="L243" title="1 of 2 branches missed.">                    for (int j = Math.min(boardSize - 1, tmp.getCol() + distance); j &gt;= Math.max(0, tmp.getCol() - distance); j--) {</span>
+<span class="fc bfc" id="L244" title="All 2 branches covered.">                        if (Character.toUpperCase(checkersBoard[i][j]) == Character.toUpperCase(typeR)) {</span>
+<span class="fc" id="L245">                            heuristicValueB = distance;</span>
+<span class="fc" id="L246">                            done = true;</span>
+<span class="fc" id="L247">                            break;</span>
                         }
                     }
-<span class="nc bnc" id="L250" title="All 2 branches missed.">                    if (done) {</span>
-<span class="nc" id="L251">                        break;</span>
+<span class="pc bpc" id="L250" title="1 of 2 branches missed.">                    if (done) {</span>
+<span class="fc" id="L251">                        break;</span>
                     }
                 }
             }
-<span class="nc" id="L255">        }</span>
+<span class="fc" id="L255">        }</span>
 
-<span class="nc" id="L257">        map.put(typeB, heuristicValueB);</span>
-<span class="nc" id="L258">        map.put(typeR, heuristicValueR);</span>
-<span class="nc" id="L259">        return map;</span>
+<span class="fc" id="L257">        map.put(typeB, heuristicValueB);</span>
+<span class="fc" id="L258">        map.put(typeR, heuristicValueR);</span>
+<span class="fc" id="L259">        return map;</span>
     }
 public static boolean isUsedByNormalPiece(char type, int row, int col) {
 <span class="fc bfc" id="L262" title="All 2 branches covered.">        if (checkersBoard[row][col] == Character.toLowerCase(type)) {</span>
@@ -272,7 +272,7 @@ public static boolean isUsedByNormalPiece(char type, int row, int col) {
 <span class="fc" id="L272">        return false;</span>
     }
     public static boolean isUsed(char type, int row, int col) {
-<span class="pc bpc" id="L275" title="1 of 4 branches missed.">        if (checkersBoard[row][col] == Character.toLowerCase(type) || checkersBoard[row][col] == Character.toUpperCase(type)) {</span>
+<span class="fc bfc" id="L275" title="All 4 branches covered.">        if (checkersBoard[row][col] == Character.toLowerCase(type) || checkersBoard[row][col] == Character.toUpperCase(type)) {</span>
 <span class="fc" id="L276">            return true;</span>
         }
 <span class="fc" id="L278">        return false;</span>
@@ -291,8 +291,8 @@ public static boolean isUsedByNormalPiece(char type, int row, int col) {
 <span class="fc" id="L291">        return count;</span>
     }
     public static boolean isOnlyKings(){
-<span class="pc bpc" id="L294" title="1 of 2 branches missed.">        for (int i = 0; i &lt; boardSize; i++) {</span>
-<span class="pc bpc" id="L295" title="1 of 2 branches missed.">            for (int j = 0; j &lt; boardSize; j++) {</span>
+<span class="fc bfc" id="L294" title="All 2 branches covered.">        for (int i = 0; i &lt; boardSize; i++) {</span>
+<span class="fc bfc" id="L295" title="All 2 branches covered.">            for (int j = 0; j &lt; boardSize; j++) {</span>
 <span class="fc bfc" id="L296" title="All 2 branches covered.">                if ((i + j) % 2 == 0) {</span>
 <span class="fc bfc" id="L297" title="All 4 branches covered.">                    if (isUsedByNormalPiece(typeR, i, j) || isUsedByNormalPiece(typeB, i, j) ) {</span>
 <span class="fc" id="L298">                        return false;</span>
@@ -300,7 +300,7 @@ public static boolean isUsedByNormalPiece(char type, int row, int col) {
                 }
             }
         }
-<span class="nc" id="L303">        return true;</span>
+<span class="fc" id="L303">        return true;</span>
     }
     
     public static void setboard(char[][] board) {

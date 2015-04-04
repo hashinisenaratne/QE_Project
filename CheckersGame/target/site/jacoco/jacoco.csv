@@ -1,5 +1,5 @@
 GROUP,PACKAGE,CLASS,INSTRUCTION_MISSED,INSTRUCTION_COVERED,BRANCH_MISSED,BRANCH_COVERED,LINE_MISSED,LINE_COVERED,COMPLEXITY_MISSED,COMPLEXITY_COVERED,METHOD_MISSED,METHOD_COVERED
-CheckersGame,com.checkers.Logic,HeuristicUtil,621,303,87,51,115,63,53,32,6,10
+CheckersGame,com.checkers.Logic,HeuristicUtil,9,915,11,127,1,177,12,73,1,15
 CheckersGame,com.checkers.Logic,CheckerBoard,1099,2589,172,328,188,393,112,189,14,37
 CheckersGame,com.checkers.Logic,GameEngine,441,0,40,0,90,0,26,0,6,0
 CheckersGame,com.checkers.Logic,Node,0,76,0,2,0,10,0,3,0,2
